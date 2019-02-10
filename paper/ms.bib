@@ -1,0 +1,959 @@
+
+@Article{	  oconnor:2018b,
+  abstract	= {The details of the physical mechanism that drives
+		  core-collapse supernovae (CCSNe) remain uncertain. While
+		  there is an emerging consensus on the qualitative outcome
+		  of detailed CCSN mechanism simulations in 2D, only recently
+		  have high-fidelity 3D simulations become possible. Here we
+		  present the results of an extensive set of 3D CCSN
+		  simulations using high-fidelity multidimensional neutrino
+		  transport, high-resolution hydrodynamics, and approximate
+		  general relativistic gravity. We employ a state-of-the-art
+		  20 solar mass progenitor generated using the Modules for
+		  Experiments in Stellar Astrophysics (MESA; Farmer et al.
+		  (2016) Paxton et al. (2011, 2013, 2015, 2018) and the SFHo
+		  equation of state of Steiner et al. (2013). While none of
+		  our 3D CCSN simulations explode within ~500ms after core
+		  bounce, we find that the presence of large scale aspherical
+		  motion in the Si and O shells surrounding the collapsing
+		  iron core aid shock expansion and bring the models closer
+		  to the threshold of explosion. We also find some dependence
+		  on resolution and geometry (octant vs. full 4$\pi$). As has
+		  been noted in other recent works, we find that the
+		  post-shock turbulence plays an important role in
+		  determining the overall dynamical evolution of our
+		  simulations. We find a strong standing accretion shock
+		  instability (SASI) that develops at late times during the
+		  shock recession epoch. The SASI aids in transient shock
+		  expansion phases, but is not enough to result in shock
+		  revival. We also report that for a subset of our
+		  simulations, we find conclusive evidence for the LESA first
+		  reported in Tamborra et al. (2014), but until now, not
+		  confirmed by other simulation codes. Both the progenitor
+		  asphericities and the SASI-induced transient shock
+		  expansion phases generate transient gravitational waves and
+		  neutrino signal modulations via perturbations of the
+		  protoneutron star by turbulent motions. (abridged)},
+  adscomment	= {20 pages, 14 figures, 0 explosions, submitted to The
+		  Astrophysical Journal. Comments welcome},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2018arXiv180707579O},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1807.07579},
+  author	= {{O'Connor}, E. and {Couch}, S.},
+  date-added	= {2018-07-23 13:25:10 +0000},
+  date-modified	= {2018-08-23 17:13:57 -0600},
+  eprint	= {1807.07579},
+  journal	= {accepted to ApJ},
+  keywords	= {Astrophysics - High Energy Astrophysical Phenomena,
+		  Astrophysics - Solar and Stellar Astrophysics},
+  month		= jul,
+  primaryclass	= {astro-ph.HE},
+  title		= {{Exploring Fundamentally Three-dimensional Phenomena in
+		  High-fidelity Simulations of Core-collapse Supernovae}},
+  year		= 2018,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8Qdy4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9PJ0Nvbm5vci9PJ0Nvbm5vcjIwMTgtRXhwbG9yaW5nIEZ1bmRhbWVudGFsbHkgVGhyZWUtZGltZW5zaW9uYWwgUGhlbm9tZW5hIGluIEhpZ2gtZmlkZWxpdHkucGRm0hcLGBlXTlMuZGF0YU8RAoIAAAAAAoIAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9PJ0Nvbm5vcjIwMTgtRXhwbG8jRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAITydDb25ub3IAAgB9LzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOk8nQ29ubm9yOk8nQ29ubm9yMjAxOC1FeHBsb3JpbmcgRnVuZGFtZW50YWxseSBUaHJlZS1kaW1lbnNpb25hbCBQaGVub21lbmEgaW4gSGlnaC1maWRlbGl0eS5wZGYAAA4ArABVAE8AJwBDAG8AbgBuAG8AcgAyADAAMQA4AC0ARQB4AHAAbABvAHIAaQBuAGcAIABGAHUAbgBkAGEAbQBlAG4AdABhAGwAbAB5ACAAVABoAHIAZQBlAC0AZABpAG0AZQBuAHMAaQBvAG4AYQBsACAAUABoAGUAbgBvAG0AZQBuAGEAIABpAG4AIABIAGkAZwBoAC0AZgBpAGQAZQBsAGkAdAB5AC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgB7VXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9PJ0Nvbm5vci9PJ0Nvbm5vcjIwMTgtRXhwbG9yaW5nIEZ1bmRhbWVudGFsbHkgVGhyZWUtZGltZW5zaW9uYWwgUGhlbm9tZW5hIGluIEhpZ2gtZmlkZWxpdHkucGRmAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAQgBDQEVA5sDnQOiA60DtgPEA8gDzwPYA90D6gPtA/8EAgQHAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAABAk=},
+  bdsk-url-1	= {http://arxiv.org/abs/1807.07579},
+  bdsk-url-2	= {http://adsabs.harvard.edu/abs/2018arXiv180707579O}
+}
+
+@Article{	  mabanta:2018,
+  abstract	= {An important result in core-collapse supernova (CCSN)
+		  theory is that spherically symmetric, one-dimensional
+		  simulations routinely fail to explode, yet multidimensional
+		  simulations often explode. Numerical investigations suggest
+		  that turbulence eases the condition for explosion, but how
+		  it does it is not fully understood. We develop a turbulence
+		  model for neutrino-driven convection, and show that this
+		  turbulence model reduces the condition for explosions by
+		  about 30%, in concordance with multidimensional
+		  simulations. In addition, we identify which turbulent terms
+		  enable explosions. Contrary to prior suggestions, turbulent
+		  ram pressure is not the dominant factor in reducing the
+		  condition for explosion. Instead, there are many
+		  contributing factors, with ram pressure being only one of
+		  them, but the dominant factor is turbulent dissipation
+		  (TD). Primarily, TD provides extra heating, adding
+		  significant thermal pressure and reducing the condition for
+		  explosion. The source of this TD power is turbulent kinetic
+		  energy, which ultimately derives its energy from the higher
+		  potential of an unstable convective profile. Investigating
+		  a turbulence model in conjunction with an explosion
+		  condition enables insight that is difficult to glean from
+		  merely analyzing complex multidimensional simulations. An
+		  explosion condition presents a clear diagnostic to explain
+		  why stars explode, and the turbulence model allows us to
+		  explore how turbulence enables explosion. Although we find
+		  that TD is a significant contributor to successful
+		  supernova explosions, it is important to note that this
+		  work is to some extent qualitative. Therefore, we suggest
+		  ways to further verify and validate our predictions with
+		  multidimensional simulations.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2018ApJ...856...22M},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1706.00072},
+  author	= {{Mabanta}, Q.~A. and {Murphy}, J.~W.},
+  date-added	= {2018-04-25 23:56:46 +0000},
+  date-modified	= {2018-04-25 23:56:46 +0000},
+  doi		= {10.3847/1538-4357/aaaec7},
+  eid		= {22},
+  eprint	= {1706.00072},
+  journal	= {\apj},
+  keywords	= {hydrodynamics, methods: analytical, methods: numerical,
+		  shock waves, supernovae: general, turbulence},
+  month		= mar,
+  pages		= {22},
+  primaryclass	= {astro-ph.HE},
+  title		= {{How Turbulence Enables Core-collapse Supernova
+		  Explosions}},
+  volume	= 856,
+  year		= 2018,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8Qay4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9NYWJhbnRhL01hYmFudGEyMDE4YS1Ib3cgVHVyYnVsZW5jZSBFbmFibGVzIENvcmUtY29sbGFwc2UgU3VwZXJub3ZhIEV4cGxvc2lvbnMucGRm0hcLGBlXTlMuZGF0YU8RAlQAAAAAAlQAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9NYWJhbnRhMjAxOGEtSG93IFQjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAHTWFiYW50YQAAAgBxLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOk1hYmFudGE6TWFiYW50YTIwMThhLUhvdyBUdXJidWxlbmNlIEVuYWJsZXMgQ29yZS1jb2xsYXBzZSBTdXBlcm5vdmEgRXhwbG9zaW9ucy5wZGYAAA4AlgBKAE0AYQBiAGEAbgB0AGEAMgAwADEAOABhAC0ASABvAHcAIABUAHUAcgBiAHUAbABlAG4AYwBlACAARQBuAGEAYgBsAGUAcwAgAEMAbwByAGUALQBjAG8AbABsAGEAcABzAGUAIABTAHUAcABlAHIAbgBvAHYAYQAgAEUAeABwAGwAbwBzAGkAbwBuAHMALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAG9Vc2Vycy9zbWMvRHJvcGJveC9MaXRlcmF0dXJlL01hYmFudGEvTWFiYW50YTIwMThhLUhvdyBUdXJidWxlbmNlIEVuYWJsZXMgQ29yZS1jb2xsYXBzZSBTdXBlcm5vdmEgRXhwbG9zaW9ucy5wZGYAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A/AEBAQkDYQNjA2gDcwN8A4oDjgOVA54DowOwA7MDxQPIA80AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADzw==},
+  bdsk-url-1	= {https://doi.org/10.3847/1538-4357/aaaec7},
+  bdsk-url-2	= {http://arxiv.org/abs/1706.00072},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2018ApJ...856...22M}
+}
+
+@Article{	  couch:2017,
+  abstract	= {Core-collapse supernovae (CCSNe) are the explosions that
+		  attend the deaths of massive stars. Despite decades of
+		  research, several aspects of the mechanism that drives
+		  these explosions remain uncertain and the subjects of
+		  continued investigation. In this short review, I will give
+		  an overview of the CCSN mechanism and current research in
+		  the field. In particular, I will focus on recent results
+		  from three-dimensional simulations and the impact of
+		  turbulence and detailed non-spherical progenitor structure
+		  on CCSNe. This contribution is based on a talk given at the
+		  `Bridging the Gap' workshop at Chicheley Hall on 2 June
+		  2016. This article is part of the themed issue 'Bridging
+		  the gap: from massive stars to supernovae'.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2017RSPTA.37560271C},
+  author	= {{Couch}, S.~M.},
+  date-added	= {2018-04-06 15:00:52 +0000},
+  date-modified	= {2018-04-06 15:00:52 +0000},
+  doi		= {10.1098/rsta.2016.0271},
+  eid		= {20160271},
+  journal	= {Philosophical Transactions of the Royal Society of London
+		  Series A},
+  month		= sep,
+  pages		= {20160271},
+  title		= {{The mechanism(s) of core-collapse supernovae}},
+  volume	= 375,
+  year		= 2017,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QWS4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9Db3VjaC9Db3VjaDIwMTctVGhlIG1lY2hhbmlzbShzKSBvZiBjb3JlLWNvbGxhcHNlIHN1cGVybm92YWUucGRm0hcLGBlXTlMuZGF0YU8RAg4AAAAAAg4AAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9Db3VjaDIwMTctVGhlIG1lY2gjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAFQ291Y2gAAAIAXy86VXNlcnM6c21jOkRyb3Bib3g6TGl0ZXJhdHVyZTpDb3VjaDpDb3VjaDIwMTctVGhlIG1lY2hhbmlzbShzKSBvZiBjb3JlLWNvbGxhcHNlIHN1cGVybm92YWUucGRmAAAOAHYAOgBDAG8AdQBjAGgAMgAwADEANwAtAFQAaABlACAAbQBlAGMAaABhAG4AaQBzAG0AKABzACkAIABvAGYAIABjAG8AcgBlAC0AYwBvAGwAbABhAHAAcwBlACAAcwB1AHAAZQByAG4AbwB2AGEAZQAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAXVVzZXJzL3NtYy9Ecm9wYm94L0xpdGVyYXR1cmUvQ291Y2gvQ291Y2gyMDE3LVRoZSBtZWNoYW5pc20ocykgb2YgY29yZS1jb2xsYXBzZSBzdXBlcm5vdmFlLnBkZgAAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDqAO8A9wMJAwsDEAMbAyQDMgM2Az0DRgNLA1gDWwNtA3ADdQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAN3},
+  bdsk-url-1	= {https://doi.org/10.1098/rsta.2016.0271},
+  bdsk-url-2	= {http://adsabs.harvard.edu/abs/2017RSPTA.37560271C}
+}
+
+@Article{	  cockburn:1998,
+  abstract	= {This is the fifth paper in a series in which we construct
+		  and study the so-called Runge-Kutta discontinuous Galerkin
+		  method for numerically solving hyperbolic conservation
+		  laws. In this paper, we extend the method to
+		  multidimensional nonlinear systems of conservation laws.
+		  The algorithms are described and discussed, including
+		  algorithm formulation and practical implementation issues
+		  such as the numerical fluxes, quadrature rules, degrees of
+		  freedom, and the slope limiters, both in the triangular and
+		  the rectangular element cases. Numerical experiments for
+		  two-dimensional Euler equations of compressible gas
+		  dynamics are presented that show the effect of the (formal)
+		  order of accuracy and the use of triangles or rectangles on
+		  the quality of the approximation.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/1998JCoPh.141..199C},
+  author	= {{Cockburn}, B. and {Shu}, C.-W.},
+  date-added	= {2018-04-04 14:25:20 +0000},
+  date-modified	= {2018-04-04 14:25:20 +0000},
+  doi		= {10.1006/jcph.1998.5892},
+  journal	= {Journal of Computational Physics},
+  month		= apr,
+  pages		= {199-224},
+  title		= {{The Runge-Kutta Discontinuous Galerkin Method for
+		  Conservation Laws V. Multidimensional Systems}},
+  volume	= 141,
+  year		= 1998,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QcS4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9Db2NrYnVybi9Db2NrYnVybjE5OTgtVGhlIFJ1bmdlLUt1dHRhIERpc2NvbnRpbnVvdXMgR2FsZXJraW4gTWV0aG9kIGZvciBDb25zZXJ2YXRpb24ucGRm0hcLGBlXTlMuZGF0YU8RAmoAAAAAAmoAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9Db2NrYnVybjE5OTgtVGhlIFIjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAIQ29ja2J1cm4AAgB3LzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOkNvY2tidXJuOkNvY2tidXJuMTk5OC1UaGUgUnVuZ2UtS3V0dGEgRGlzY29udGludW91cyBHYWxlcmtpbiBNZXRob2QgZm9yIENvbnNlcnZhdGlvbi5wZGYAAA4AoABPAEMAbwBjAGsAYgB1AHIAbgAxADkAOQA4AC0AVABoAGUAIABSAHUAbgBnAGUALQBLAHUAdAB0AGEAIABEAGkAcwBjAG8AbgB0AGkAbgB1AG8AdQBzACAARwBhAGwAZQByAGsAaQBuACAATQBlAHQAaABvAGQAIABmAG8AcgAgAEMAbwBuAHMAZQByAHYAYQB0AGkAbwBuAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgB1VXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9Db2NrYnVybi9Db2NrYnVybjE5OTgtVGhlIFJ1bmdlLUt1dHRhIERpc2NvbnRpbnVvdXMgR2FsZXJraW4gTWV0aG9kIGZvciBDb25zZXJ2YXRpb24ucGRmAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAQIBBwEPA30DfwOEA48DmAOmA6oDsQO6A78DzAPPA+ED5APpAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAA+s=},
+  bdsk-url-1	= {https://doi.org/10.1006/jcph.1998.5892},
+  bdsk-url-2	= {http://adsabs.harvard.edu/abs/1998JCoPh.141..199C}
+}
+
+@Book{		  leveque:2002,
+  author	= {LeVeque, R.J.},
+  date-added	= {2017-08-30 20:36:38 +0000},
+  date-modified	= {2017-12-05 16:37:33 +0000},
+  isbn		= {9780521009249},
+  lccn		= {2001052642},
+  publisher	= {Cambridge University Press},
+  series	= {Cambridge Texts in Applied Mathematics},
+  title		= {Finite Volume Methods for Hyperbolic Problems},
+  url		= {https://books.google.com/books?id=O\_ZjpMSZiwoC},
+  year		= {2002},
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QXi4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9MZVZlcXVlL0xlVmVxdWUyMDAyLUZpbml0ZSBWb2x1bWUgTWV0aG9kcyBmb3IgSHlwZXJib2xpYyBQcm9ibGVtcy5wZGbSFwsYGVdOUy5kYXRhTxECHgAAAAACHgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H0xlVmVxdWUyMDAyLUZpbml0ZSNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAdMZVZlcXVlAAACAGQvOlVzZXJzOnNtYzpEcm9wYm94OkxpdGVyYXR1cmU6TGVWZXF1ZTpMZVZlcXVlMjAwMi1GaW5pdGUgVm9sdW1lIE1ldGhvZHMgZm9yIEh5cGVyYm9saWMgUHJvYmxlbXMucGRmAA4AfAA9AEwAZQBWAGUAcQB1AGUAMgAwADAAMgAtAEYAaQBuAGkAdABlACAAVgBvAGwAdQBtAGUAIABNAGUAdABoAG8AZABzACAAZgBvAHIAIABIAHkAcABlAHIAYgBvAGwAaQBjACAAUAByAG8AYgBsAGUAbQBzAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBiVXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9MZVZlcXVlL0xlVmVxdWUyMDAyLUZpbml0ZSBWb2x1bWUgTWV0aG9kcyBmb3IgSHlwZXJib2xpYyBQcm9ibGVtcy5wZGYAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDvAPQA/AMeAyADJQMwAzkDRwNLA1IDWwNgA20DcAOCA4UDigAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAOM},
+  bdsk-url-1	= {https://books.google.com/books?id=O%5C_ZjpMSZiwoC}
+}
+
+@Book{		  leveque:1992,
+  title		= {Numerical Methods for Conservation Laws},
+  author	= {LeVeque, R.J.},
+  isbn		= {9783764327231},
+  lccn		= {lc92003400},
+  series	= {Lectures in Mathematics ETH Z{\"u}rich, Department of
+		  Mathematics Research Institute of Mathematics},
+  url		= {https://books.google.com/books?id=3WhqLPcMdPsC},
+  year		= {1992},
+  publisher	= {Springer}
+}
+
+@Article{	  schaal:2015a,
+  author	= {{Schaal}, K. and {Bauer}, A. and {Chandrashekar}, P. and
+		  {Pakmor}, R. and {Klingenberg}, C. and {Springel}, V.},
+  title		= "{Astrophysical hydrodynamics with a high-order
+		  discontinuous Galerkin scheme and adaptive mesh
+		  refinement}",
+  journal	= {\mnras},
+  archiveprefix	= "arXiv",
+  eprint	= {1506.06140},
+  keywords	= {hydrodynamics, methods: numerical},
+  year		= 2015,
+  month		= nov,
+  volume	= 453,
+  pages		= {4278-4300},
+  doi		= {10.1093/mnras/stv1859},
+  adsurl	= {http://adsabs.harvard.edu/abs/2015MNRAS.453.4278S},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@Article{	  couch:2015a,
+  abstract	= {The neutrino-heated "gain layer" immediately behind the
+		  stalled shock in a core-collapse supernova is unstable to
+		  high-Reynolds-number turbulent convection. We carry out and
+		  analyze a new set of 19 high-resolution three-dimensional
+		  (3D) simulations with a three-species neutrino
+		  leakage/heating scheme and compare with spherically
+		  symmetric (one-dimensional, 1D) and axisymmetric
+		  (two-dimensional, 2D) simulations carried out with the same
+		  methods. We study the postbounce supernova evolution in a
+		  15 M &sun; progenitor star and vary the local neutrino
+		  heating rate, the magnitude and spatial dependence of
+		  asphericity from convective burning in the Si/O shell, and
+		  spatial resolution. Our simulations suggest that there is a
+		  direct correlation between the strength of turbulence in
+		  the gain layer and the susceptibility to explosion. 2D and
+		  3D simulations explode at much lower neutrino heating rates
+		  than 1D simulations. This is commonly explained by the fact
+		  that nonradial dynamics allows accreting material to stay
+		  longer in the gain layer. We show that this explanation is
+		  incomplete. Our results indicate that the effective
+		  turbulent ram pressure exerted on the shock plays a crucial
+		  role by allowing multi-dimensional models to explode at a
+		  lower postshock thermal pressure and thus with less
+		  neutrino heating than 1D models. We connect the turbulent
+		  ram pressure with turbulent energy at large scales and in
+		  this way explain why 2D simulations are erroneously
+		  exploding more easily than 3D simulations.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2015ApJ...799....5C},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1408.1399},
+  author	= {{Couch}, S.~M. and {Ott}, C.~D.},
+  date-added	= {2017-08-11 06:59:07 +0000},
+  date-modified	= {2017-12-05 16:36:26 +0000},
+  doi		= {10.1088/0004-637X/799/1/5},
+  eid		= {5},
+  eprint	= {1408.1399},
+  journal	= {\apj},
+  keywords	= {hydrodynamics, neutrinos, supernovae: general},
+  month		= jan,
+  pages		= {5},
+  primaryclass	= {astro-ph.HE},
+  title		= {{The Role of Turbulence in Neutrino-driven Core-collapse
+		  Supernova Explosions}},
+  volume	= 799,
+  year		= 2015,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8Qbi4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9Db3VjaC9Db3VjaDIwMTUtVGhlIFJvbGUgb2YgVHVyYnVsZW5jZSBpbiBOZXV0cmluby1kcml2ZW4gQ29yZS1jb2xsYXBzZSBTdXBlcm5vdmEucGRm0hcLGBlXTlMuZGF0YU8RAmAAAAAAAmAAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9Db3VjaDIwMTUtVGhlIFJvbGUjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAFQ291Y2gAAAIAdC86VXNlcnM6c21jOkRyb3Bib3g6TGl0ZXJhdHVyZTpDb3VjaDpDb3VjaDIwMTUtVGhlIFJvbGUgb2YgVHVyYnVsZW5jZSBpbiBOZXV0cmluby1kcml2ZW4gQ29yZS1jb2xsYXBzZSBTdXBlcm5vdmEucGRmAA4AoABPAEMAbwB1AGMAaAAyADAAMQA1AC0AVABoAGUAIABSAG8AbABlACAAbwBmACAAVAB1AHIAYgB1AGwAZQBuAGMAZQAgAGkAbgAgAE4AZQB1AHQAcgBpAG4AbwAtAGQAcgBpAHYAZQBuACAAQwBvAHIAZQAtAGMAbwBsAGwAYQBwAHMAZQAgAFMAdQBwAGUAcgBuAG8AdgBhAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgByVXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9Db3VjaC9Db3VjaDIwMTUtVGhlIFJvbGUgb2YgVHVyYnVsZW5jZSBpbiBOZXV0cmluby1kcml2ZW4gQ29yZS1jb2xsYXBzZSBTdXBlcm5vdmEucGRmABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A/wEEAQwDcANyA3cDggOLA5kDnQOkA60DsgO/A8ID1APXA9wAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAD3g==},
+  bdsk-url-1	= {http://dx.doi.org/10.1088/0004-637X/799/1/5},
+  bdsk-url-2	= {http://arxiv.org/abs/1408.1399},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2015ApJ...799....5C}
+}
+
+@Article{	  hix:2014,
+  author	= {Hix,W. Raphael and Lentz,Eric J. and Endeve,Eirik and
+		  Baird,Mark and Chertkow,M. Austin and Harris,J. Austin and
+		  Messer,O. E. Bronson and Mezzacappa,Anthony and
+		  Bruenn,Stephen and Blondin,John },
+  title		= {Essential ingredients in core-collapse supernovae},
+  journal	= {AIP Advances},
+  volume	= {4},
+  number	= {4},
+  pages		= {041013},
+  year		= {2014},
+  doi		= {10.1063/1.4870009},
+  url		= { https://doi.org/10.1063/1.4870009
+		  
+		  },
+  eprint	= { https://doi.org/10.1063/1.4870009
+		  
+		  }
+}
+
+@Article{	  janka:2012a,
+  abstract	= {Core-collapse supernovae are among the most fascinating
+		  phenomena in astrophysics and provide a formidable
+		  challenge for theoretical investigation. They mark the
+		  spectacular end of the lives of massive stars and, in an
+		  explosive eruption, release as much energy as the sun
+		  produces during its whole life. A better understanding of
+		  the astrophysical role of supernovae as birth sites of
+		  neutron stars, black holes, and heavy chemical elements,
+		  and more reliable predictions of the observable signals
+		  from stellar death events are tightly linked to the
+		  solution of the long-standing puzzle of how collapsing
+		  stars achieve explosion. In this article our current
+		  knowledge of the processes that contribute to the success
+		  of the explosion mechanism is concisely reviewed. After a
+		  short overview of the sequence of stages of stellar
+		  core-collapse events, the general properties of
+		  progenitor-dependent neutrino emission will be briefly
+		  described. Applying sophisticated neutrino transport in
+		  axisymmetric (2D) simulations with general relativity as
+		  well as in simulations with an approximate treatment of
+		  relativistic effects, we can find successful
+		  neutrino-driven explosions for a growing set of progenitor
+		  stars. The first results of three-dimensional (3D) models
+		  have been obtained, and magnetohydrodynamic simulations
+		  demonstrate that strong initial magnetic fields in the
+		  pre-collapse core can foster the onset of neutrino-powered
+		  supernova explosions even in nonrotating stars. These
+		  results are discussed in the context of the present
+		  controversy about the value of 2D simulations for exploring
+		  the supernova mechanism in realistic 3D environments, and
+		  they are interpreted against the background of the current
+		  disagreement on the question of whether the standing
+		  accretion shock instability (SASI) or neutrino-driven
+		  convection is the crucial agency that supports the onset of
+		  the explosion.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2012PTEP.2012aA309J},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1211.1378},
+  author	= {{Janka}, H.-T. and {Hanke}, F. and {H{\"u}depohl}, L. and
+		  {Marek}, A. and {M{\"u}ller}, B. and {Obergaulinger}, M.},
+  date-added	= {2017-08-10 19:27:16 +0000},
+  date-modified	= {2017-12-05 16:36:35 +0000},
+  doi		= {10.1093/ptep/pts067},
+  eid		= {01A309},
+  eprint	= {1211.1378},
+  journal	= {Progress of Theoretical and Experimental Physics},
+  month		= dec,
+  number	= 1,
+  pages		= {01A309},
+  primaryclass	= {astro-ph.SR},
+  title		= {{Core-collapse supernovae: Reflections and directions}},
+  volume	= 2012,
+  year		= 2012,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QYC4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9KYW5rYS9KYW5rYTIwMTItQ29yZS1jb2xsYXBzZSBzdXBlcm5vdmFlIFJlZmxlY3Rpb25zIGFuZCBkaXJlY3Rpb25zLnBkZtIXCxgZV05TLmRhdGFPEQIoAAAAAAIoAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAAAAAAAAQkQAAf////8fSmFua2EyMDEyLUNvcmUtY29sI0ZGRkZGRkZGLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////wAAAAAAAAAAAAAAAAACAAQAAAogY3UAAAAAAAAAAAAAAAAABUphbmthAAACAGYvOlVzZXJzOnNtYzpEcm9wYm94OkxpdGVyYXR1cmU6SmFua2E6SmFua2EyMDEyLUNvcmUtY29sbGFwc2Ugc3VwZXJub3ZhZSBSZWZsZWN0aW9ucyBhbmQgZGlyZWN0aW9ucy5wZGYADgCEAEEASgBhAG4AawBhADIAMAAxADIALQBDAG8AcgBlAC0AYwBvAGwAbABhAHAAcwBlACAAcwB1AHAAZQByAG4AbwB2AGEAZQAgAFIAZQBmAGwAZQBjAHQAaQBvAG4AcwAgAGEAbgBkACAAZABpAHIAZQBjAHQAaQBvAG4AcwAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAZFVzZXJzL3NtYy9Ecm9wYm94L0xpdGVyYXR1cmUvSmFua2EvSmFua2EyMDEyLUNvcmUtY29sbGFwc2Ugc3VwZXJub3ZhZSBSZWZsZWN0aW9ucyBhbmQgZGlyZWN0aW9ucy5wZGYAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDxAPYA/gMqAywDMQM8A0UDUwNXA14DZwNsA3kDfAOOA5EDlgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAOY},
+  bdsk-url-1	= {http://dx.doi.org/10.1093/ptep/pts067},
+  bdsk-url-2	= {http://arxiv.org/abs/1211.1378},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2012PTEP.2012aA309J}
+}
+
+@Article{	  blondin:2006,
+  abstract	= {We use time-dependent, axisymmetric, hydrodynamic
+		  simulations to study the linear stability of the stalled,
+		  spherical accretion shock that arises in the postbounce
+		  phase of core-collapse supernovae. We show that this
+		  accretion shock is stable to radial modes, with decay rates
+		  and oscillation frequencies in close agreement with the
+		  linear stability analysis of Houck and Chevalier. For
+		  nonspherical perturbations we find that the l=1 mode is
+		  always unstable for parameters appropriate to core-collapse
+		  supernovae. We also find that the l=2 mode is unstable, but
+		  typically has a growth rate smaller than that for l=1.
+		  Furthermore, the l=1 mode is the only mode found to
+		  transition into a nonlinear stage in our simulations. This
+		  result provides a possible explanation for the dominance of
+		  an l=1 ``sloshing'' mode seen in many two-dimensional
+		  simulations of core-collapse supernovae.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2006ApJ...642..401B},
+  arxivurl	= {http://arxiv.org/abs/astro-ph/0507181},
+  author	= {{Blondin}, J.~M. and {Mezzacappa}, A.},
+  date-added	= {2017-08-10 18:38:36 +0000},
+  date-modified	= {2017-12-05 16:37:15 +0000},
+  doi		= {10.1086/500817},
+  eprint	= {astro-ph/0507181},
+  journal	= {\apj},
+  keywords	= {Accretion, Accretion Disks, Hydrodynamics, Shock Waves,
+		  Stars: Supernovae: General, Turbulence},
+  month		= may,
+  pages		= {401-409},
+  title		= {{The Spherical Accretion Shock Instability in the Linear
+		  Regime}},
+  volume	= 642,
+  year		= 2006,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QaC4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9CbG9uZGluL0Jsb25kaW4yMDA2LVRoZSBTcGhlcmljYWwgQWNjcmV0aW9uIFNob2NrIEluc3RhYmlsaXR5IGluIHRoZSBMaW5lYXIucGRm0hcLGBlXTlMuZGF0YU8RAkYAAAAAAkYAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9CbG9uZGluMjAwNi1UaGUgU3AjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAHQmxvbmRpbgAAAgBuLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOkJsb25kaW46QmxvbmRpbjIwMDYtVGhlIFNwaGVyaWNhbCBBY2NyZXRpb24gU2hvY2sgSW5zdGFiaWxpdHkgaW4gdGhlIExpbmVhci5wZGYADgCQAEcAQgBsAG8AbgBkAGkAbgAyADAAMAA2AC0AVABoAGUAIABTAHAAaABlAHIAaQBjAGEAbAAgAEEAYwBjAHIAZQB0AGkAbwBuACAAUwBoAG8AYwBrACAASQBuAHMAdABhAGIAaQBsAGkAdAB5ACAAaQBuACAAdABoAGUAIABMAGkAbgBlAGEAcgAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAbFVzZXJzL3NtYy9Ecm9wYm94L0xpdGVyYXR1cmUvQmxvbmRpbi9CbG9uZGluMjAwNi1UaGUgU3BoZXJpY2FsIEFjY3JldGlvbiBTaG9jayBJbnN0YWJpbGl0eSBpbiB0aGUgTGluZWFyLnBkZgATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAPkA/gEGA1ADUgNXA2IDawN5A30DhAONA5IDnwOiA7QDtwO8AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAA74=},
+  bdsk-url-1	= {http://dx.doi.org/10.1086/500817},
+  bdsk-url-2	= {http://arxiv.org/abs/astro-ph/0507181},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2006ApJ...642..401B}
+}
+
+@Article{	  murphy:2011,
+  abstract	= {Simulations of core-collapse supernovae (CCSNe) result in
+		  successful explosions once the neutrino luminosity exceeds
+		  a critical curve, and recent simulations indicate that
+		  turbulence further enables explosion by reducing this
+		  critical neutrino luminosity. We propose a theoretical
+		  framework to derive this result and take the first steps by
+		  deriving the governing mean-field equations. Using Reynolds
+		  decomposition, we decompose flow variables into background
+		  and turbulent flows and derive self-consistent averaged
+		  equations for their evolution. As basic requirements for
+		  the CCSN problem, these equations naturally incorporate
+		  steady-state accretion, neutrino heating and cooling,
+		  non-zero entropy gradients, and turbulence terms associated
+		  with buoyant driving, redistribution, and dissipation.
+		  Furthermore, analysis of two-dimensional (2D) CCSN
+		  simulations validate these Reynolds-averaged equations, and
+		  we show that the physics of turbulence entirely accounts
+		  for the differences between 1D and 2D CCSN simulations. As
+		  a prelude to deriving the reduction in the critical
+		  luminosity, we identify the turbulent terms that most
+		  influence the conditions for explosion. Generically,
+		  turbulence equations require closure models, but these
+		  closure models depend upon the macroscopic properties of
+		  the flow. To derive a closure model that is appropriate for
+		  CCSNe, we cull the literature for relevant closure models
+		  and compare each with 2D simulations. These models employ
+		  local closure approximations and fail to reproduce the
+		  global properties of neutrino-driven turbulence. Motivated
+		  by the generic failure of these local models, we propose an
+		  original model for turbulence which incorporates global
+		  properties of the flow. This global model accurately
+		  reproduces the turbulence profiles and evolution of 2D CCSN
+		  simulations.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2011ApJ...742...74M},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1106.5496},
+  author	= {{Murphy}, J.~W. and {Meakin}, C.},
+  date-added	= {2017-08-10 18:30:43 +0000},
+  date-modified	= {2017-12-05 16:36:41 +0000},
+  doi		= {10.1088/0004-637X/742/2/74},
+  eid		= {74},
+  eprint	= {1106.5496},
+  journal	= {\apj},
+  keywords	= {convection, hydrodynamics, instabilities, methods:
+		  analytical, methods: numerical, shock waves, supernovae:
+		  general, turbulence},
+  month		= dec,
+  pages		= {74},
+  primaryclass	= {astro-ph.SR},
+  title		= {{A Global Turbulence Model for Neutrino-driven Convection
+		  in Core-collapse Supernovae}},
+  volume	= 742,
+  year		= 2011,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QZy4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9NdXJwaHkvTXVycGh5MjAxMS1BIEdsb2JhbCBUdXJidWxlbmNlIE1vZGVsIGZvciBOZXV0cmluby1kcml2ZW4gQ29udmVjdGlvbi5wZGbSFwsYGVdOUy5kYXRhTxECRAAAAAACRAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H011cnBoeTIwMTEtQSBHbG9iYSNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAZNdXJwaHkAAgBtLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOk11cnBoeTpNdXJwaHkyMDExLUEgR2xvYmFsIFR1cmJ1bGVuY2UgTW9kZWwgZm9yIE5ldXRyaW5vLWRyaXZlbiBDb252ZWN0aW9uLnBkZgAADgCQAEcATQB1AHIAcABoAHkAMgAwADEAMQAtAEEAIABHAGwAbwBiAGEAbAAgAFQAdQByAGIAdQBsAGUAbgBjAGUAIABNAG8AZABlAGwAIABmAG8AcgAgAE4AZQB1AHQAcgBpAG4AbwAtAGQAcgBpAHYAZQBuACAAQwBvAG4AdgBlAGMAdABpAG8AbgAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAa1VzZXJzL3NtYy9Ecm9wYm94L0xpdGVyYXR1cmUvTXVycGh5L011cnBoeTIwMTEtQSBHbG9iYWwgVHVyYnVsZW5jZSBNb2RlbCBmb3IgTmV1dHJpbm8tZHJpdmVuIENvbnZlY3Rpb24ucGRmAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAPgA/QEFA00DTwNUA18DaAN2A3oDgQOKA48DnAOfA7EDtAO5AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAA7s=},
+  bdsk-url-1	= {http://dx.doi.org/10.1088/0004-637X/742/2/74},
+  bdsk-url-2	= {http://arxiv.org/abs/1106.5496},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2011ApJ...742...74M}
+}
+
+@Article{	  couch:2013,
+  abstract	= {Self-gravity computation by multipole expansion is a
+		  common approach in problems such as core-collapse and Type
+		  Ia supernovae, where single large condensations of mass
+		  must be treated. The standard formulation of multipole
+		  self-gravity in arbitrary coordinate systems suffers from
+		  two significant sources of error, which we correct in the
+		  formulation presented in this article. The first source of
+		  error is due to the numerical approximation that
+		  effectively places grid cell mass at the central point of
+		  the cell, then computes the gravitational potential at that
+		  point, resulting in a convergence failure of the multipole
+		  expansion. We describe a new scheme that avoids this
+		  problem by computing gravitational potential at cell faces.
+		  The second source of error is due to sub-optimal choice of
+		  location for the expansion center, which results in angular
+		  power at high multipole l values in the gravitational
+		  field, requiring a high---and expensive---value of
+		  multipole cutoff l max. By introducing a global measure of
+		  angular power in the gravitational field, we show that the
+		  optimal coordinate for the expansion is the
+		  square-density-weighted mean location. We subject our new
+		  multipole self-gravity algorithm, implemented in the FLASH
+		  simulation framework, to two rigorous test problems:
+		  MacLaurin spheroids for which exact analytic solutions are
+		  known, and core-collapse supernovae. We show that key
+		  observables of the core-collapse simulations, particularly
+		  shock expansion, proto-neutron star motion, and momentum
+		  conservation, are extremely sensitive to the accuracy of
+		  the multipole gravity, and the accuracy of their
+		  computation is greatly improved by our reformulated
+		  solver.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2013ApJ...778..181C},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1307.3135},
+  author	= {{Couch}, S.~M. and {Graziani}, C. and {Flocke}, N.},
+  date-added	= {2017-08-10 14:40:59 +0000},
+  date-modified	= {2017-12-05 16:36:29 +0000},
+  doi		= {10.1088/0004-637X/778/2/181},
+  eid		= {181},
+  eprint	= {1307.3135},
+  journal	= {\apj},
+  keywords	= {gravitation, hydrodynamics, methods: numerical, stars:
+		  interiors, supernovae: general},
+  month		= dec,
+  pages		= {181},
+  primaryclass	= {astro-ph.HE},
+  title		= {{An Improved Multipole Approximation for Self-gravity and
+		  Its Importance for Core-collapse Supernova Simulations}},
+  volume	= 778,
+  year		= 2013,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QdS4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9Db3VjaC9Db3VjaDIwMTNhLUFuIEltcHJvdmVkIE11bHRpcG9sZSBBcHByb3hpbWF0aW9uIGZvciBTZWxmLWdyYXZpdHkgYW5kIEl0cyBJbXBvcnRhbmNlLnBkZtIXCxgZV05TLmRhdGFPEQJ+AAAAAAJ+AAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAAAAAAAAQkQAAf////8fQ291Y2gyMDEzYS1BbiBJbXByI0ZGRkZGRkZGLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////wAAAAAAAAAAAAAAAAACAAQAAAogY3UAAAAAAAAAAAAAAAAABUNvdWNoAAACAHsvOlVzZXJzOnNtYzpEcm9wYm94OkxpdGVyYXR1cmU6Q291Y2g6Q291Y2gyMDEzYS1BbiBJbXByb3ZlZCBNdWx0aXBvbGUgQXBwcm94aW1hdGlvbiBmb3IgU2VsZi1ncmF2aXR5IGFuZCBJdHMgSW1wb3J0YW5jZS5wZGYAAA4ArgBWAEMAbwB1AGMAaAAyADAAMQAzAGEALQBBAG4AIABJAG0AcAByAG8AdgBlAGQAIABNAHUAbAB0AGkAcABvAGwAZQAgAEEAcABwAHIAbwB4AGkAbQBhAHQAaQBvAG4AIABmAG8AcgAgAFMAZQBsAGYALQBnAHIAYQB2AGkAdAB5ACAAYQBuAGQAIABJAHQAcwAgAEkAbQBwAG8AcgB0AGEAbgBjAGUALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAHlVc2Vycy9zbWMvRHJvcGJveC9MaXRlcmF0dXJlL0NvdWNoL0NvdWNoMjAxM2EtQW4gSW1wcm92ZWQgTXVsdGlwb2xlIEFwcHJveGltYXRpb24gZm9yIFNlbGYtZ3Jhdml0eSBhbmQgSXRzIEltcG9ydGFuY2UucGRmAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAQYBCwETA5UDlwOcA6cDsAO+A8IDyQPSA9cD5APnA/kD/AQBAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAABAM=},
+  bdsk-url-1	= {http://dx.doi.org/10.1088/0004-637X/778/2/181},
+  bdsk-url-2	= {http://arxiv.org/abs/1307.3135},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2013ApJ...778..181C}
+}
+
+@Article{	  murphy:2013,
+  abstract	= {Multi-dimensional instabilities have become an important
+		  ingredient in core-collapse supernova (CCSN) theory.
+		  Therefore, it is necessary to understand the driving
+		  mechanism of the dominant instability. We compare our
+		  parameterized three-dimensional CCSN simulations with other
+		  buoyancy-driven simulations and propose scaling relations
+		  for neutrino-driven convection. Through these comparisons,
+		  we infer that buoyancy-driven convection dominates
+		  post-shock turbulence in our simulations. In support of
+		  this inference, we present four major results. First, the
+		  convective fluxes and kinetic energies in the
+		  neutrino-heated region are consistent with expectations of
+		  buoyancy-driven convection. Second, the convective flux is
+		  positive where buoyancy actively drives convection, and the
+		  radial and tangential components of the kinetic energy are
+		  in rough equipartition (i.e., Kr ~ K theta + K phi). Both
+		  results are natural consequences of buoyancy-driven
+		  convection, and are commonly observed in simulations of
+		  convection. Third, buoyant driving is balanced by turbulent
+		  dissipation. Fourth, the convective luminosity and
+		  turbulent dissipation scale with the driving neutrino
+		  power. In all, these four results suggest that in
+		  neutrino-driven explosions, the multi-dimensional motions
+		  are consistent with neutrino-driven convection.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2013ApJ...771...52M},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1205.3491},
+  author	= {{Murphy}, J.~W. and {Dolence}, J.~C. and {Burrows}, A.},
+  date-added	= {2017-08-10 14:38:31 +0000},
+  date-modified	= {2017-12-05 16:36:32 +0000},
+  doi		= {10.1088/0004-637X/771/1/52},
+  eid		= {52},
+  eprint	= {1205.3491},
+  journal	= {\apj},
+  keywords	= {convection, hydrodynamics, instabilities, methods:
+		  analytical, methods: numerical, shock waves, supernovae:
+		  general, turbulence},
+  month		= jul,
+  pages		= {52},
+  primaryclass	= {astro-ph.SR},
+  title		= {{The Dominance of Neutrino-driven Convection in
+		  Core-collapse Supernovae}},
+  volume	= 771,
+  year		= 2013,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8Qdy4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9NdXJwaHkvTXVycGh5MjAxM2EtVGhlIERvbWluYW5jZSBvZiBOZXV0cmluby1kcml2ZW4gQ29udmVjdGlvbiBpbiBDb3JlLWNvbGxhcHNlIFN1cGVybm92YWUucGRm0hcLGBlXTlMuZGF0YU8RAoQAAAAAAoQAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9NdXJwaHkyMDEzYS1UaGUgRG8jRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAGTXVycGh5AAIAfS86VXNlcnM6c21jOkRyb3Bib3g6TGl0ZXJhdHVyZTpNdXJwaHk6TXVycGh5MjAxM2EtVGhlIERvbWluYW5jZSBvZiBOZXV0cmluby1kcml2ZW4gQ29udmVjdGlvbiBpbiBDb3JlLWNvbGxhcHNlIFN1cGVybm92YWUucGRmAAAOALAAVwBNAHUAcgBwAGgAeQAyADAAMQAzAGEALQBUAGgAZQAgAEQAbwBtAGkAbgBhAG4AYwBlACAAbwBmACAATgBlAHUAdAByAGkAbgBvAC0AZAByAGkAdgBlAG4AIABDAG8AbgB2AGUAYwB0AGkAbwBuACAAaQBuACAAQwBvAHIAZQAtAGMAbwBsAGwAYQBwAHMAZQAgAFMAdQBwAGUAcgBuAG8AdgBhAGUALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAHtVc2Vycy9zbWMvRHJvcGJveC9MaXRlcmF0dXJlL011cnBoeS9NdXJwaHkyMDEzYS1UaGUgRG9taW5hbmNlIG9mIE5ldXRyaW5vLWRyaXZlbiBDb252ZWN0aW9uIGluIENvcmUtY29sbGFwc2UgU3VwZXJub3ZhZS5wZGYAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4BCAENARUDnQOfA6QDrwO4A8YDygPRA9oD3wPsA+8EAQQEBAkAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAECw==},
+  bdsk-url-1	= {http://dx.doi.org/10.1088/0004-637X/771/1/52},
+  bdsk-url-2	= {http://arxiv.org/abs/1205.3491},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2013ApJ...771...52M}
+}
+
+@Article{	  muller:2012,
+  abstract	= {We present the first two-dimensional general relativistic
+		  (GR) simulations of stellar core collapse and explosion
+		  with the COCONUT hydrodynamics code in combination with the
+		  VERTEX solver for energy-dependent, three-flavor neutrino
+		  transport, using the extended conformal flatness condition
+		  for approximating the space-time metric and a
+		  ray-by-ray-plus ansatz to tackle the multi-dimensionality
+		  of the transport. For both of the investigated 11.2 and 15
+		  M &sun; progenitors we obtain successful, though seemingly
+		  marginal, neutrino-driven supernova explosions. This
+		  outcome and the time evolution of the models basically
+		  agree with results previously obtained with the PROMETHEUS
+		  hydro solver including an approximative treatment of
+		  relativistic effects by a modified Newtonian potential.
+		  However, GR models exhibit subtle differences in the
+		  neutrinospheric conditions compared with Newtonian and
+		  pseudo-Newtonian simulations. These differences lead to
+		  significantly higher luminosities and mean energies of the
+		  radiated electron neutrinos and antineutrinos and therefore
+		  to larger energy-deposition rates and heating efficiencies
+		  in the gain layer with favorable consequences for strong
+		  nonradial mass motions and ultimately for an explosion.
+		  Moreover, energy transfer to the stellar medium around the
+		  neutrinospheres through nucleon recoil in scattering
+		  reactions of heavy-lepton neutrinos also enhances the
+		  mentioned effects. Together with previous pseudo-Newtonian
+		  models, the presented relativistic calculations suggest
+		  that the treatment of gravity and energy-exchanging
+		  neutrino interactions can make differences of even 50%-100%
+		  in some quantities and is likely to contribute to a finally
+		  successful explosion mechanism on no minor level than
+		  hydrodynamical differences between different dimensions.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2012ApJ...756...84M},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1202.0815},
+  author	= {{M{\"u}ller}, B. and {Janka}, H.-T. and {Marek}, A.},
+  date-added	= {2017-08-10 14:29:45 +0000},
+  date-modified	= {2017-12-05 16:36:37 +0000},
+  doi		= {10.1088/0004-637X/756/1/84},
+  eid		= {84},
+  eprint	= {1202.0815},
+  journal	= {\apj},
+  keywords	= {gravitation, hydrodynamics, neutrinos, supernovae:
+		  general, radiative transfer},
+  month		= sep,
+  pages		= {84},
+  primaryclass	= {astro-ph.SR},
+  title		= {{A New Multi-dimensional General Relativistic Neutrino
+		  Hydrodynamics Code for Core-collapse Supernovae. II.
+		  Relativistic Explosion Models of Core-collapse
+		  Supernovae}},
+  volume	= 756,
+  year		= 2012,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YW8QdQAuAC4ALwAuAC4ALwBEAHIAbwBwAGIAbwB4AC8ATABpAHQAZQByAGEAdAB1AHIAZQAvAE0AdQMIAGwAbABlAHIALwBNAHUDCABsAGwAZQByADIAMAAxADIAYQAtAEEAIABOAGUAdwAgAE0AdQBsAHQAaQAtAGQAaQBtAGUAbgBzAGkAbwBuAGEAbAAgAEcAZQBuAGUAcgBhAGwAIABSAGUAbABhAHQAaQB2AGkAcwB0AGkAYwAgAE4AZQB1AHQAcgBpAG4AbwAgAEgAeQBkAHIAbwBkAHkAbgBhAG0AaQBjAHMALgBwAGQAZtIXCxgZV05TLmRhdGFPEQJ+AAAAAAJ+AAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAAAAAAAAQkQAAf////8fTZ9sbGVyMjAxMmEtQSBOZXcgI0ZGRkZGRkZGLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////wAAAAAAAAAAAAAAAAACAAQAAAogY3UAAAAAAAAAAAAAAAAABk2fbGxlcgACAH0vOlVzZXJzOnNtYzpEcm9wYm94OkxpdGVyYXR1cmU6TXXMiGxsZXI6TXXMiGxsZXIyMDEyYS1BIE5ldyBNdWx0aS1kaW1lbnNpb25hbCBHZW5lcmFsIFJlbGF0aXZpc3RpYyBOZXV0cmlubyBIeWRyb2R5bmFtaWNzLnBkZgAADgCqAFQATQB1AwgAbABsAGUAcgAyADAAMQAyAGEALQBBACAATgBlAHcAIABNAHUAbAB0AGkALQBkAGkAbQBlAG4AcwBpAG8AbgBhAGwAIABHAGUAbgBlAHIAYQBsACAAUgBlAGwAYQB0AGkAdgBpAHMAdABpAGMAIABOAGUAdQB0AHIAaQBuAG8AIABIAHkAZAByAG8AZAB5AG4AYQBtAGkAYwBzAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgB7VXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9NdcyIbGxlci9NdcyIbGxlcjIwMTJhLUEgTmV3IE11bHRpLWRpbWVuc2lvbmFsIEdlbmVyYWwgUmVsYXRpdmlzdGljIE5ldXRyaW5vIEh5ZHJvZHluYW1pY3MucGRmAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAXsBgAGIBAoEDAQRBBwEJQQzBDcEPgRHBEwEWQRcBG4EcQR2AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAABHg=},
+  bdsk-url-1	= {http://dx.doi.org/10.1088/0004-637X/756/1/84},
+  bdsk-url-2	= {http://arxiv.org/abs/1202.0815},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2012ApJ...756...84M}
+}
+
+@Article{	  burrows:2013,
+  abstract	= {Core-collapse theory brings together many facets of
+		  high-energy and nuclear astrophysics and the numerical arts
+		  to present theorists with one of the most important, yet
+		  frustrating, astronomical questions: ``What is the
+		  mechanism of core-collapse supernova explosions?'' A review
+		  of all the physics and the 50-year history involved would
+		  soon bury the reader in minutiae that could easily obscure
+		  the essential elements of the phenomenon, as we understand
+		  it today. Moreover, much remains to be discovered and
+		  explained, and a complicated review of an unresolved
+		  subject in flux could grow stale fast. Therefore, this
+		  paper describes various important facts and perspectives
+		  that may have escaped the attention of those interested in
+		  this puzzle. Furthermore, an attempt to describe the modern
+		  theory's physical underpinnings and a brief summary of the
+		  current state of play are given. In the process, a few
+		  myths that have crept into modern discourse are identified.
+		  However, there is much more to do and humility in the face
+		  of this age-old challenge is clearly the most prudent
+		  stance as its eventual resolution is sought.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2013RvMP...85..245B},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1210.4921},
+  author	= {{Burrows}, A.},
+  date-added	= {2017-08-10 14:09:18 +0000},
+  date-modified	= {2017-12-05 16:36:35 +0000},
+  doi		= {10.1103/RevModPhys.85.245},
+  eprint	= {1210.4921},
+  journal	= {Reviews of Modern Physics},
+  keywords	= {Supernovae, Nucleosynthesis in novae supernovae and other
+		  explosive environments, Neutrino scattering, Nuclear
+		  physics aspects of novae supernovae and other explosive
+		  environments},
+  month		= jan,
+  pages		= {245-261},
+  primaryclass	= {astro-ph.SR},
+  title		= {{Colloquium: Perspectives on core-collapse supernova
+		  theory}},
+  volume	= 85,
+  year		= 2013,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8Qai4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9CdXJyb3dzL0J1cnJvd3MyMDEzLUNvbGxvcXVpdW0gUGVyc3BlY3RpdmVzIG9uIGNvcmUtY29sbGFwc2Ugc3VwZXJub3ZhIHRoZW9yeS5wZGbSFwsYGVdOUy5kYXRhTxECTgAAAAACTgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H0J1cnJvd3MyMDEzLUNvbGxvcSNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAdCdXJyb3dzAAACAHAvOlVzZXJzOnNtYzpEcm9wYm94OkxpdGVyYXR1cmU6QnVycm93czpCdXJyb3dzMjAxMy1Db2xsb3F1aXVtIFBlcnNwZWN0aXZlcyBvbiBjb3JlLWNvbGxhcHNlIHN1cGVybm92YSB0aGVvcnkucGRmAA4AlABJAEIAdQByAHIAbwB3AHMAMgAwADEAMwAtAEMAbwBsAGwAbwBxAHUAaQB1AG0AIABQAGUAcgBzAHAAZQBjAHQAaQB2AGUAcwAgAG8AbgAgAGMAbwByAGUALQBjAG8AbABsAGEAcABzAGUAIABzAHUAcABlAHIAbgBvAHYAYQAgAHQAaABlAG8AcgB5AC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBuVXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9CdXJyb3dzL0J1cnJvd3MyMDEzLUNvbGxvcXVpdW0gUGVyc3BlY3RpdmVzIG9uIGNvcmUtY29sbGFwc2Ugc3VwZXJub3ZhIHRoZW9yeS5wZGYAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgD7AQABCANaA1wDYQNsA3UDgwOHA44DlwOcA6kDrAO+A8EDxgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAPI},
+  bdsk-url-1	= {http://dx.doi.org/10.1103/RevModPhys.85.245},
+  bdsk-url-2	= {http://arxiv.org/abs/1210.4921},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2013RvMP...85..245B}
+}
+
+@Article{	  bethe:1990,
+  abstract	= {Supernovae of Type II occur at the end of the evolution of
+		  massive stars. The phenomenon begins when the iron core of
+		  the star exceeds a Chandrasekhar mass. The collapse of that
+		  core under gravity is well understood and takes a fraction
+		  of a second. To understand the phenomenon, a detailed
+		  knowledge of the equation of state at the relevant
+		  densities and temperatures is required. After collapse, the
+		  shock wave moves outward, but probably does not succeed in
+		  expelling the mass of the star. The most likely mechanism
+		  to do so is the absorption of neutrinos from the core by
+		  the material at medium distances. Observations and theory
+		  connected with SN 1987A are discussed, as are the
+		  conditions just before collapse and the emission of
+		  neutrinos by the collapsed core.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/1990RvMP...62..801B},
+  author	= {{Bethe}, H.~A.},
+  date-added	= {2017-08-10 14:06:42 +0000},
+  date-modified	= {2017-12-05 16:37:49 +0000},
+  doi		= {10.1103/RevModPhys.62.801},
+  journal	= {Reviews of Modern Physics},
+  month		= oct,
+  pages		= {801-866},
+  title		= {{Supernova mechanisms}},
+  volume	= 62,
+  year		= 1990,
+  bdsk-url-1	= {http://dx.doi.org/10.1103/RevModPhys.62.801},
+  bdsk-url-2	= {http://adsabs.harvard.edu/abs/1990RvMP...62..801B}
+}
+
+@Article{	  radice:2016,
+  abstract	= {We present results from high-resolution semiglobal
+		  simulations of neutrino-driven convection in core-collapse
+		  supernovae. We employ an idealized setup with parameterized
+		  neutrino heating/cooling and nuclear dissociation at the
+		  shock front. We study the internal dynamics of
+		  neutrino-driven convection and its role in redistributing
+		  energy and momentum through the gain region. We find that
+		  even if buoyant plumes are able to locally transfer heat up
+		  to the shock, convection is not able to create a net
+		  positive energy flux and overcome the downward transport of
+		  energy from the accretion flow. Turbulent convection does,
+		  however, provide a significant effective pressure support
+		  to the accretion flow as it favors the accumulation of
+		  energy, mass, and momentum in the gain region. We derive an
+		  approximate equation that is able to explain and predict
+		  the shock evolution in terms of integrals of quantities
+		  such as the turbulent pressure in the gain region or the
+		  effects of nonradial motion of the fluid. We use this
+		  relation as a way to quantify the role of turbulence in the
+		  dynamics of the accretion shock. Finally, we investigate
+		  the effects of grid resolution, which we change by a factor
+		  of 20 between the lowest and highest resolution. Our
+		  results show that the shallow slopes of the turbulent
+		  kinetic energy spectra reported in previous studies are a
+		  numerical artifact. Kolmogorov scaling is progressively
+		  recovered as the resolution is increased.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2016ApJ...820...76R},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1510.05022},
+  author	= {{Radice}, D. and {Ott}, C.~D. and {Abdikamalov}, E. and
+		  {Couch}, S.~M. and {Haas}, R. and {Schnetter}, E.},
+  date-added	= {2017-08-10 14:02:41 +0000},
+  date-modified	= {2017-12-05 16:36:25 +0000},
+  doi		= {10.3847/0004-637X/820/1/76},
+  eid		= {76},
+  eprint	= {1510.05022},
+  journal	= {\apj},
+  keywords	= {hydrodynamics, supernovae: general, turbulence},
+  month		= mar,
+  pages		= {76},
+  primaryclass	= {astro-ph.HE},
+  title		= {{Neutrino-driven Convection in Core-collapse Supernovae:
+		  High-resolution Simulations}},
+  volume	= 820,
+  year		= 2016,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QdS4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9SYWRpY2UvUmFkaWNlMjAxNi1OZXV0cmluby1kcml2ZW4gQ29udmVjdGlvbiBpbiBDb3JlLWNvbGxhcHNlIFN1cGVybm92YWUgSGlnaC1yZXNvbHV0aW9uLnBkZtIXCxgZV05TLmRhdGFPEQJ8AAAAAAJ8AAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAAAAAAAAQkQAAf////8fUmFkaWNlMjAxNi1OZXV0cmluI0ZGRkZGRkZGLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////wAAAAAAAAAAAAAAAAACAAQAAAogY3UAAAAAAAAAAAAAAAAABlJhZGljZQACAHsvOlVzZXJzOnNtYzpEcm9wYm94OkxpdGVyYXR1cmU6UmFkaWNlOlJhZGljZTIwMTYtTmV1dHJpbm8tZHJpdmVuIENvbnZlY3Rpb24gaW4gQ29yZS1jb2xsYXBzZSBTdXBlcm5vdmFlIEhpZ2gtcmVzb2x1dGlvbi5wZGYAAA4ArABVAFIAYQBkAGkAYwBlADIAMAAxADYALQBOAGUAdQB0AHIAaQBuAG8ALQBkAHIAaQB2AGUAbgAgAEMAbwBuAHYAZQBjAHQAaQBvAG4AIABpAG4AIABDAG8AcgBlAC0AYwBvAGwAbABhAHAAcwBlACAAUwB1AHAAZQByAG4AbwB2AGEAZQAgAEgAaQBnAGgALQByAGUAcwBvAGwAdQB0AGkAbwBuAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgB5VXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9SYWRpY2UvUmFkaWNlMjAxNi1OZXV0cmluby1kcml2ZW4gQ29udmVjdGlvbiBpbiBDb3JlLWNvbGxhcHNlIFN1cGVybm92YWUgSGlnaC1yZXNvbHV0aW9uLnBkZgAAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgEGAQsBEwOTA5UDmgOlA64DvAPAA8cD0APVA+ID5QP3A/oD/wAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAQB},
+  bdsk-url-1	= {http://dx.doi.org/10.3847/0004-637X/820/1/76},
+  bdsk-url-2	= {http://arxiv.org/abs/1510.05022},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2016ApJ...820...76R}
+}
+
+@Article{	  muller:2016,
+  abstract	= {We present a new approach to understand the landscape of
+		  supernova explosion energies, ejected nickel masses, and
+		  neutron star birth masses. In contrast to other recent
+		  parametric approaches, our model predicts the properties of
+		  neutrino-driven explosions based on the pre-collapse
+		  stellar structure without the need for hydrodynamic
+		  simulations. The model is based on physically motivated
+		  scaling laws and simple differential equations describing
+		  the shock propagation, the contraction of the neutron star,
+		  the neutrino emission, the heating conditions, and the
+		  explosion energetics. Using model parameters compatible
+		  with multi-D simulations and a fine grid of thousands of
+		  supernova progenitors, we obtain a variegated landscape of
+		  neutron star and black hole formation similar to other
+		  parametrized approaches and find good agreement with
+		  semi-empirical measures for the `explodability' of massive
+		  stars. Our predicted explosion properties largely conform
+		  to observed correlations between the nickel mass and
+		  explosion energy. Accounting for the coexistence of
+		  outflows and downflows during the explosion phase, we
+		  naturally obtain a positive correlation between explosion
+		  energy and ejecta mass. These correlations are relatively
+		  robust against parameter variations, but our results
+		  suggest that there is considerable leeway in parametric
+		  models to widen or narrow the mass ranges for black hole
+		  and neutron star formation and to scale explosion energies
+		  up or down. Our model is currently limited to an
+		  all-or-nothing treatment of fallback and there remain some
+		  minor discrepancies between model predictions and
+		  observational constraints.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2016MNRAS.460..742M},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1602.05956},
+  author	= {{M{\"u}ller}, B. and {Heger}, A. and {Liptai}, D. and
+		  {Cameron}, J.~B.},
+  date-added	= {2017-08-10 14:00:59 +0000},
+  date-modified	= {2017-12-05 16:36:25 +0000},
+  doi		= {10.1093/mnras/stw1083},
+  eprint	= {1602.05956},
+  journal	= {\mnras},
+  keywords	= {stars: evolution, stars: massive, supernovae: general},
+  month		= jul,
+  pages		= {742-764},
+  primaryclass	= {astro-ph.SR},
+  title		= {{A simple approach to the supernova progenitor-explosion
+		  connection}},
+  volume	= 460,
+  year		= 2016,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YW8QcwAuAC4ALwAuAC4ALwBEAHIAbwBwAGIAbwB4AC8ATABpAHQAZQByAGEAdAB1AHIAZQAvAE0AdQMIAGwAbABlAHIALwBNAHUDCABsAGwAZQByADIAMAAxADYALQBBACAAcwBpAG0AcABsAGUAIABhAHAAcAByAG8AYQBjAGgAIAB0AG8AIAB0AGgAZQAgAHMAdQBwAGUAcgBuAG8AdgBhACAAcAByAG8AZwBlAG4AaQB0AG8AcgAtAGUAeABwAGwAbwBzAGkAbwBuACAAYwBvAG4AbgBlAGMAdABpAG8AbgAuAHAAZABm0hcLGBlXTlMuZGF0YU8RAnYAAAAAAnYAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9Nn2xsZXIyMDE2LUEgc2ltcGwjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAGTZ9sbGVyAAIAey86VXNlcnM6c21jOkRyb3Bib3g6TGl0ZXJhdHVyZTpNdcyIbGxlcjpNdcyIbGxlcjIwMTYtQSBzaW1wbGUgYXBwcm9hY2ggdG8gdGhlIHN1cGVybm92YSBwcm9nZW5pdG9yLWV4cGxvc2lvbiBjb25uZWN0aW9uLnBkZgAADgCmAFIATQB1AwgAbABsAGUAcgAyADAAMQA2AC0AQQAgAHMAaQBtAHAAbABlACAAYQBwAHAAcgBvAGEAYwBoACAAdABvACAAdABoAGUAIABzAHUAcABlAHIAbgBvAHYAYQAgAHAAcgBvAGcAZQBuAGkAdABvAHIALQBlAHgAcABsAG8AcwBpAG8AbgAgAGMAbwBuAG4AZQBjAHQAaQBvAG4ALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAHlVc2Vycy9zbWMvRHJvcGJveC9MaXRlcmF0dXJlL011zIhsbGVyL011zIhsbGVyMjAxNi1BIHNpbXBsZSBhcHByb2FjaCB0byB0aGUgc3VwZXJub3ZhIHByb2dlbml0b3ItZXhwbG9zaW9uIGNvbm5lY3Rpb24ucGRmAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAXcBfAGEA/4EAAQFBBAEGQQnBCsEMgQ7BEAETQRQBGIEZQRqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAABGw=},
+  bdsk-url-1	= {http://dx.doi.org/10.1093/mnras/stw1083},
+  bdsk-url-2	= {http://arxiv.org/abs/1602.05956},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2016MNRAS.460..742M}
+}
+
+@Article{	  janka:2016,
+  abstract	= {Nonspherical mass motions are a generic feature of
+		  core-collapse supernovae, and hydrodynamic instabilities
+		  play a crucial role in the explosion mechanism. The first
+		  successful neutrino-driven explosions could be obtained
+		  with self-consistent, first-principles simulations in three
+		  spatial dimensions. But three-dimensional (3D) models tend
+		  to be less prone to explosion than the corresponding
+		  axisymmetric two-dimensional (2D) ones. The reason is that
+		  3D turbulence leads to energy cascading from large to small
+		  spatial scales, the inverse of the 2D case, thus
+		  disfavoring the growth of buoyant plumes on the largest
+		  scales. Unless the inertia to explode simply reflects a
+		  lack of sufficient resolution in relevant regions, some
+		  important component of robust and sufficiently energetic
+		  neutrino-powered explosions may still be missing. Such a
+		  deficit could be associated with progenitor properties such
+		  as rotation, magnetic fields, or precollapse perturbations,
+		  or with microphysics that could cause enhancement of
+		  neutrino heating behind the shock. 3D simulations have also
+		  revealed new phenomena that are not present in 2D ones,
+		  such as spiral modes of the standing accretion shock
+		  instability (SASI) and a stunning dipolar lepton-number
+		  emission self-sustained asymmetry (LESA). Both impose time-
+		  and direction-dependent variations on the detectable
+		  neutrino signal. The understanding of these effects and of
+		  their consequences is still in its infancy.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2016ARNPS..66..341J},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1602.05576},
+  author	= {{Janka}, H.-T. and {Melson}, T. and {Summa}, A.},
+  date-added	= {2017-08-10 14:00:35 +0000},
+  date-modified	= {2017-12-05 16:36:25 +0000},
+  doi		= {10.1146/annurev-nucl-102115-044747},
+  eprint	= {1602.05576},
+  journal	= {Annual Review of Nuclear and Particle Science},
+  month		= oct,
+  pages		= {341-375},
+  primaryclass	= {astro-ph.SR},
+  title		= {{Physics of Core-Collapse Supernovae in Three Dimensions:
+		  A Sneak Preview}},
+  volume	= 66,
+  year		= 2016,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QZC4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9KYW5rYS9KYW5rYTIwMTYtUGh5c2ljcyBvZiBDb3JlLUNvbGxhcHNlIFN1cGVybm92YWUgaW4gVGhyZWUgRGltZW5zaW9ucy5wZGbSFwsYGVdOUy5kYXRhTxECOAAAAAACOAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H0phbmthMjAxNi1QaHlzaWNzICNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAVKYW5rYQAAAgBqLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOkphbmthOkphbmthMjAxNi1QaHlzaWNzIG9mIENvcmUtQ29sbGFwc2UgU3VwZXJub3ZhZSBpbiBUaHJlZSBEaW1lbnNpb25zLnBkZgAOAIwARQBKAGEAbgBrAGEAMgAwADEANgAtAFAAaAB5AHMAaQBjAHMAIABvAGYAIABDAG8AcgBlAC0AQwBvAGwAbABhAHAAcwBlACAAUwB1AHAAZQByAG4AbwB2AGEAZQAgAGkAbgAgAFQAaAByAGUAZQAgAEQAaQBtAGUAbgBzAGkAbwBuAHMALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAGhVc2Vycy9zbWMvRHJvcGJveC9MaXRlcmF0dXJlL0phbmthL0phbmthMjAxNi1QaHlzaWNzIG9mIENvcmUtQ29sbGFwc2UgU3VwZXJub3ZhZSBpbiBUaHJlZSBEaW1lbnNpb25zLnBkZgATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAPUA+gECAz4DQANFA1ADWQNnA2sDcgN7A4ADjQOQA6IDpQOqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAA6w=},
+  bdsk-url-1	= {http://dx.doi.org/10.1146/annurev-nucl-102115-044747},
+  bdsk-url-2	= {http://arxiv.org/abs/1602.05576},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2016ARNPS..66..341J}
+}
+
+@Article{	  janka:2007,
+  abstract	= {Advances in our understanding and the modeling of stellar
+		  core-collapse and supernova explosions over the past 15
+		  years are reviewed, concentrating on the evolution of
+		  hydrodynamical simulations, the description of weak
+		  interactions and nuclear equation of state effects, and new
+		  insights into the nucleosynthesis occurring in the early
+		  phases of the explosion, in particular the neutrino-p
+		  process. The latter is enabled by the proton-richness of
+		  the early ejecta, which was discovered because significant
+		  progress has been made in the treatment of neutrino
+		  transport and weak interactions. This progress has led to a
+		  new generation of sophisticated Newtonian and relativistic
+		  hydrodynamics simulations in spherical symmetry. Based on
+		  these, it is now clear that the prompt bounce-shock
+		  mechanism is not the driver of supernova explosions, and
+		  that the delayed neutrino-heating mechanism can produce
+		  explosions without the aid of multi-dimensional processes
+		  only if the progenitor star has an ONeMg core inside a very
+		  dilute He-core, i.e., has a mass in the 8 10M range.
+		  Hydrodynamic instabilities of various kinds have indeed
+		  been recognized to occur in the supernova core and to be of
+		  potential importance for the explosion. Neutrino-driven
+		  explosions, however, have been seen in two-dimensional
+		  simulations with sophisticated neutrino transport so far
+		  only when the star has a small iron core and low density in
+		  the surrounding shells as being found in stars near 10 11M.
+		  The explosion mechanism of more massive progenitors is
+		  still a puzzle. It might involve effects of
+		  three-dimensional hydrodynamics or might point to the
+		  relevance of rapid rotation and magnetohydrodynamics, or to
+		  still incompletely explored properties of neutrinos and the
+		  high-density equation of state.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2007PhR...442...38J},
+  arxivurl	= {http://arxiv.org/abs/astro-ph/0612072},
+  author	= {{Janka}, H.-T. and {Langanke}, K. and {Marek}, A. and
+		  {Mart{\'{\i}}nez-Pinedo}, G. and {M{\"u}ller}, B.},
+  date-added	= {2017-08-10 13:59:53 +0000},
+  date-modified	= {2017-12-05 16:37:10 +0000},
+  doi		= {10.1016/j.physrep.2007.02.002},
+  eprint	= {astro-ph/0612072},
+  journal	= {\physrep},
+  month		= apr,
+  pages		= {38-74},
+  title		= {{Theory of core-collapse supernovae}},
+  volume	= 442,
+  year		= 2007,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QTy4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9KYW5rYS9KYW5rYTIwMDctVGhlb3J5IG9mIGNvcmUtY29sbGFwc2Ugc3VwZXJub3ZhZS5wZGbSFwsYGVdOUy5kYXRhTxEB5gAAAAAB5gACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H0phbmthMjAwNy1UaGVvcnkgbyNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAVKYW5rYQAAAgBVLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOkphbmthOkphbmthMjAwNy1UaGVvcnkgb2YgY29yZS1jb2xsYXBzZSBzdXBlcm5vdmFlLnBkZgAADgBiADAASgBhAG4AawBhADIAMAAwADcALQBUAGgAZQBvAHIAeQAgAG8AZgAgAGMAbwByAGUALQBjAG8AbABsAGEAcABzAGUAIABzAHUAcABlAHIAbgBvAHYAYQBlAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBTVXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9KYW5rYS9KYW5rYTIwMDctVGhlb3J5IG9mIGNvcmUtY29sbGFwc2Ugc3VwZXJub3ZhZS5wZGYAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A4ADlAO0C1wLZAt4C6QLyAwADBAMLAxQDGQMmAykDOwM+A0MAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADRQ==},
+  bdsk-url-1	= {http://dx.doi.org/10.1016/j.physrep.2007.02.002},
+  bdsk-url-2	= {http://arxiv.org/abs/astro-ph/0612072},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2007PhR...442...38J}
+}
+
+@Article{	  colella:1985,
+  abstract	= {In the present method for the construction of solutions to
+		  the gas dynamics Riemann problem by means of a general
+		  convex equation of state, the numerical fluxes in
+		  conservative finite difference schemes are calculated on
+		  the basis of approximate procedures that involve a local
+		  parameterization of the equation of state. Difference
+		  schemes are thereby obtained which are accurate and nearly
+		  as fast as analogous ones for polytropic gases. Attention
+		  is given to numerical results in one- and two-space
+		  variables.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/1985JCoPh..59..264C},
+  author	= {{Colella}, P. and {Glaz}, H.~M.},
+  date-added	= {2017-08-10 13:54:54 +0000},
+  date-modified	= {2017-12-05 16:37:50 +0000},
+  doi		= {10.1016/0021-9991(85)90146-9},
+  journal	= {Journal of Computational Physics},
+  keywords	= {Cauchy Problem, Compressible Flow, Equations Of State, Gas
+		  Dynamics, Inviscid Flow, Polytropic Processes, Algorithms,
+		  Boundary Value Problems, Cartesian Coordinates, Finite
+		  Difference Theory, Jacobi Matrix Method, Rankine-Hugoniot
+		  Relation, Shock Tubes, Shock Waves},
+  month		= jun,
+  pages		= {264-289},
+  title		= {{Efficient solution algorithms for the Riemann problem for
+		  real gases}},
+  volume	= 59,
+  year		= 1985,
+  bdsk-url-1	= {http://dx.doi.org/10.1016/0021-9991(85)90146-9},
+  bdsk-url-2	= {http://adsabs.harvard.edu/abs/1985JCoPh..59..264C}
+}

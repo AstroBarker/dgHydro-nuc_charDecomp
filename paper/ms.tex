@@ -1,0 +1,440 @@
+\documentclass[twocolumn]{aastex62}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage{placeins}
+\graphicspath{{./figures/}}
+\usepackage{wrapfig}
+\hypersetup{backref,breaklinks,colorlinks,citecolor=blue}
+\usepackage[all]{hypcap}
+\usepackage{definitions}
+
+\bibliographystyle{apj}
+
+\newcommand{\subdate}{\today}
+\newcommand{\shortauth}{Barker et al.}
+\newcommand{\slugcom}{Draft - \today}
+%\newcommand{\slugcom}{Submitted to ApJL on \subdate}
+%\slugcomment{\slugcom}
+
+\lefthead{\sc \footnotesize \slugcom \hfill \shortauth}
+\righthead{\sc \footnotesize \slugcom \hfill \shortauth}
+%}
+
+\bibliographystyle{aasjournal}
+\received{\today}
+\shorttitle{Discontinuous Galerkin methods with a nuclear EOS}
+
+\begin{document}
+
+\title{\thornado-hydro: Generalizing discontinuous galerkin methods for a nuclear
+equation of state for supernova hydrodynamics}
+\author{Brandon Barker}
+\affiliation{Department of Physics and Astronomy, University of Tennessee Knoxville, TN 37996}
+
+\author{Eirik Endeve}
+\affiliation{Department of Physics and Astronomy, University of Tennessee Knoxville, TN 37996}
+\affiliation{Computer Science and Mathematics Division, Oak Ridge National Laboratory, TN 37831}
+\affiliation{Joint Institute for Computational Sciences, Oak Ridge National Laboratory, TN 37831}
+
+%\begin{abstract}
+%\end{abstract}
+\begin{abstract}
+\todo{Fill In Abstract}
+A problem of high importance in computational astrophysics is obtaining accurate
+solutions to the Euler equations of hydrodynamics. We are interested in solving
+the Euler equations in the context of core collapse supernovae (CCSNe).
+The toolkit for high-order neutrino-radiation hydrodynamics (\thornado)
+is being developed for CCSNe simulations and related problems utilizing a spatial discretization
+based on the discontinuous Galerkin (DG) method.
+Because the Euler equations form a hyperbolic set of partial differential equations,
+they may be linearized to advection equations by the introduction of
+chracteristic variables related to the eigen-decomposition.
+This use of characteristic variables also increases the efficiency of the slope
+limiting process. However, the addition of the nuclear equation of state equation
+to the Euler equations makes the decompisition nontrivial.
+We introduce the framework for the characteristic decomposition of the Euler equations
+with the inclusion of the nuclear EOS terms and
+present results from some initial tests.
+\end{abstract}
+
+\keywords{supernovae: general -- hydrodynamics -- convection -- turbulence -- equation of state -- methods: numerical -- stars: massive -- stars: evolution}
+
+\section{Introduction}
+\label{Intro}
+\todo{Fill in introduction. Contextualize the work.}
+The core collapse supernovae (CCSNe) explosion mechanism is fundamentally three-dimensional
+in nature \citep[see e.g.,][]{blondin:2006, muller:2012, oconnor:2018b}. Alongside general
+reletavistic gravity, complex nuclear equations of state (EOS), and
+neutrino transport, hydrodynamics must be accurately modelled,
+creating a very challenging problem. Hydrodynamic instabilities are critical
+in aiding the explosion, with complex phenomena such as turbulence and
+convection play key roles in the CCSN mechanism
+\citep{murphy:2011, murphy:2013, couch:2013, couch:2015a, radice:2016, mabanta:2018}.
+The accurate and efficient modelling of the supernova hydrodynamics is crucial if the
+explosion is to be realistically modelled.
+For reviews of the CCSN mechanism, see \citet{bethe:1990, janka:2007, janka:2012a, janka:2016, burrows:2013, hix:2014, muller:2016, couch:2017}.
+
+\todo{Talk about \thornado, DG methods, Euler Equations, possibly reference other codes that
+employ different methods and those methods' drawbacks.}
+
+\section{Euler Equations of Gas Dynamics in Cartesian Coordinates}
+\todo{Use this form of the Euler Equations?}
+The non-relativistic Euler equations of gas dynamics
+\citep[see, e.g.,][for details]{leveque:2002} in cartesian coordinates are given by
+the equations of conservation of mass,
+\beq
+  \pderiv{\rho}{t} + \pderiv{}{x_i}(\rho u_i) = 0
+  \label{eq:massConservation}
+\eeq
+conservation of momentum,
+\beq
+	\pderiv{(\rho u_i)}{t} + \pderiv{}{x_i}(\rho u^2 + p) = 0
+  \label{eq:momentumConservation}
+\eeq
+conservation of energy,
+\beq
+  \pderiv{E}{t} + \pderiv{}{x_i}((E+p)u_i) = 0
+  \label{eq:energyConservation}
+\eeq
+and conservation of \textcolor{red}{electron fraction}\footnote{Is this Correct? I don't think so. What is conserved?}
+\beq
+  \pderiv{D}{t} + \pderiv{}{x_i}(D u_i) = 0
+  \label{eq:electronConservation}
+\eeq
+where $\rho$ represents mass density, $u$ the fluid velocity, $p$ the fluid
+pressure, $D=\rho y_e$ is the \textcolor{red}{what is this?},
+and $E=e+\frac{1}{2}\rho u^2$ the total energy (internal plus kinetic).
+The system of equations is closed by the EOS which links the pressure to
+the quantities evolved by Equations
+\eqref{eq:massConservation}-\eqref{eq:electronConservation}. The inclusion of
+Equation \eqref{eq:electronConservation} is because we require a nuclear EOS.
+We may rewrite Equations \eqref{eq:massConservation}-\eqref{eq:electronConservation}
+is a more convenient way:
+
+\beq
+  \pderiv{\mathbf{U}}{t}
+  +\pderiv{\mathbf{F}(\mathbf{U})}{x}
+  =0.
+\eeq
+where $\mathbf{U} =(\rho,\rho u,E, D)^{T}$ is the vector of conserved quantities
+and $\mathbf{F}(\mathbf{U})=(\rho u,\rho u^{2}+p,(E+p)u, uD)^{T}$
+is the flux vector. We can rewrite this further:
+
+\beq
+  \pderiv{\mathbf{U}}{t}
+  + \pderiv{\mathbf{U}}{x} \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}}
+  = 0
+  \label{charEq}
+\eeq
+Because the Euler equations for a systemer of hyperblic
+partial differential equations \citep[see, e.g.,][]{leveque:1992}, we can decompose the
+Jacobian of the flux vector as
+
+\beq
+  \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}} =
+  R \Lambda R^{-1}
+\eeq
+where the columns of $R$ contain the right eigenvectors of the Jacobian,
+the rows of $R^{-1}$ contain the left eigenvectors, and
+$\Lambda$ is a diagonal matrix containing the eigenvalues of the Jacobian.
+At this point, we will introduce the characteristic variable
+$\mathbf{w} = R^{-1}\mathbf{U}$. Multiplying both sides of Equation
+\eqref{charEq} by $R^{-1}$, we are able to linearize the system of equations to
+a system of advection equations
+
+\beq
+  \pderiv{\mathbf{w}}{t} +
+  \Lambda \pderiv{\mathbf{w}}{x_{i}}
+  = 0
+\eeq
+Solutions to these advection equations are far simpler to obtain than the
+previous equations. Limiting may then be applied to dampen oscillations in the
+solutions for the characteristic variables $\mathbf{w}$, which are then
+transformed back to the solution of the conserved variables $\mathbf{U}$
+\citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}.
+
+\todo{More discussion of limiting?}
+
+\hrulefill
+
+\section{Derivation of the Jacobian and Eigenvectors for the 1D Ideal Case}
+
+\todo{Define new variables to rewrite some things in more compact forms.}
+
+We assume that $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$. Let the vector of conserved variables be $\textbf{U} = \{\rho, m, E\}$,
+where $m = \rho u$. The flux vector is $\textbf{F}(\textbf{U}) = \{m, m^{2} \tau + p, (E+p)m \tau\}$.
+
+\small{
+\begin{align}
+	\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}
+	=
+	\left[
+		\begin{array}{ccc}
+			0 & 1 & 0  \\
+			-(p_{\tau}+ p_{\epsilon}E)\tau^{2} + u^{2}(p_{\epsilon}\tau -1)       & u(2-p_{\epsilon}\tau)         & p_{\epsilon}\tau       \\
+			-u(\tau(-p_{\epsilon}u^{2} + p_{\tau}\tau + p_{\epsilon}E\tau) + H) & H - p_{\epsilon}u^{2}\tau  & u(1+p_{\epsilon}\tau)  \\
+		\end{array}
+	\right]
+\end{align}
+}
+
+Here, $H = (E+p)\tau$. The eigenvalues are given by $\lambda = \{u - \tau \sqrt{p p_{\epsilon} - p_{\tau}}, u,  u + \tau \sqrt{ p p_{\epsilon} - p_{\tau}}\}$. In the ideal case where
+$\tau = \rho^{-1}$, $ E = \frac{p}{\gamma -1} + \frac{\rho v^{2}}{2}$, $ p_{\epsilon} = \frac{\gamma-1}{\tau}$, and $p_{\tau} = -\frac{(\gamma - 1)e}{\tau^{2}}$,
+the sound speed $c$ reduces to $\sqrt{\frac{p \gamma}{\rho}}$. \\
+
+The eigenvectors are given by \\
+
+\begin{align}
+	\left[
+		\begin{array}{c|c|c}
+			1 & 1 & 1 \\
+			u - c & u & u + c \\
+			\frac{\tau( c( p-p_{\epsilon}u^{2} +E) +u( -p_{\tau} + p_{\epsilon}E)\tau)}{c + p_{\epsilon}u\tau} & \frac{\tau(p_{\tau} + p_{\epsilon}E)}{p_{\epsilon}} &
+			\frac{\tau( -c( p-p_{\epsilon}u^{2} +E) +u( p_{\tau} + p_{\epsilon}E)\tau)}{-c + p_{\epsilon}u\tau} \\
+		\end{array}
+	\right]
+\end{align}
+
+
+which in the ideal case described above reduces to  the eigenvectors given in \citet{schaal:2015a}\\
+
+\begin{align}
+	\left[
+		\begin{array}{c|c|c}
+			1 & 1 & 1 \\
+			u - c & u & u + c \\
+			h - cu & k & h + cu \\
+		\end{array}
+	\right]
+\end{align}
+
+where $h = \frac{c^{2}}{\gamma - 1} + k$ and $k = \frac{1}{2}(u^{2} + v^{2} + w^{2})$.
+
+
+
+
+\section{Derivation of Jacobian and Eigenvalues for the 1D Nuclear Case}
+
+We assume that $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$. Let the vector of conserved variables be $\textbf{U} = \{\rho, m, E, D\}$,
+where $m = \rho u$ and $D = \rho y_{e}$. The flux vector is $\textbf{F}(\textbf{U}) = \{m, m^{2}\tau + p, (E+p)m\tau, Dm\tau\}$, where $E=e+\frac{\rho v^{2}}{2}$.
+
+The pressure differential is given by
+
+\begin{equation}
+  dp = \left(\pderiv{p}{\rho}\right)d\rho + \left(\pderiv{p}{\epsilon}\right)d\epsilon + \left(\pderiv{p}{D}\right)dD
+\end{equation}
+
+The internal energy differential can be written as
+
+\begin{equation}
+\begin{split}
+	d\epsilon & = \left(\pderiv{e}{\rho}\right)d\rho + \left(\pderiv{\epsilon}{m}\right)dm + \left(\pderiv{e}{E}\right)dE \\
+  & = (\epsilon \tau + \frac{1}{2} m^2 \tau^3 )d\rho - m \tau^2 dm + \tau dE
+\end{split}
+\end{equation}
+
+Plugging this into the previous expression gives with a little work
+
+\begin{equation}
+\begin{split}
+  dp & = -\tau (p_\tau \tau - p_{\epsilon}(\frac{1}{2} m^2 \tau^2 - \epsilon))d\rho - p_{\epsilon}m\tau^2 dm + p_{\epsilon}\tau dE + \tau P_{y_e}dD\\
+     & = -\tau (p_\tau \tau - p_{\epsilon}(E\tau-v^2)d\rho -p_{\epsilon}v\tau dm + p_{\epsilon}\tau dE + \tau P_{y_e}dD
+\end{split}
+\end{equation}
+
+where $p_{x} = \pderiv{p}{x}$
+
+
+The elements of the Jacobian $\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}$ are given by:
+
+\begin{equation}
+  \pderiv{f_1}{u_1} = \pderiv{m}{\rho} = 0
+\end{equation}
+
+\begin{equation}
+  \pderiv{f_1}{u_2} = \pderiv{m}{m} = 1
+\end{equation}
+
+\begin{equation}
+  \pderiv{f_1}{u_3} = \pderiv{m}{E} = 0
+\end{equation}
+
+\begin{equation}
+  \pderiv{f_1}{u_4} = \pderiv{m}{D} = 0
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_2}{u_1} &= \pderiv{}{\rho}\left(m^2\tau + p\right) = -m^2\tau^2 + \left( \pderiv{p}{\rho} \right) \\
+	& =  -v^2 -\tau(p_{\tau}\tau - p_{\epsilon}(E\tau-v^2))
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_2}{u_2} & = \pderiv{}{m}\left( m^2 \tau + p \right) = 2m\tau + \left(\pderiv{p}{m}\right) \\
+  & = v(2-p_{\epsilon}\tau)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_2}{u_3} & = \pderiv{}{E}\left(m^2 \tau + p\right) = \left( \pderiv{p}{E}\right) \\
+  & = \tau p_{\epsilon}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+	\pderiv{f_2}{u_4} = \pderiv{}{D}\left(m^2 \tau + p\right) = p_D
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_3}{u_1} & = \pderiv{}{\rho}\left(E+p)m\tau\right) = - E m \tau^2 + m\tau \pderiv{p}{\rho} + mp\pderiv{\tau}{\rho} \\
+	& =  -v(H + p_{\tau}\tau^2 - p_{\epsilon}\tau(E\tau-v^2))
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_3}{u_2} & = \pderiv{}{m}\left((E+p)m\tau\right) = m\tau\left(\pderiv{p}{m}\right) + \left(E+p\right) \tau \\
+  & = H - p_{\epsilon}v^{2}\tau
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_3}{u_3} = \pderiv{}{E}\left( (E+p)m\tau\right) = v(1 +\tau p_{\epsilon})
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+	\pderiv{f_3}{u_4} = \pderiv{}{n}\left( (E+p)m\tau\right) = v p_{D} = v \tau p_{y_e}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+	\pderiv{f_4}{u_1} = \pderiv{}{\rho}\left( Dm\tau\right) = -v\tau D
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+	\pderiv{f_4}{u_2} = \pderiv{}{m}\left( Dm\tau\right) = D\tau
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+	\pderiv{f_4}{u_3} = \pderiv{}{E}\left( Dm\tau\right) = 0
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+  \pderiv{f_4}{u_4} = \pderiv{}{n}\left( Dm\tau\right) = v
+\end{split}
+\end{equation}
+
+\begin{align}
+	\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}
+	=
+	\left[
+		\begin{array}{cccc}
+			0 & 1 & 0 & 0 \\
+			-v^2 -\tau(p_{\tau}\tau - p_{\epsilon}(E\tau-v^2)) & v(2-p_{\epsilon}\tau) & \tau p_{\epsilon} & \tau p_{y_e} \\
+			-v(H + p_{\tau}\tau^2 - p_{\epsilon}\tau(E\tau-v^2)) & H - p_{\epsilon}v^{2}\tau & v(1 +\tau p_{\epsilon}) & v \tau p_{y_e} \\
+			- v y_{e} & y_{e} & 0 & v \\
+		\end{array}
+	\right]
+\end{align}
+
+The eigenvalues of this Jacobian are then $\lambda = \{u - \sqrt{\tau (p_{y_e}y_{e} + p p_{\epsilon}\tau - p_{\tau}\tau)}, u, u,
+u + \sqrt{\tau (p_{y_e}y_{e} + p p_{\epsilon}\tau - p_{\tau}\tau)}\}$. In the
+non-nuclear regime where $p_{y_e}=0$, this reduces to the eigenvalues given in \citep{colella:1985}. It also
+simplifies to the ideal case given in LeVeque 1992.\\
+
+The eigenvectors are then given by \\
+
+\begin{align}
+	\left[
+		\begin{array}{c|c|c|c}
+			1 & 1 & 1 & 1 \\
+			u - c & u & u & u + c \\
+			h_{n} - cu & (\frac{p_{\tau}}{p_{\epsilon}}+E)\tau & 0 &
+			h_{n} +cu	\\
+			n\tau & 0 & \frac{\tau^{2}(p_{\tau} + p_{\epsilon}E)}{p_{n}} & n\tau \\
+		\end{array}
+	\right]
+\end{align}
+where $h_{n} = \frac{c^{2}}{p_{\epsilon}\tau} + k_{n}$ and $k_{n} = \frac{(-np_{n} + (p_{\tau} + p_{\epsilon}E)\tau)}{p_{\epsilon}}$.
+
+
+
+\section{Derivation of Jacobian and Eigenvalues for the 3D Nuclear Case}
+
+We assume that $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$. Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D\}$,
+where $m_i = \rho v_i$ and $D = \rho y_{e}$. The flux vector is $\textbf{F}(\textbf{U}) = \{m_{1}, m_{1}^{2}\tau + p, m_{1}m_{2}\tau, m_{1}m_{3}\tau, (E+p)m_{1}\tau, Dm_{1}\tau\}$.
+
+\beq
+	\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}
+	=
+		\begin{bmatrix}
+			0 & 1 & 0 & 0 & 0 & 0 \\
+			-v_{1}^{2} -p_{\tau}\tau^{2} - p_{\epsilon}\tau(E\tau - v^{2}) & v_{1}(2-p_{\epsilon}\tau)  & -p_{\epsilon}v_{2}\tau & -p_{\epsilon}v_{3}\tau  & p_{\epsilon}\tau  & \tau p_{ye} \\
+			-v_{1}v_{2} & v_2 & v_1 & 0 & 0 & 0 \\
+			-v_{1}v_{3} & v_{3} & 0 & v_{1} & 0 & 0 \\
+			v_{1}(-H - p_{\tau}\tau^{2} -p_{\epsilon}\tau(E\tau - v^{2})) & H - p_{\epsilon}v_{1}^{2}\tau  & -p_{\epsilon}v_{1}v_{2}\tau & -p_{\epsilon}v_{1}v_{3}\tau  & v_{1}(1+p_{\epsilon}\tau) & v_{1} \tau p_{ye} \\
+			-v_{1} y_{e} & y_{e} & 0 &0 & 0 & v_{1} \\
+		\end{bmatrix}
+\eeq
+
+The eigenvalues of this Jacobian are then $\lambda = \{v_{1} - \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}, v_{1}, v_{1}, v_{1}, v_{1},
+v_{1} + \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}\}$.
+
+The eigenvectors are then given by \\
+
+\beq
+		\begin{bmatrix}
+			1 & 1 & 1 & 1 & 1 & 1 \\
+			v_{1} - c  & v_{1} & v_{1} & v_{1} & v_{1} & v_{1}+c \\
+			v_{2} & \frac{\beta}{p_{\epsilon}v_{2}} & 0 & 0 & 0 & v_{2} \\
+			v_{3} & 0 & \frac{\beta}{p_{\epsilon}v_{3}} & 0 & 0 & v_{3} \\
+			h_{n} -cv_{1} & 0 & 0 & -v_{2}^{2} - v_{3}^{2} + (\frac{p_{\tau}}{p_{\epsilon}} + E)\tau & 0 & h_{n} + cv_{1} \\
+			n\tau & 0 & 0 & 0 & \frac{-\tau \beta}{p_{n}} & n\tau    \\
+		\end{bmatrix}
+\eeq
+
+where $h_{n}$ is defined as before, and $\beta = -p_{\tau}\tau + p_{\epsilon}(v_{2}^{2} + v_{3}^{2} -E\tau)$.
+
+\section{Derivatives}
+
+Derivatives of pressure with respect to $\tau$, e, and n. \\
+\begin{footnotesize}
+\begin{eqnarray}
+	\frac{\partial{p}}{\partial{e}} &=& \left(\frac{\partial{e}}{\partial{T}}\right)^{-1}\left(\frac{\partial{p}}{\partial{T}}\right) \\
+	\frac{\partial{p}}{\partial{n}} &=& \frac{m_B}{\rho} \left[ \frac{\partial{p}}{\partial{y_e}} -
+          \frac{\partial{e}}{\partial{y_e}}\left(\frac{\partial{e}}{\partial{T}}\right)^{-1}\left(\frac{\partial{p}}{\partial{T}}\right)\right]\\
+	\frac{\partial{p}}{\partial{\tau}} &=& -\tau^{-2} \left[ \frac{\partial{p}}{\partial{\rho}} - \frac{y_e}{\rho} \left( \frac{\partial{p}}{\partial{y_e}} -
+          \frac{\partial{e}}{\partial{y_e}} \left(\frac{\partial{e}}{\partial{T}}\right)^{-1}\left(\frac{\partial{p}}{\partial{T}}\right)\right) -
+          \frac{\partial{e}}{\partial{\rho}}\left(\frac{\partial{e}}{\partial{T}}\right)^{-1}\left(\frac{\partial{p}}{\partial{T}}\right)\right]
+\end{eqnarray}
+\end{footnotesize}
+
+\acknowledgements
+We thank people.
+
+\bibliography{ms}
+
+
+\end{document}
