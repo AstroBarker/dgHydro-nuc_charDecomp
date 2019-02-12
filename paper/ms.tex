@@ -65,6 +65,7 @@ present results from some initial tests.
 
 \keywords{supernovae: general -- hydrodynamics -- convection -- turbulence -- equation of state -- methods: numerical -- stars: massive -- stars: evolution}
 
+
 \section{Introduction}
 \label{Intro}
 \todo{Fill in introduction. Contextualize the work.}
@@ -83,28 +84,30 @@ For reviews of the CCSN mechanism, see \citet{bethe:1990, janka:2007, janka:2012
 \todo{Talk about \thornado, DG methods, Euler Equations, possibly reference other codes that
 employ different methods and those methods' drawbacks.}
 
+... organized as follows:
+
 \section{Euler Equations of Gas Dynamics in Cartesian Coordinates}
 \todo{Use this form of the Euler Equations?}
 The non-relativistic Euler equations of gas dynamics
 \citep[see, e.g.,][for details]{leveque:2002} in cartesian coordinates are given by
 the equations of conservation of mass,
 \beq
-  \pderiv{\rho}{t} + \pderiv{}{x_i}(\rho u_i) = 0
+  \pderiv{\rho}{t} + \pderiv{}{x}(\rho u) = 0
   \label{eq:massConservation}
 \eeq
 conservation of momentum,
 \beq
-	\pderiv{(\rho u_i)}{t} + \pderiv{}{x_i}(\rho u^2 + p) = 0
+	\pderiv{(\rho u)}{t} + \pderiv{}{x}(\rho u^2 + p) = 0
   \label{eq:momentumConservation}
 \eeq
 conservation of energy,
 \beq
-  \pderiv{E}{t} + \pderiv{}{x_i}((E+p)u_i) = 0
+  \pderiv{E}{t} + \pderiv{}{x}((E+p)u) = 0
   \label{eq:energyConservation}
 \eeq
-and conservation of \textcolor{red}{electron fraction}\footnote{Is this Correct? I don't think so. What is conserved?}
+and conservation of \textcolor{red}{electron density}
 \beq
-  \pderiv{D}{t} + \pderiv{}{x_i}(D u_i) = 0
+  \pderiv{D}{t} + \pderiv{}{x}(D u) = 0
   \label{eq:electronConservation}
 \eeq
 where $\rho$ represents mass density, $u$ the fluid velocity, $p$ the fluid
@@ -124,7 +127,28 @@ is a more convenient way:
 \eeq
 where $\mathbf{U} =(\rho,\rho u,E, D)^{T}$ is the vector of conserved quantities
 and $\mathbf{F}(\mathbf{U})=(\rho u,\rho u^{2}+p,(E+p)u, uD)^{T}$
-is the flux vector. We can rewrite this further:
+is the flux vector.
+
+\section{Numerical Implementation}
+\label{DG}
+
+\todo{Add intro paragraph} \\
+\textcolor{red}{Subsections or no?}
+
+\subsection{The Discontinuous Galerkin Methods}
+In our solver we have chosen the discontinuous Galerkin (DG) method
+for our spatial discretization. In this section we will briefly discuss our
+implementation of the DG method, introducing notation and concepts. Recall that
+we seek solutions to the Euler equations of hydrodynamics, constituting a
+conservation law of the form
+
+\beq
+  \partial_{t} \mathbf{U} + \partial_{x} \mathbf{F}(\mathbf{U}) = 0
+\eeq
+
+
+
+We can rewrite this further:
 
 \beq
   \pderiv{\mathbf{U}}{t}
@@ -150,7 +174,7 @@ a system of advection equations
 
 \beq
   \pderiv{\mathbf{w}}{t} +
-  \Lambda \pderiv{\mathbf{w}}{x_{i}}
+  \Lambda \pderiv{\mathbf{w}}{x}
   = 0
 \eeq
 Solutions to these advection equations are far simpler to obtain than the
