@@ -19,6 +19,8 @@
 \newcommand{\subdate}{\today}
 \newcommand{\shortauth}{Barker et al.}
 \newcommand{\slugcom}{Draft - \today}
+\newcommand{\Pos}{\textnormal{\tiny\textsc{Pos}}}
+\newcommand{\TVD}{\textnormal{\tiny\textsc{Tvd}}}
 %\newcommand{\slugcom}{Submitted to ApJL on \subdate}
 %\slugcomment{\slugcom}
 
@@ -260,9 +262,28 @@ In Section~\ref{sec:tests} we use the third-order strong
 stability-preserving Runge-Kutta (SSP-RK3) method \citep{shu:1988}.
 
 \subsection{Slope Limiting}
+A common feature of numerical ODEs is unphysical oscillations in the solutions.
+It is therfore of great interest in the DG algorithm to implement slope limiting
+of the polynomial $\mathbf{U}_h$. We use the total variation diminishing (TVD)
+slope limiter \citep[see, e.g.,][]{cockburn:1998} in conjunction with the
+troubled cell indicator discussed in \citet{fu:2017} to prevent excessive limiting.
 
-
-
+The general $s$-stage Runge-Kutta time stepping algorithm, including
+the limiting process, can then be summarized as in \citet{cockburn:2001}:
+\begin{itemize}
+  \item[1.] Set $\bar{\vect{U}}^{(0)} = \bar{\vect{U}}^{n}$,
+  \item[2.] For $i=1,\ldots,s$ compute:
+  \begin{equation}
+  \small  \bar{\vect{U}}^{(i)}
+    = \Lambda^{\Pos}\Big\{\Lambda^{\TVD}\Big\{\sum_{j=0}^{i-1}\alpha_{ij}\,\bar{\vect{U}}^{(j)}+\beta_{ij}\,\Delta t\,\bar{\vect{F}}\big(\bar{\vect{U}}^{(j)}\big)\Big\}\Big\},
+    \label{eq:rkStages}
+  \end{equation}
+  \item[3.] Set $\bar{\vect{U}}^{n+1}=\bar{\vect{U}}^{(s)}$.
+\end{itemize}
+Above, the TVD limiter and the `positivity' limiter preventing unphysical
+states are denoted by the operators $\Lambda^{\TVD}\{\}$
+and $ \Lambda^{\Pos}\{\}$, respectively. The SSP-RK3 coefficients $\alpha_{ij}$
+and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001}.
 
 \subsection{Characteristic Decomposition}
 Experience has shown...

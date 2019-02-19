@@ -33,6 +33,8 @@
 # Misc #
 ########
 *checkpoint.ipynb
+meeting_notes.ipynb
+
 # Logs and databases #
 ######################
 *.log
@@ -62,4 +64,4 @@ data/
 archive/
 ideal/
 left_eigen_alpha.nb
-./meeting_notes.ipynb
+meeting_notes.ipynb
