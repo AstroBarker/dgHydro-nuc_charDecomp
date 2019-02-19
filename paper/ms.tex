@@ -118,12 +118,12 @@ the quantities evolved by Equations
 \eqref{eq:massConservation}-\eqref{eq:electronConservation}. The inclusion of
 Equation \eqref{eq:electronConservation} is because we require a nuclear EOS.
 We may rewrite Equations \eqref{eq:massConservation}-\eqref{eq:electronConservation}
-is a more convenient way:
+in a more convenient way:
 
 \beq
   \pderiv{\mathbf{U}}{t}
   +\pderiv{\mathbf{F}(\mathbf{U})}{x}
-  =0.
+  =0,
 \eeq
 where $\mathbf{U} =(\rho,\rho u,E, D)^{T}$ is the vector of conserved quantities
 and $\mathbf{F}(\mathbf{U})=(\rho u,\rho u^{2}+p,(E+p)u, uD)^{T}$
@@ -144,17 +144,135 @@ conservation law of the form
 
 \beq
   \partial_{t} \mathbf{U} + \partial_{x} \mathbf{F}(\mathbf{U}) = 0
+  \label{eq:ode}
+\eeq
+Where $\mathbf{U}$ is the evolved state vector and $\mathbf{F}(\mathbf{U})$ is
+the flux. In order to solve Equation \eqref{eq:ode}, we divide the computational
+domain $D\subset \mathbb{R}$ into a disjoint union $\mathcal{T}$ of open elements
+$\bK$ such that $D = \cup_{\bK \in \cT}\bK$. Each element $\bK$ is a box in the
+coordinates
+\beq
+  \bK=\{\,\vect{x} = (\xL,x_H) : x \in K \},
+\eeq
+We let the approximation space $\mathbb{V}^{k}$ for the DG method
+be constructed from the tensor product of one-dimensional
+polynomials of degree $k$. Note that functions in $\mathbb{V}^{k}$
+can be discontinuous across element interfaces. The DG problem is then to find
+$\mathbf{U}_h \in \mathbb{V}^{k}$ which approximates $\mathbf{U}$ in Equation
+\eqref{eq:ode}, such that $\forall$ $\phi \in \mathbb{V}^{k}$ and $\bK \in \cT$
+
+\beq
+  \partial_{t} \int_{\bK}\mathbf{U}_h\, \phi\, dx +
+  \int_{\bK}\partial_{x}\, \mathbf{F(\mathbf{U})}\, \phi\, dx = 0.
+\label{eq:semidiscreteDG_almost}
+\eeq
+Integrating the second term by parts, this becomes
+\beq
+\begin{split}
+  & \partial_{t} \int_{\bK}\mathbf{U_{h}}\, \phi\, dx +
+   \widehat{\mathbf{F}}(\mathbf{U}_h)\, \phi^{-} \big|_{x_{H}} \\
+  & + \widehat{\mathbf{F}}(\mathbf{U}_h)\, \phi^{+} \big|_{x_{L}} +
+   \int_{\bK}\mathbf{F(\mathbf{U}_h)}\, \partial_{x}\phi\, dx = 0.
+\label{eq:semidiscreteDG}
+\end{split}
+\eeq
+In Eq.~\eqref{eq:semidiscreteDG}, $\widehat{\vect{F}}(\vect{U}_{h})$ is a
+numerical flux approximating the flux on the boundary of $\bK$.
+The numerical flux function is evaluated using values from
+both boundaries of an element; i.e.,
+\begin{equation}
+  \widehat{\vect{F}}(\vect{U}_{h})=\vect{f}(\vect{U}_{h}(x^{-},\tilde{\bx}),\vect{U}_{h}(x^{+},\tilde{\bx})),
+\end{equation}
+where superscripts $-/+$
+indicate that the function is evaluated to the immediate left/right of the
+interface. We use the Harten-Lax-van Leer (HLL) flux \citep{harten:1983} or
+the HLLC flux \citep{toro:1994,mignone:2005} for all the numerical
+experiments presented in Section \ref{sec:tests}.
+
+In each element $K$, we use a nodal representation of the conserved variables
+$\mathbf{U}$:
+
+\beq
+\begin{split}
+  \mathbf{U}(x,t) \approx\, & \mathbf{U}_h (x,t) =
+  \sum_{i=1}^{N}\vect{U}_{i}(t)\,\ell_{i}(x),
+  \quad\text{where}\quad \\
+  & \ell_{i}(\eta)=
+  \prod_{\substack{j=1\\j\ne i}}^{N}\f{\eta-\eta_{j}}{\eta_{i}-\eta_{j}}
+  \label{eq:conservedNodalExpansion}
+\end{split}
+\eeq
+are Lagrange polynomials defined on $I = \{ \eta : \eta \in (-0.5,0.5) \}$,
+and are constructed to interpolate the node set
+$S_{N}=\{\eta_{i}\}_{i=1}^{N}\subset I$. The spatial coordinate $x$ and the
+reference coordinate $\eta$ are related by the
+mapping $x(\eta)=\xL+(0.5+\eta)\,\Delta x$.
+Then, for any $\eta_{j}\in S_{N}$, $\ell_{i}(\eta_{j})=\delta_{ij}$,
+so that $\vect{U}_{h}(x(\eta_{j}),t)=\vect{U}_{j}(t)$.
+First we define the $M$-point quadrature $Q_{M}:C^{0}(I)\to\mathbb{R}$
+with abscissas $\hat{S}_{M}=\{\eta_{q}\}_{q=1}^{M}$ and weights
+$\{w_{q}\}_{q=1}^{M}$, normalized such that $\sum_{q=1}^{M}w_{q}=1$ in order to
+evaluate the integrals in Eq.~\eqref{eq:semidiscreteDG}..
+We use the $M$-point Legendre-Gauss quadrature, which is exact for
+polynomials of degree $\le 2M-1$.
+Then, if $P_{h}(x)$ is such a polynomial, we have
+\beq
+  \f{1}{\Delta x}\int_{K}P_{h}(x)\,dx=\int_{I}P_{h}(\eta)\,d\eta=\sum_{q=1}^{M}w_{q}\,P_{h}(\eta_{q}).
 \eeq
 
+For the sake of efficiency we let $M=N$ and $S_{N}=\hat{S}_{N}$, which is a
+spectral-type nodal collocation DG approximation \citep{bassi:2013}.
+Inserting Eq.~\eqref{eq:conservedNodalExpansion} into Eq.~\eqref{eq:semidiscreteDG},
+letting $\phi(x)=\ell_{k}(x)$, using the quadratures defined above,
+we obtain\footnote{Are these summations?}
+\begin{align}
+  \pd{}{t}\int_{K}\vect{U}_{h}\,\phi\,dx
+  &\approx w_{k}\,\pd{}{t}\vect{U}_{k}\,\Delta x
+  \label{eq:timeDerivativeTerm}
+\end{align}
+for the time derivative piece.
+Similarly, the last term on the left-hand side of Eq.~\eqref{eq:semidiscreteDG}
+becomes
+\beq
+  \int_{K}\vect{F}(\vect{U}_{h})\,\pderiv{\phi}{x}\,dx
+  \approx \sum_{q=1}^{N}w_{q}\,\vect{F}(\vect{U}_{q})\,\pderiv{\ell_{k}}{\eta}(\eta_{q}).
+  \label{eq:volumeTerm}
+\eeq
+Now we may combine Eqs.~\eqref{eq:timeDerivativeTerm}-\eqref{eq:volumeTerm} in
+Eq.~\eqref{eq:semidiscreteDG} resulting in the semi-discrete form
+\beq
+\begin{split}
+  \deriv{\vect{U}_{k}}{t}
+  & =-\f{1}{w_{k}\Delta x}
+  \Big\{
+  \Big[\,
+    \widehat{\vect{F}}\ell_{k}\big|_{x_{H}}
+     -\widehat{\vect{F}}\ell_{k}\big|_{\xL}
+  \,\Big] \\
+  & -\sum_{q=1}^{N}w_{q}\,\vect{F}(\vect{U}_{q})\,\pderiv{\ell_{k}}{\eta}(\eta_{q})
+  \Big\}.
+  \label{eq:semidiscreteDiscretized}
+\end{split}
+\eeq
+We now have a system of ordinary
+differential equations (ODEs), which may be evolved in time with an ODE solver.
+In Section~\ref{sec:tests} we use the third-order strong
+stability-preserving Runge-Kutta (SSP-RK3) method \citep{shu:1988}.
+
+\subsection{Slope Limiting}
 
 
+
+
+\subsection{Characteristic Decomposition}
+Experience has shown...
 We can rewrite this further:
 
 \beq
   \pderiv{\mathbf{U}}{t}
   + \pderiv{\mathbf{U}}{x} \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}}
   = 0
-  \label{charEq}
+  \label{eq:charEq}
 \eeq
 Because the Euler equations for a systemer of hyperblic
 partial differential equations \citep[see, e.g.,][]{leveque:1992}, we can decompose the
@@ -169,7 +287,7 @@ the rows of $R^{-1}$ contain the left eigenvectors, and
 $\Lambda$ is a diagonal matrix containing the eigenvalues of the Jacobian.
 At this point, we will introduce the characteristic variable
 $\mathbf{w} = R^{-1}\mathbf{U}$. Multiplying both sides of Equation
-\eqref{charEq} by $R^{-1}$, we are able to linearize the system of equations to
+\eqref{eq:charEq} by $R^{-1}$, we are able to linearize the system of equations to
 a system of advection equations
 
 \beq

@@ -61,3 +61,5 @@ template_dir/*
 data/
 archive/
 ideal/
+left_eigen_alpha.nb
+./meeting_notes.ipynb
