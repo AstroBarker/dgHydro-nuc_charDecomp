@@ -126,6 +126,7 @@ in a more convenient way:
   \pderiv{\mathbf{U}}{t}
   +\pderiv{\mathbf{F}(\mathbf{U})}{x}
   =0,
+  \label{eq:conservation}
 \eeq
 where $\mathbf{U} =(\rho,\rho u,E, D)^{T}$ is the vector of conserved quantities
 and $\mathbf{F}(\mathbf{U})=(\rho u,\rho u^{2}+p,(E+p)u, uD)^{T}$
@@ -286,13 +287,15 @@ and $ \Lambda^{\Pos}\{\}$, respectively. The SSP-RK3 coefficients $\alpha_{ij}$
 and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001}.
 
 \subsection{Characteristic Decomposition}
-Experience has shown...
-We can rewrite this further:
-
+Experience has shown that the slope limiting described in the previous section
+is more effecient when performed on the so-called `characteristic variables`
+as opposed to the conserved variables $\mathbf{U}_h$
+\citep[see, e.g.,][for a description]{cockburn:1998}. We begin by
+rewriting Eq.~\ref{eq:conservation} as follows
 \beq
   \pderiv{\mathbf{U}}{t}
   + \pderiv{\mathbf{U}}{x} \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}}
-  = 0
+  = 0.
   \label{eq:charEq}
 \eeq
 Because the Euler equations for a systemer of hyperblic
@@ -301,7 +304,7 @@ Jacobian of the flux vector as
 
 \beq
   \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}} =
-  R \Lambda R^{-1}
+  R \Lambda R^{-1},
 \eeq
 where the columns of $R$ contain the right eigenvectors of the Jacobian,
 the rows of $R^{-1}$ contain the left eigenvectors, and
@@ -314,7 +317,7 @@ a system of advection equations
 \beq
   \pderiv{\mathbf{w}}{t} +
   \Lambda \pderiv{\mathbf{w}}{x}
-  = 0
+  = 0.
 \eeq
 Solutions to these advection equations are far simpler to obtain than the
 previous equations. Limiting may then be applied to dampen oscillations in the
@@ -322,7 +325,7 @@ solutions for the characteristic variables $\mathbf{w}$, which are then
 transformed back to the solution of the conserved variables $\mathbf{U}$
 \citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}.
 
-\todo{More discussion of limiting?}
+
 
 \hrulefill
 
