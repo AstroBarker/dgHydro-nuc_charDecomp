@@ -14,6 +14,7 @@
 \hypersetup{backref,breaklinks,colorlinks,citecolor=blue}
 \usepackage[all]{hypcap}
 \usepackage{definitions}
+\usepackage{subfiles}
 
 \bibliographystyle{apj}
 
@@ -24,6 +25,7 @@
 \newcommand{\TVD}{\textnormal{\tiny\textsc{Tvd}}}
 %\newcommand{\slugcom}{Submitted to ApJL on \subdate}
 %\slugcomment{\slugcom}
+
 
 \lefthead{\sc \footnotesize \slugcom \hfill \shortauth}
 \righthead{\sc \footnotesize \slugcom \hfill \shortauth}
@@ -48,7 +50,6 @@ equation of state for supernova hydrodynamics}
 %\begin{abstract}
 %\end{abstract}
 \begin{abstract}
-\todo{Fill In Abstract}
 A problem of high importance in computational astrophysics is obtaining accurate
 solutions to the Euler equations of hydrodynamics. We are interested in solving
 the Euler equations in the context of core collapse supernovae (CCSNe).
@@ -115,7 +116,7 @@ and conservation of \textcolor{red}{electron density}
 \eeq
 where $\rho$ represents mass density, $u$ the fluid velocity, $p$ the fluid
 pressure, $D=\rho y_e$ is the \textcolor{red}{what is this?},
-and $E=e+\frac{1}{2}\rho u^2$ the total energy (internal plus kinetic).
+and $E=\epsilon \rho +\frac{1}{2}\rho u^2$ the total specific energy (internal plus kinetic).
 The system of equations is closed by the EOS which links the pressure to
 the quantities evolved by Equations
 \eqref{eq:massConservation}-\eqref{eq:electronConservation}. The inclusion of
@@ -269,7 +270,6 @@ It is therfore of great interest in the DG algorithm to implement slope limiting
 of the polynomial $\mathbf{U}_h$. We use the total variation diminishing (TVD)
 slope limiter \citep[see, e.g.,][]{cockburn:1998} in conjunction with the
 troubled cell indicator discussed in \citet{fu:2017} to prevent excessive limiting.
-
 The general $s$-stage Runge-Kutta time stepping algorithm, including
 the limiting process, can then be summarized as in \citet{cockburn:2001}:
 \begin{itemize}
@@ -308,11 +308,11 @@ Jacobian of the flux vector as
   \mathcal{R} \Lambda \mathcal{R}^{-1},
 \eeq
 where the columns of $R$ contain the right eigenvectors of the Jacobian,
-the rows of $R^{-1}$ contain the left eigenvectors, and
+the rows of $\mathcal{R}^{-1}$ contain the left eigenvectors, and
 $\Lambda$ is a diagonal matrix containing the eigenvalues of the Jacobian.
 At this point, we will introduce the characteristic variable
-$\mathbf{w} = R^{-1}\mathbf{U}$. Multiplying both sides of Equation
-\eqref{eq:charEq} by $R^{-1}$, we are able to linearize the system of equations to
+$\mathbf{w} = \mathcal{R}^{-1}\mathbf{U}$. Multiplying both sides of Equation
+\eqref{eq:charEq} by $\mathcal{R}^{-1}$, we are able to linearize the system of equations to
 a system of advection equations
 
 \beq
@@ -336,7 +336,7 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 (E+p)m_{1}\tau, Dm_{1}\tau\}$. \\
 
 
-\begin{table*}[ht!]
+%\begin{table*}[ht!]
 
 \begin{align}
   \centering
@@ -352,8 +352,8 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 		\end{array}
     \right]
 \end{align}
-\caption{}
-\end{table*}
+%\caption{}
+%\end{table*}
 
 
 \noindent The eigenvalues of this Jacobian are given by
@@ -369,7 +369,7 @@ The flux vector is $\textbf{F}(\textbf{U}) =
   0 & 0 & 0 & 0 & 0 & v_{1} + c_{s}
 \end{bmatrix}
 \end{align}
-where $c_{S} = \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}$ is
+where $c_{s} = \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}$ is
 the local sound speed. The right eigenvectors are then given by
 \begin{align*}
   \mathcal{R}_{1} =
@@ -420,7 +420,10 @@ and in their eigenvectors (Ideal), h is specific enthalpy and k is specific kine
 The matrix of left eigenvectors is given by
 
 
+\appendix
+
 \section{Derivatives}
+
 
 Derivatives of pressure with respect to $\tau$, e, and n. \\
 \begin{footnotesize}
