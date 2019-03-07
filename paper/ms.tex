@@ -1,10 +1,11 @@
-\documentclass[twocolumn]{aastex62}
+\documentclass[onecolumn]{aastex62}
 \usepackage{times}
 \usepackage{epsfig}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{color}
 \usepackage{microtype}
 \usepackage{float}
+\usepackage{stfloats}
 \usepackage{natbib}
 \usepackage{verbatim}
 \usepackage{placeins}
@@ -304,7 +305,7 @@ Jacobian of the flux vector as
 
 \beq
   \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}} =
-  R \Lambda R^{-1},
+  \mathcal{R} \Lambda \mathcal{R}^{-1},
 \eeq
 where the columns of $R$ contain the right eigenvectors of the Jacobian,
 the rows of $R^{-1}$ contain the left eigenvectors, and
@@ -325,259 +326,99 @@ solutions for the characteristic variables $\mathbf{w}$, which are then
 transformed back to the solution of the conserved variables $\mathbf{U}$
 \citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}.
 
-
-\section{Derivation of Jacobian and Eigensystem for the 1D Nuclear Case}
-
-We assume that pressure $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$ is the specific volume.
-Let the vector of conserved variables be $\textbf{U} = \{\rho, m, E, D\}$,
-where $m = \rho u$ and $D = \rho y_{e}$.
-The flux vector is $\textbf{F}(\textbf{U}) = \{m, m^{2}\tau + p, (E+p)m\tau, Dm\tau\}$, where $E=e+\frac{\rho v^{2}}{2}$.
-
-The pressure differential is given by
-\begin{equation}
-  dp = \left(\pderiv{p}{\rho}\right)d\rho + \left(\pderiv{p}{\epsilon}\right)d\epsilon + \left(\pderiv{p}{D}\right)dD.
-\end{equation}
-The internal energy differential can be written as
-
-\begin{equation}
-\begin{split}
-	d\epsilon & = \left(\pderiv{e}{\rho}\right)d\rho + \left(\pderiv{\epsilon}{m}\right)dm + \left(\pderiv{e}{E}\right)dE \\
-  & = (\epsilon \tau + \frac{1}{2} m^2 \tau^3 )d\rho - m \tau^2 dm + \tau dE.
-\end{split}
-\end{equation}
-
-Plugging this into the previous expression gives with a little work
-
-\begin{equation}
-\begin{split}
-  dp & = -\tau (p_\tau \tau - p_{\epsilon}(\frac{1}{2} m^2 \tau^2 - \epsilon))d\rho - p_{\epsilon}m\tau^2 dm + p_{\epsilon}\tau dE + \tau P_{y_e}dD\\
-     & = -\tau (p_\tau \tau - p_{\epsilon}(E\tau-v^2)d\rho -p_{\epsilon}v\tau dm + p_{\epsilon}\tau dE + \tau P_{y_e}dD
-\end{split}
-\end{equation}
-
-where $p_{x} := \pderiv{p}{x}$
-
-
-The flux Jacobian $\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}$ may then be shown to be:
-
-% \begin{equation}
-%   \pderiv{f_1}{u_1} = \pderiv{m}{\rho} = 0
-% \end{equation}
-%
-% \begin{equation}
-%   \pderiv{f_1}{u_2} = \pderiv{m}{m} = 1
-% \end{equation}
-%
-% \begin{equation}
-%   \pderiv{f_1}{u_3} = \pderiv{m}{E} = 0
-% \end{equation}
-%
-% \begin{equation}
-%   \pderiv{f_1}{u_4} = \pderiv{m}{D} = 0
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_2}{u_1} &= \pderiv{}{\rho}\left(m^2\tau + p\right) = -m^2\tau^2 + \left( \pderiv{p}{\rho} \right) \\
-% 	& =  -v^2 -\tau(p_{\tau}\tau - p_{\epsilon}(E\tau-v^2))
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_2}{u_2} & = \pderiv{}{m}\left( m^2 \tau + p \right) = 2m\tau + \left(\pderiv{p}{m}\right) \\
-%   & = v(2-p_{\epsilon}\tau)
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_2}{u_3} & = \pderiv{}{E}\left(m^2 \tau + p\right) = \left( \pderiv{p}{E}\right) \\
-%   & = \tau p_{\epsilon}
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-% 	\pderiv{f_2}{u_4} = \pderiv{}{D}\left(m^2 \tau + p\right) = p_D
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_3}{u_1} & = \pderiv{}{\rho}\left(E+p)m\tau\right) = - E m \tau^2 + m\tau \pderiv{p}{\rho} + mp\pderiv{\tau}{\rho} \\
-% 	& =  -v(H + p_{\tau}\tau^2 - p_{\epsilon}\tau(E\tau-v^2))
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_3}{u_2} & = \pderiv{}{m}\left((E+p)m\tau\right) = m\tau\left(\pderiv{p}{m}\right) + \left(E+p\right) \tau \\
-%   & = H - p_{\epsilon}v^{2}\tau
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_3}{u_3} = \pderiv{}{E}\left( (E+p)m\tau\right) = v(1 +\tau p_{\epsilon})
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-% 	\pderiv{f_3}{u_4} = \pderiv{}{n}\left( (E+p)m\tau\right) = v p_{D} = v \tau p_{y_e}
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-% 	\pderiv{f_4}{u_1} = \pderiv{}{\rho}\left( Dm\tau\right) = -v\tau D
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-% 	\pderiv{f_4}{u_2} = \pderiv{}{m}\left( Dm\tau\right) = D\tau
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-% 	\pderiv{f_4}{u_3} = \pderiv{}{E}\left( Dm\tau\right) = 0
-% \end{split}
-% \end{equation}
-%
-% \begin{equation}
-% \begin{split}
-%   \pderiv{f_4}{u_4} = \pderiv{}{n}\left( Dm\tau\right) = v
-% \end{split}
-% \end{equation}
-
-\begin{align}
-	\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}
-	=
-	\left[
-		\begin{array}{cccc}
-			0 & 1 & 0 & 0 \\
-			-v^2 -\tau(p_{\tau}\tau - p_{\epsilon}(E\tau-v^2)) & v(2-p_{\epsilon}\tau) & \tau p_{\epsilon} & \tau p_{y_e} \\
-			-v(H + p_{\tau}\tau^2 - p_{\epsilon}\tau(E\tau-v^2)) & H - p_{\epsilon}v^{2}\tau & v(1 +\tau p_{\epsilon}) & v \tau p_{y_e} \\
-			- v y_{e} & y_{e} & 0 & v \\
-		\end{array}
-	\right]
-\end{align}
-
-The eigenvalues of this Jacobian are then $\lambda = \{u - \sqrt{\tau (p_{y_e}y_{e} + p p_{\epsilon}\tau - p_{\tau}\tau)}, u, u,
-u + \sqrt{\tau (p_{y_e}y_{e} + p p_{\epsilon}\tau - p_{\tau}\tau)}\}$. In the
-non-nuclear regime where $p_{y_e}=0$, this reduces to the eigenvalues given in \citep{colella:1985}. It also
-simplifies to the ideal case given in LeVeque 1992.\\
-
-The eigenvectors are then given by \\
-
-\begin{align}
-	\left[
-		\begin{array}{c|c|c|c}
-			1 & 1 & 1 & 1 \\
-			u - c & u & u & u + c \\
-			h_{n} - cu & (\frac{p_{\tau}}{p_{\epsilon}}+E)\tau & 0 &
-			h_{n} +cu	\\
-			n\tau & 0 & \frac{\tau^{2}(p_{\tau} + p_{\epsilon}E)}{p_{n}} & n\tau \\
-		\end{array}
-	\right]
-\end{align}
-where $h_{n} = \frac{c^{2}}{p_{\epsilon}\tau} + k_{n}$ and $k_{n} = \frac{(-np_{n} + (p_{\tau} + p_{\epsilon}E)\tau)}{p_{\epsilon}}$.
-
-
-\hrulefill
-
-\section{Derivation of the Jacobian and Eigenvectors for the 1D Ideal Case}
-
-\todo{Define new variables to rewrite some things in more compact forms.}
-
-We assume that $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$. Let the vector of conserved variables be $\textbf{U} = \{\rho, m, E\}$,
-where $m = \rho u$. The flux vector is $\textbf{F}(\textbf{U}) = \{m, m^{2} \tau + p, (E+p)m \tau\}$.
-
-\small{
-\begin{align}
-	\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}
-	=
-	\left[
-		\begin{array}{ccc}
-			0 & 1 & 0  \\
-			-(p_{\tau}+ p_{\epsilon}E)\tau^{2} + u^{2}(p_{\epsilon}\tau -1)       & u(2-p_{\epsilon}\tau)         & p_{\epsilon}\tau       \\
-			-u(\tau(-p_{\epsilon}u^{2} + p_{\tau}\tau + p_{\epsilon}E\tau) + H) & H - p_{\epsilon}u^{2}\tau  & u(1+p_{\epsilon}\tau)  \\
-		\end{array}
-	\right]
-\end{align}
-}
-
-Here, $H = (E+p)\tau$. The eigenvalues are given by $\lambda = \{u - \tau \sqrt{p p_{\epsilon} - p_{\tau}}, u,  u + \tau \sqrt{ p p_{\epsilon} - p_{\tau}}\}$. In the ideal case where
-$\tau = \rho^{-1}$, $ E = \frac{p}{\gamma -1} + \frac{\rho v^{2}}{2}$, $ p_{\epsilon} = \frac{\gamma-1}{\tau}$, and $p_{\tau} = -\frac{(\gamma - 1)e}{\tau^{2}}$,
-the sound speed $c$ reduces to $\sqrt{\frac{p \gamma}{\rho}}$. \\
-
-The eigenvectors are given by \\
-
-\begin{align}
-	\left[
-		\begin{array}{c|c|c}
-			1 & 1 & 1 \\
-			u - c & u & u + c \\
-			\frac{\tau( c( p-p_{\epsilon}u^{2} +E) +u( -p_{\tau} + p_{\epsilon}E)\tau)}{c + p_{\epsilon}u\tau} & \frac{\tau(p_{\tau} + p_{\epsilon}E)}{p_{\epsilon}} &
-			\frac{\tau( -c( p-p_{\epsilon}u^{2} +E) +u( p_{\tau} + p_{\epsilon}E)\tau)}{-c + p_{\epsilon}u\tau} \\
-		\end{array}
-	\right]
-\end{align}
-
-
-which in the ideal case described above reduces to  the eigenvectors given in \citet{schaal:2015a}\\
-
-\begin{align}
-	\left[
-		\begin{array}{c|c|c}
-			1 & 1 & 1 \\
-			u - c & u & u + c \\
-			h - cu & k & h + cu \\
-		\end{array}
-	\right]
-\end{align}
-
-where $h = \frac{c^{2}}{\gamma - 1} + k$ and $k = \frac{1}{2}(u^{2} + v^{2} + w^{2})$.
-
-
 \section{Derivation of Jacobian and Eigenvalues for the 3D Nuclear Case}
 
-We assume that $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$. Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D\}$,
-where $m_i = \rho v_i$ and $D = \rho y_{e}$. The flux vector is $\textbf{F}(\textbf{U}) = \{m_{1}, m_{1}^{2}\tau + p, m_{1}m_{2}\tau, m_{1}m_{3}\tau, (E+p)m_{1}\tau, Dm_{1}\tau\}$.
+We assume that $p = p(\tau, e, n)$, where $\tau = \frac{1}{\rho}$.
+Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D\}$,
+where $m_i = \rho v_i$ and $D = \rho Y_{e}$.
+The flux vector is $\textbf{F}(\textbf{U}) =
+\{m_{1}, m_{1}^{2}\tau + p, m_{1}m_{2}\tau, m_{1}m_{3}\tau,
+(E+p)m_{1}\tau, Dm_{1}\tau\}$. \\
 
-\beq
+
+\begin{table*}[ht!]
+
+\begin{align}
+  \centering
 	\pderiv{\mathbf{F}(\mathbf{U})}{\mathbf{U}}
-	=
-		\begin{bmatrix}
+	= \left[
+		\begin{array}{cccccc}
 			0 & 1 & 0 & 0 & 0 & 0 \\
-			-v_{1}^{2} -p_{\tau}\tau^{2} - p_{\epsilon}\tau(E\tau - v^{2}) & v_{1}(2-p_{\epsilon}\tau)  & -p_{\epsilon}v_{2}\tau & -p_{\epsilon}v_{3}\tau  & p_{\epsilon}\tau  & \tau p_{ye} \\
+			-v_{1}^{2} -p_{\tau}\tau^{2} - p_{\epsilon}\tau(\epsilon - \frac{v^{2}}{2}) & v_{1}(2-p_{\epsilon}\tau)  & -p_{\epsilon}v_{2}\tau & -p_{\epsilon}v_{3}\tau  & p_{\epsilon}\tau  & p_{n} \\
 			-v_{1}v_{2} & v_2 & v_1 & 0 & 0 & 0 \\
 			-v_{1}v_{3} & v_{3} & 0 & v_{1} & 0 & 0 \\
-			v_{1}(-H - p_{\tau}\tau^{2} -p_{\epsilon}\tau(E\tau - v^{2})) & H - p_{\epsilon}v_{1}^{2}\tau  & -p_{\epsilon}v_{1}v_{2}\tau & -p_{\epsilon}v_{1}v_{3}\tau  & v_{1}(1+p_{\epsilon}\tau) & v_{1} \tau p_{ye} \\
-			-v_{1} y_{e} & y_{e} & 0 &0 & 0 & v_{1} \\
-		\end{bmatrix}
-\eeq
+			v_{1}(-H - p_{\tau}\tau^{2} -p_{\epsilon}\tau(\epsilon - \frac{v^{2}}{2})) & H - p_{\epsilon}v_{1}^{2}\tau  & -p_{\epsilon}v_{1}v_{2}\tau & -p_{\epsilon}v_{1}v_{3}\tau  & v_{1}(1+p_{\epsilon}\tau) & v_{1} p_{n} \\
+			-v_{1} Y_{e}/m_{B} & Y_{e}/m_{B} & 0 & 0 & 0 & v_{1} \\
+		\end{array}
+    \right]
+\end{align}
+\caption{}
+\end{table*}
 
-The eigenvalues of this Jacobian are then $\lambda = \{v_{1} - \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}, v_{1}, v_{1}, v_{1}, v_{1},
-v_{1} + \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}\}$.
 
-The eigenvectors are then given by \\
+\noindent The eigenvalues of this Jacobian are given by
 
-\beq
-		\begin{bmatrix}
-			1 & 1 & 1 & 1 & 1 & 1 \\
-			v_{1} - c  & v_{1} & v_{1} & v_{1} & v_{1} & v_{1}+c \\
-			v_{2} & \frac{\beta}{p_{\epsilon}v_{2}} & 0 & 0 & 0 & v_{2} \\
-			v_{3} & 0 & \frac{\beta}{p_{\epsilon}v_{3}} & 0 & 0 & v_{3} \\
-			h_{n} -cv_{1} & 0 & 0 & -v_{2}^{2} - v_{3}^{2} + (\frac{p_{\tau}}{p_{\epsilon}} + E)\tau & 0 & h_{n} + cv_{1} \\
-			n\tau & 0 & 0 & 0 & \frac{-\tau \beta}{p_{n}} & n\tau    \\
-		\end{bmatrix}
-\eeq
+\begin{align}
+\Lambda =
+\begin{bmatrix}
+  v_{1} - c_{s} & 0 & 0& 0& 0& 0\\
+  0 & v_{1} & 0 & 0 & 0 & 0 \\
+  0 & 0 & v_{1} & 0 & 0 & 0 \\
+  0 & 0 & 0 & v_{1} & 0 & 0 \\
+  0 & 0 & 0 & 0 & v_{1} & 0 \\
+  0 & 0 & 0 & 0 & 0 & v_{1} + c_{s}
+\end{bmatrix}
+\end{align}
+where $c_{S} = \sqrt{\tau (n p_{n} + p p_{\epsilon}\tau - p_{\tau}\tau)}$ is
+the local sound speed. The right eigenvectors are then given by
+\begin{align*}
+  \mathcal{R}_{1} =
+  \left[
+  \begin{array}{cccccc}
+   1 & 0 & 1 & 1 & 0 & 1 \\
+   v_{1}-c & 0 & v_{1} & v_{1} & 0 & c+v_{1} \\
+   v_{2} & 1 & 0 & 0 & 0 & v_{2} \\
+   v_{3} & 0 & 0 & 0 & 1 & v_{3} \\
+   h-c v_{1} & v_{2} & \beta & 0 & v_{3} & h+c v_{1} \\
+   n \tau  & 0 & 0 & \frac{\tau  \chi }{2 p_{n}} & 0 & n \tau  \\
+  \end{array}
+  \right]
+\end{align*}
+where the follow definitions have been used:
+$h_{n} = \frac{c^2}{p_{\epsilon}\tau} + k $, $k = \frac{-n p_{n}
++ p_{\epsilon} (\frac{1}{2}v^2 + \epsilon) + p_{\tau}\tau}{p_{\epsilon}}$,
+$\delta_{1} = v_{1}^{2}-v_{2}^{2}-v_{3}^{2}$,
+$\chi = p_{\epsilon} ( \delta_{1} + 2\epsilon) + 2p_{\tau}\tau$, and
+$\beta = \frac{1}{2} (\delta_{1}+2 \epsilon +\frac{2 p_{\tau} \tau }{p_{\epsilon}})$.
+\begin{align*}
+  \mathcal{R}_{1}^{-1} = \frac{1}{c^2}
+  \left[
+  \begin{array}{cccccc}
+   \frac{1}{4} (2 c  v_{1}+\omega ) & \frac{1}{2} (-c- \phi_{1} ) & -\frac{1}{2} \phi_{2}
+    & -\frac{1}{2} \phi_{3}  & \frac{p_{\epsilon} \tau }{2} & \frac{p_{n}}{2}
+     \\
+   -\frac{v_{2} \omega }{2} & \phi_{1} v_{2}  & c^2+\phi_{2} v_{2}  &
+     \phi_{2} v_{3}  & -\phi_{2}  & -p_{n} v_{2} \\
+   \frac{2 \chi  c^2+\alpha  \omega }{2 \chi } & -\frac{\phi_{1} \alpha  }{\chi } &
+     -\frac{\phi_{2} \alpha  }{\chi } & -\frac{\phi_{3} \alpha }{\chi } &
+     \frac{p_{\epsilon} \alpha  \tau }{\chi } & \frac{p_{n} \left(\alpha  \tau -2 c^2\right)}{\tau  \chi } \\
+   -\frac{n p_{n} \omega }{\chi } & \frac{2 n p_{n} \phi_{1} }{\chi } & \frac{2 n p_{n}
+     \phi_{2} }{\chi } & \frac{2 n p_{n} \phi_{3} }{\chi } & -\frac{2 n
+     p_{n} p_{\epsilon} \tau }{\chi } & \frac{2 p_{n} \left(c^2-n p_{n} \tau \right)}{\tau  \chi } \\
+   -\frac{v_{3} \omega }{2} & \phi_{3} v_{1}  & \phi_{3} v_{2}   &
+     c^2+\phi_{3} v_{3}  & -\phi_{3}  & -p_{n} v_{3} \\
+   \frac{1}{4} (\omega -2 c  v_{1}) & \frac{1}{2} (c-\phi_{1} ) & -\frac{1}{2} \phi_{2}
+       & -\frac{1}{2} \phi_{3}  & \frac{p_{\epsilon} \tau }{2} & \frac{p_{n}}{2}
+     \\
+  \end{array}
+  \right]
+\end{align*}
+where $\phi_{i} = p_{\epsilon}\tau v_{i}$.
 
-where $h_{n}$ is defined as before, and $\beta = -p_{\tau}\tau + p_{\epsilon}(v_{2}^{2} + v_{3}^{2} -E\tau)$.
+\todo{What is the physical interpretation of h and k? I tried to follow \citet{schaal:2015a},
+and in their eigenvectors (Ideal), h is specific enthalpy and k is specific kinetic energy.}
+The matrix of left eigenvectors is given by
+
 
 \section{Derivatives}
 
