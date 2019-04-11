@@ -1,11 +1,14 @@
-Derivatives of pressure with respect to $\tau$, $\epsilon$, and n. \\
+Derivatives of pressure with respect to $\tau$, $\epsilon$, and $D_{e}$. \\
 \begin{footnotesize}
 \begin{eqnarray}
-	\frac{\partial{P}}{\partial{\epsilon}} &=& \left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}\left(\frac{\partial{P}}{\partial{T}}\right) \\
-	\frac{\partial{P}}{\partial{n}} &=& \frac{m_B}{\rho} \left[ \frac{\partial{P}}{\partial{y_e}} -
-          \frac{\partial{\epsilon}}{\partial{y_e}}\left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}\left(\frac{\partial{P}}{\partial{T}}\right)\right]\\
-	\frac{\partial{P}}{\partial{\tau}} &=& -\tau^{-2} \left[ \frac{\partial{P}}{\partial{\rho}} - \frac{y_e}{\rho} \left( \frac{\partial{P}}{\partial{y_e}} -
-          \frac{\partial{\epsilon}}{\partial{y_e}} \left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}\left(\frac{\partial{P}}{\partial{T}}\right)\right) -
-          \frac{\partial{\epsilon}}{\partial{\rho}}\left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}\left(\frac{\partial{P}}{\partial{T}}\right)\right]
+	\left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau,D_{e}} &=& \left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}_{\rho, y_{e}}\left(\frac{\partial{P}}{\partial{T}}\right)_{\rho, y_{e}} \\
+	\left(\frac{\partial{P}}{\partial{D_{e}}}\right)_{\tau, \epsilon} &=& \tau \left[
+					\left(\frac{\partial{P}}{\partial{y_e}}\right)_{\rho, T} -
+          \left(\frac{\partial{\epsilon}}{\partial{y_e}}\right)_{\rho, T}
+					\left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau, D_{e}}\right]\\
+	\left(\frac{\partial{P}}{\partial{\tau}}\right)_{\epsilon, D_{e}} &=& -\tau^{-2}
+					\left[ \left(\frac{\partial{P}}{\partial{D_{e}}}\right)_{\tau, \epsilon}
+					(y_e - 1) + \left( \frac{\partial{\epsilon}}{\partial{\rho}} \right)_{y_{e}, T}
+          \left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau, D_{e}}\right]
 \end{eqnarray}
 \end{footnotesize}
