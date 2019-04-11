@@ -338,37 +338,6 @@
   bdsk-url-3	= {http://adsabs.harvard.edu/abs/2015ApJ...799....5C}
 }
 
-@Article{	  toro:1994,
-  abstract	= {The missing contact surface in the approximate Riemann
-		  solver of Harten, Lax, and van Leer is restored. This is
-		  achieved following the same principles as in the original
-		  solver. We also present new ways of obtaining wave-speed
-		  estimates. The resulting solver is as accurate and robust
-		  as the exact Riemann solver, but it is simpler and
-		  computationally more efficient than the latter, particulaly
-		  for non-ideal gases. The improved Riemann solver is
-		  implemented in the second-order WAF method and tested for
-		  one-dimensional problems with exact solutions and for a
-		  two-dimensional problem with experimental results.},
-  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
-  adsurl	= {http://adsabs.harvard.edu/abs/1994ShWav...4...25T},
-  author	= {{Toro}, E.~F. and {Spruce}, M. and {Speares}, W.},
-  date-added	= {2017-08-11 04:40:51 +0000},
-  date-modified	= {2017-12-05 16:37:48 +0000},
-  doi		= {10.1007/BF01414629},
-  journal	= {Shock Waves},
-  keywords	= {Finite difference scheme, Numerical simulation, Riemann
-		  solver},
-  month		= jul,
-  pages		= {25-34},
-  title		= {{Restoration of the contact surface in the HLL-Riemann
-		  solver}},
-  volume	= 4,
-  year		= 1994,
-  bdsk-url-1	= {http://dx.doi.org/10.1007/BF01414629},
-  bdsk-url-2	= {http://adsabs.harvard.edu/abs/1994ShWav...4...25T}
-}
-
 @Article{	  harten:1983,
   author	= {Harten, A. and Lax, P. and Leer, B.},
   title		= {On Upstream Differencing and Godunov-Type Schemes for
@@ -405,51 +374,6 @@
   eprint	= { https://doi.org/10.1063/1.4870009
 		  
 		  }
-}
-
-@Article{	  mignone:2005,
-  abstract	= {We present an extension of the piecewise parabolic method
-		  to special relativistic fluid dynamics in multidimensions.
-		  The scheme is conservative, dimensionally unsplit, and
-		  suitable for a general equation of state. Temporal
-		  evolution is second-order accurate and employs
-		  characteristic projection operators; spatial interpolation
-		  is piecewise parabolic making the scheme third-order
-		  accurate in smooth regions of the flow away from
-		  discontinuities. The algorithm is written for a general
-		  system of orthogonal curvilinear coordinates and can be
-		  used for computations in non-Cartesian geometries. A
-		  nonlinear iterative Riemann solver based on the two-shock
-		  approximation is used in flux calculation. In this
-		  approximation, an initial discontinuity decays into a set
-		  of discontinuous waves only implying that, in particular,
-		  rarefaction waves are treated as flow discontinuities. We
-		  also present a new and simple equation of state that
-		  approximates the exact result for the relativistic perfect
-		  gas with high accuracy. The strength of the new method is
-		  demonstrated in a series of numerical tests and more
-		  complex simulations in one, two, and three dimensions.},
-  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
-  adsurl	= {http://adsabs.harvard.edu/abs/2005ApJS..160..199M},
-  arxivurl	= {http://arxiv.org/abs/astro-ph/0505200},
-  author	= {{Mignone}, A. and {Plewa}, T. and {Bodo}, G.},
-  date-added	= {2017-08-10 22:17:55 +0000},
-  date-modified	= {2017-12-05 16:37:20 +0000},
-  doi		= {10.1086/430905},
-  eprint	= {astro-ph/0505200},
-  journal	= {\apjs},
-  keywords	= {Hydrodynamics, Methods: Numerical, Relativity, Shock
-		  Waves},
-  month		= sep,
-  pages		= {199-219},
-  title		= {{The Piecewise Parabolic Method for Multidimensional
-		  Relativistic Fluid Dynamics}},
-  volume	= 160,
-  year		= 2005,
-  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QcS4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9NaWdub25lL01pZ25vbmUyMDA1LVRoZSBQaWVjZXdpc2UgUGFyYWJvbGljIE1ldGhvZCBmb3IgTXVsdGlkaW1lbnNpb25hbCBSZWxhdGl2aXN0aWMucGRm0hcLGBlXTlMuZGF0YU8RAmwAAAAAAmwAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x9NaWdub25lMjAwNS1UaGUgUGkjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAIABAAACiBjdQAAAAAAAAAAAAAAAAAHTWlnbm9uZQAAAgB3LzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOk1pZ25vbmU6TWlnbm9uZTIwMDUtVGhlIFBpZWNld2lzZSBQYXJhYm9saWMgTWV0aG9kIGZvciBNdWx0aWRpbWVuc2lvbmFsIFJlbGF0aXZpc3RpYy5wZGYAAA4AogBQAE0AaQBnAG4AbwBuAGUAMgAwADAANQAtAFQAaABlACAAUABpAGUAYwBlAHcAaQBzAGUAIABQAGEAcgBhAGIAbwBsAGkAYwAgAE0AZQB0AGgAbwBkACAAZgBvAHIAIABNAHUAbAB0AGkAZABpAG0AZQBuAHMAaQBvAG4AYQBsACAAUgBlAGwAYQB0AGkAdgBpAHMAdABpAGMALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAHVVc2Vycy9zbWMvRHJvcGJveC9MaXRlcmF0dXJlL01pZ25vbmUvTWlnbm9uZTIwMDUtVGhlIFBpZWNld2lzZSBQYXJhYm9saWMgTWV0aG9kIGZvciBNdWx0aWRpbWVuc2lvbmFsIFJlbGF0aXZpc3RpYy5wZGYAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4BAgEHAQ8DfwOBA4YDkQOaA6gDrAOzA7wDwQPOA9ED4wPmA+sAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAD7Q==},
-  bdsk-url-1	= {http://dx.doi.org/10.1086/430905},
-  bdsk-url-2	= {http://arxiv.org/abs/astro-ph/0505200},
-  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2005ApJS..160..199M}
 }
 
 @Article{	  janka:2012a,

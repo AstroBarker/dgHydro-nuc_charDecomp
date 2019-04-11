@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     34370,       1005]
-NotebookOptionsPosition[     33196,        961]
-NotebookOutlinePosition[     33551,        977]
-CellTagsIndexPosition[     33508,        974]
+NotebookDataLength[     47711,       1365]
+NotebookOptionsPosition[     46408,       1317]
+NotebookOutlinePosition[     46763,       1333]
+CellTagsIndexPosition[     46720,       1330]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -33,6 +33,138 @@ Cell[BoxData[
  CellChangeTimes->{{3.760961807328433*^9, 3.760961819602704*^9}, {
   3.760961867212183*^9, 3.760961867682508*^9}, {3.760979935112438*^9, 
   3.760979944223914*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"J", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1", ",", "0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox["u1", "2"]}], " ", "-", " ", 
+        RowBox[{"pt", " ", 
+         SuperscriptBox["\[Tau]", "2"]}], " ", "-", 
+        RowBox[{"p\[Epsilon]", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{"\[Epsilon]", " ", "-", " ", 
+           FractionBox[
+            SuperscriptBox["u", "2"], "2"]}], ")"}]}]}], ",", " ", 
+       RowBox[{"u1", 
+        RowBox[{"(", 
+         RowBox[{"2", "-", 
+          RowBox[{"\[Tau]", " ", "p\[Epsilon]"}]}], ")"}]}], ",", " ", 
+       RowBox[{
+        RowBox[{"-", "\[Tau]"}], " ", "p\[Epsilon]", " ", "u2"}], ",", " ", 
+       RowBox[{
+        RowBox[{"-", "\[Tau]"}], " ", "p\[Epsilon]", " ", "u3"}], ",", " ", 
+       RowBox[{"p\[Epsilon]", " ", "\[Tau]"}], ",", " ", "pn"}], "}"}], ",", 
+     "\[IndentingNewLine]", " ", 
+     RowBox[{"{", " ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "u1"}], " ", "u2"}], ",", " ", "u2", ",", " ", "u1", ",",
+        " ", "0", ",", " ", "0", ",", " ", "0"}], "}"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "u1"}], " ", "u3"}], ",", " ", "u3", ",", " ", "0", ",", 
+       " ", "u1", ",", " ", "0", ",", " ", "0"}], "}"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"u1", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "pt"}], " ", 
+           SuperscriptBox["\[Tau]", "2"]}], " ", "-", 
+          RowBox[{"p\[Epsilon]", " ", "\[Tau]", 
+           RowBox[{"(", 
+            RowBox[{"\[Epsilon]", " ", "-", " ", 
+             FractionBox[
+              SuperscriptBox["u", "2"], "2"]}], ")"}]}], " ", "-", " ", "H"}],
+          ")"}]}], ",", " ", 
+       RowBox[{"H", " ", "-", " ", 
+        RowBox[{
+         SuperscriptBox["u1", "2"], " ", "p\[Epsilon]", " ", "\[Tau]"}]}], 
+       ",", " ", 
+       RowBox[{
+        RowBox[{"-", "\[Tau]"}], " ", "p\[Epsilon]", " ", "u1", " ", "u2"}], 
+       ",", " ", 
+       RowBox[{
+        RowBox[{"-", "\[Tau]"}], " ", "p\[Epsilon]", " ", "u1", " ", "u3"}], 
+       ",", " ", 
+       RowBox[{"u1", 
+        RowBox[{"(", 
+         RowBox[{"1", "+", 
+          RowBox[{"\[Tau]", " ", "p\[Epsilon]"}]}], ")"}]}], ",", " ", 
+       RowBox[{"u1", " ", "pn"}]}], "}"}], ",", " ", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "\[Tau]"}], " ", "n", " ", "u1"}], ",", " ", 
+       RowBox[{"n", " ", "\[Tau]"}], ",", " ", "0", ",", " ", "0", ",", " ", 
+       "0", ",", " ", "u1"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[CapitalLambda]", " ", "=", " ", 
+   RowBox[{"DiagonalMatrix", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"u1", "-", "c"}], ",", "u1", ",", "u1", ",", "u1", ",", "u1", 
+      ",", 
+      RowBox[{"u1", "+", "c"}]}], "}"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"H", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"\[CapitalEpsilon]", " ", "+", " ", "p"}], ")"}], "\[Tau]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"u", " ", "=", " ", 
+   SqrtBox[
+    RowBox[{
+     SuperscriptBox["u1", "2"], "+", 
+     SuperscriptBox["u2", "2"], "+", 
+     SuperscriptBox["u3", "2"]}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"c", " ", "=", " ", 
+  SqrtBox[
+   RowBox[{"\[Tau]", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"n", " ", "pn"}], "-", 
+      RowBox[{"pt", " ", "\[Tau]"}], "+", 
+      RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], 
+     ")"}]}]]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[CapitalEpsilon]", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"\[Epsilon]", " ", "/", "\[Tau]"}], " ", "+", " ", 
+    FractionBox[
+     RowBox[{" ", 
+      SuperscriptBox["u", "2"]}], 
+     RowBox[{"2", "\[Tau]"}]]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.763766606189805*^9, 3.763766607065571*^9}}],
+
+Cell[BoxData[
+ SqrtBox[
+  RowBox[{"\[Tau]", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"n", " ", "pn"}], "-", 
+     RowBox[{"pt", " ", "\[Tau]"}], "+", 
+     RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]], "Output",
+ CellChangeTimes->{3.76376657210105*^9, 3.763766607773539*^9}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -343,167 +475,390 @@ Cell[BoxData[
      {
       FractionBox[
        RowBox[{
-        RowBox[{"2", " ", "c", " ", "u1"}], "+", "\[Omega]"}], 
-       RowBox[{"4", " ", 
-        SuperscriptBox["c", "2"]}]], 
-      RowBox[{"-", 
-       FractionBox[
-        RowBox[{"c", "+", "\[Phi]1"}], 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
+        RowBox[{"2", " ", "u1", " ", 
+         SqrtBox[
+          RowBox[{"\[Tau]", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"n", " ", "pn"}], "-", 
+             RowBox[{"pt", " ", "\[Tau]"}], "+", 
+             RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
+        "+", "\[Omega]"}], 
+       RowBox[{"4", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
+      FractionBox[
+       RowBox[{
+        SqrtBox[
+         RowBox[{"\[Tau]", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"n", " ", "pn"}], "-", 
+            RowBox[{"pt", " ", "\[Tau]"}], "+", 
+            RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], "+",
+         "\[Phi]1"}], 
+       RowBox[{"2", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "n"}], " ", "pn"}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"pt", "-", 
+             RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}], " ", "\[Tau]"}]}], 
+         ")"}]}]], 
       RowBox[{"-", 
        FractionBox["\[Phi]2", 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
       RowBox[{"-", 
        FractionBox["\[Phi]3", 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
-      FractionBox[
-       RowBox[{"p\[Epsilon]", " ", "\[Tau]"}], 
-       RowBox[{"2", " ", 
-        SuperscriptBox["c", "2"]}]], 
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
+      FractionBox["p\[Epsilon]", 
+       RowBox[{
+        RowBox[{"2", " ", "n", " ", "pn"}], "-", 
+        RowBox[{"2", " ", "pt", " ", "\[Tau]"}], "+", 
+        RowBox[{"2", " ", "p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}]], 
       FractionBox["pn", 
-       RowBox[{"2", " ", 
-        SuperscriptBox["c", "2"]}]]},
+       RowBox[{"2", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]},
      {
       RowBox[{"-", 
        FractionBox[
         RowBox[{"u2", " ", "\[Omega]"}], 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
       FractionBox[
        RowBox[{"u2", " ", "\[Phi]1"}], 
-       SuperscriptBox["c", "2"]], 
-      RowBox[{"1", "+", 
-       FractionBox[
-        RowBox[{"u2", " ", "\[Phi]2"}], 
-        SuperscriptBox["c", "2"]]}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
+      FractionBox[
+       RowBox[{
+        RowBox[{"\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}], "+", 
+        RowBox[{"u2", " ", "\[Phi]2"}]}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
       FractionBox[
        RowBox[{"u3", " ", "\[Phi]2"}], 
-       SuperscriptBox["c", "2"]], 
-      RowBox[{"-", 
-       FractionBox["\[Phi]2", 
-        SuperscriptBox["c", "2"]]}], 
-      RowBox[{"-", 
-       FractionBox[
-        RowBox[{"pn", " ", "u2"}], 
-        SuperscriptBox["c", "2"]]}]},
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
+      FractionBox["\[Phi]2", 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "n"}], " ", "pn"}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"pt", "-", 
+             RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}], " ", "\[Tau]"}]}], 
+         ")"}]}]], 
+      FractionBox[
+       RowBox[{"pn", " ", "u2"}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "n"}], " ", "pn"}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"pt", "-", 
+             RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}], " ", "\[Tau]"}]}], 
+         ")"}]}]]},
      {
-      RowBox[{"1", "+", 
-       FractionBox[
-        RowBox[{"\[Alpha]", " ", "\[Omega]"}], 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"], " ", "\[Chi]"}]]}], 
+      FractionBox[
+       RowBox[{
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+         "\[Chi]"}], "+", 
+        RowBox[{"\[Alpha]", " ", "\[Omega]"}]}], 
+       RowBox[{"2", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+        "\[Chi]"}]], 
       RowBox[{"-", 
        FractionBox[
         RowBox[{"\[Alpha]", " ", "\[Phi]1"}], 
-        RowBox[{
-         SuperscriptBox["c", "2"], " ", "\[Chi]"}]]}], 
+        RowBox[{"\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+         "\[Chi]"}]]}], 
       RowBox[{"-", 
        FractionBox[
         RowBox[{"\[Alpha]", " ", "\[Phi]2"}], 
-        RowBox[{
-         SuperscriptBox["c", "2"], " ", "\[Chi]"}]]}], 
+        RowBox[{"\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+         "\[Chi]"}]]}], 
       RowBox[{"-", 
        FractionBox[
         RowBox[{"\[Alpha]", " ", "\[Phi]3"}], 
-        RowBox[{
-         SuperscriptBox["c", "2"], " ", "\[Chi]"}]]}], 
+        RowBox[{"\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+         "\[Chi]"}]]}], 
       FractionBox[
-       RowBox[{"p\[Epsilon]", " ", "\[Alpha]", " ", "\[Tau]"}], 
+       RowBox[{"p\[Epsilon]", " ", "\[Alpha]"}], 
        RowBox[{
-        SuperscriptBox["c", "2"], " ", "\[Chi]"}]], 
+        RowBox[{"n", " ", "pn", " ", "\[Chi]"}], "-", 
+        RowBox[{"pt", " ", "\[Tau]", " ", "\[Chi]"}], "+", 
+        RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]", " ", "\[Chi]"}]}]], 
       FractionBox[
        RowBox[{"pn", " ", 
         RowBox[{"(", 
          RowBox[{
+          RowBox[{"2", " ", "n", " ", "pn"}], "-", "\[Alpha]", "-", 
+          RowBox[{"2", " ", "pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"2", " ", "p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], 
+         ")"}]}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
           RowBox[{
-           RowBox[{"-", "2"}], " ", 
-           SuperscriptBox["c", "2"]}], "+", 
-          RowBox[{"\[Alpha]", " ", "\[Tau]"}]}], ")"}]}], 
-       RowBox[{
-        SuperscriptBox["c", "2"], " ", "\[Tau]", " ", "\[Chi]"}]]},
+           RowBox[{"-", "n"}], " ", "pn"}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"pt", "-", 
+             RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}], " ", "\[Tau]"}]}], 
+         ")"}], " ", "\[Chi]"}]]},
      {
       RowBox[{"-", 
        FractionBox[
         RowBox[{"n", " ", "pn", " ", "\[Omega]"}], 
-        RowBox[{
-         SuperscriptBox["c", "2"], " ", "\[Chi]"}]]}], 
+        RowBox[{"\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+         "\[Chi]"}]]}], 
       FractionBox[
        RowBox[{"2", " ", "n", " ", "pn", " ", "\[Phi]1"}], 
-       RowBox[{
-        SuperscriptBox["c", "2"], " ", "\[Chi]"}]], 
-      FractionBox[
-       RowBox[{"2", " ", "n", " ", "pn", " ", "\[Phi]2"}], 
-       RowBox[{
-        SuperscriptBox["c", "2"], " ", "\[Chi]"}]], 
-      FractionBox[
-       RowBox[{"2", " ", "n", " ", "pn", " ", "\[Phi]3"}], 
-       RowBox[{
-        SuperscriptBox["c", "2"], " ", "\[Chi]"}]], 
-      RowBox[{"-", 
-       FractionBox[
-        RowBox[{"2", " ", "n", " ", "pn", " ", "p\[Epsilon]", " ", "\[Tau]"}], 
-        RowBox[{
-         SuperscriptBox["c", "2"], " ", "\[Chi]"}]]}], 
-      FractionBox[
-       RowBox[{"2", " ", "pn", " ", 
+       RowBox[{"\[Tau]", " ", 
         RowBox[{"(", 
          RowBox[{
-          SuperscriptBox["c", "2"], "-", 
-          RowBox[{"n", " ", "pn", " ", "\[Tau]"}]}], ")"}]}], 
-       RowBox[{
-        SuperscriptBox["c", "2"], " ", "\[Tau]", " ", "\[Chi]"}]]},
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+        "\[Chi]"}]], 
+      FractionBox[
+       RowBox[{"2", " ", "n", " ", "pn", " ", "\[Phi]2"}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+        "\[Chi]"}]], 
+      FractionBox[
+       RowBox[{"2", " ", "n", " ", "pn", " ", "\[Phi]3"}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+        "\[Chi]"}]], 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "n", " ", "pn", " ", "p\[Epsilon]"}], 
+        RowBox[{
+         RowBox[{"n", " ", "pn", " ", "\[Chi]"}], "-", 
+         RowBox[{"pt", " ", "\[Tau]", " ", "\[Chi]"}], "+", 
+         RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]", " ", "\[Chi]"}]}]]}], 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "pn", " ", 
+         RowBox[{"(", 
+          RowBox[{"pt", "-", 
+           RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}]}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}], " ", 
+         "\[Chi]"}]]}]},
      {
       RowBox[{"-", 
        FractionBox[
         RowBox[{"u3", " ", "\[Omega]"}], 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
       FractionBox[
        RowBox[{"u1", " ", "\[Phi]3"}], 
-       SuperscriptBox["c", "2"]], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
       FractionBox[
        RowBox[{"u2", " ", "\[Phi]3"}], 
-       SuperscriptBox["c", "2"]], 
-      RowBox[{"1", "+", 
-       FractionBox[
-        RowBox[{"u3", " ", "\[Phi]3"}], 
-        SuperscriptBox["c", "2"]]}], 
-      RowBox[{"-", 
-       FractionBox["\[Phi]3", 
-        SuperscriptBox["c", "2"]]}], 
-      RowBox[{"-", 
-       FractionBox[
-        RowBox[{"pn", " ", "u3"}], 
-        SuperscriptBox["c", "2"]]}]},
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
+      FractionBox[
+       RowBox[{
+        RowBox[{"\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}], "+", 
+        RowBox[{"u3", " ", "\[Phi]3"}]}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
+      FractionBox["\[Phi]3", 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "n"}], " ", "pn"}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"pt", "-", 
+             RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}], " ", "\[Tau]"}]}], 
+         ")"}]}]], 
+      FractionBox[
+       RowBox[{"pn", " ", "u3"}], 
+       RowBox[{"\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "n"}], " ", "pn"}], "+", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"pt", "-", 
+             RowBox[{"p", " ", "p\[Epsilon]"}]}], ")"}], " ", "\[Tau]"}]}], 
+         ")"}]}]]},
      {
       FractionBox[
        RowBox[{
         RowBox[{
-         RowBox[{"-", "2"}], " ", "c", " ", "u1"}], "+", "\[Omega]"}], 
-       RowBox[{"4", " ", 
-        SuperscriptBox["c", "2"]}]], 
+         RowBox[{"-", "2"}], " ", "u1", " ", 
+         SqrtBox[
+          RowBox[{"\[Tau]", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"n", " ", "pn"}], "-", 
+             RowBox[{"pt", " ", "\[Tau]"}], "+", 
+             RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
+        "+", "\[Omega]"}], 
+       RowBox[{"4", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
       FractionBox[
-       RowBox[{"c", "-", "\[Phi]1"}], 
-       RowBox[{"2", " ", 
-        SuperscriptBox["c", "2"]}]], 
+       RowBox[{
+        SqrtBox[
+         RowBox[{"\[Tau]", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"n", " ", "pn"}], "-", 
+            RowBox[{"pt", " ", "\[Tau]"}], "+", 
+            RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], "-",
+         "\[Phi]1"}], 
+       RowBox[{"2", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]], 
       RowBox[{"-", 
        FractionBox["\[Phi]2", 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
       RowBox[{"-", 
        FractionBox["\[Phi]3", 
-        RowBox[{"2", " ", 
-         SuperscriptBox["c", "2"]}]]}], 
-      FractionBox[
-       RowBox[{"p\[Epsilon]", " ", "\[Tau]"}], 
-       RowBox[{"2", " ", 
-        SuperscriptBox["c", "2"]}]], 
+        RowBox[{"2", " ", "\[Tau]", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"n", " ", "pn"}], "-", 
+           RowBox[{"pt", " ", "\[Tau]"}], "+", 
+           RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}], 
+      FractionBox["p\[Epsilon]", 
+       RowBox[{
+        RowBox[{"2", " ", "n", " ", "pn"}], "-", 
+        RowBox[{"2", " ", "pt", " ", "\[Tau]"}], "+", 
+        RowBox[{"2", " ", "p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}]], 
       FractionBox["pn", 
-       RowBox[{"2", " ", 
-        SuperscriptBox["c", "2"]}]]}
+       RowBox[{"2", " ", "\[Tau]", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"n", " ", "pn"}], "-", 
+          RowBox[{"pt", " ", "\[Tau]"}], "+", 
+          RowBox[{"p", " ", "p\[Epsilon]", " ", "\[Tau]"}]}], ")"}]}]]}
     },
     GridBoxAlignment->{
      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
@@ -518,7 +873,8 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellChangeTimes->{
-  3.760979951842329*^9, {3.76098001629573*^9, 3.760980033207663*^9}}]
+  3.760979951842329*^9, {3.76098001629573*^9, 3.760980033207663*^9}, 
+   3.763766574700836*^9}]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -956,7 +1312,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0"}], "}"}]}], 
   "}"}]], "Output",
- CellChangeTimes->{3.7609823362913923`*^9}]
+ CellChangeTimes->{3.7609823362913923`*^9, 3.763766610806726*^9}]
 }, Open  ]]
 },
 WindowSize->{1131, 707},
@@ -979,33 +1335,37 @@ Notebook[{
 Cell[558, 20, 285, 5, 30, "Text"],
 Cell[846, 27, 362, 7, 28, "Input"],
 Cell[CellGroupData[{
-Cell[1233, 38, 10688, 299, 447, "Input"],
-Cell[11924, 339, 5776, 181, 206, "Output"]
-}, Open  ]],
-Cell[17715, 523, 6143, 152, 514, "Input"],
-Cell[23861, 677, 148, 2, 63, "Input"],
-Cell[24012, 681, 192, 3, 28, "Input"],
-Cell[24207, 686, 3344, 99, 315, "Input"],
-Cell[27554, 787, 201, 4, 28, "Input"],
-Cell[CellGroupData[{
-Cell[27780, 795, 247, 5, 28, "Input"],
-Cell[28030, 802, 1009, 25, 115, "Output"]
+Cell[1233, 38, 4166, 117, 325, "Input"],
+Cell[5402, 157, 299, 8, 73, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[29076, 832, 92, 1, 28, "Input"],
-Cell[29171, 835, 738, 21, 28, "Output"]
+Cell[5738, 170, 10688, 299, 447, "Input"],
+Cell[16429, 471, 14461, 405, 198, "Output"]
+}, Open  ]],
+Cell[30905, 879, 6143, 152, 514, "Input"],
+Cell[37051, 1033, 148, 2, 63, "Input"],
+Cell[37202, 1037, 192, 3, 28, "Input"],
+Cell[37397, 1042, 3344, 99, 315, "Input"],
+Cell[40744, 1143, 201, 4, 28, "Input"],
+Cell[CellGroupData[{
+Cell[40970, 1151, 247, 5, 28, "Input"],
+Cell[41220, 1158, 1009, 25, 115, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[29946, 861, 189, 4, 28, "Input"],
-Cell[30138, 867, 866, 23, 115, "Output"]
+Cell[42266, 1188, 92, 1, 28, "Input"],
+Cell[42361, 1191, 738, 21, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[31041, 895, 242, 5, 28, "Input"],
-Cell[31286, 902, 913, 23, 126, "Output"]
+Cell[43136, 1217, 189, 4, 28, "Input"],
+Cell[43328, 1223, 866, 23, 115, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32236, 930, 227, 5, 28, "Input"],
-Cell[32466, 937, 714, 21, 86, "Output"]
+Cell[44231, 1251, 242, 5, 28, "Input"],
+Cell[44476, 1258, 913, 23, 115, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[45426, 1286, 227, 5, 28, "Input"],
+Cell[45656, 1293, 736, 21, 86, "Output"]
 }, Open  ]]
 }
 ]
