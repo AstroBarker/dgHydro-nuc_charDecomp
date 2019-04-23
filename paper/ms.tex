@@ -279,7 +279,8 @@ A common feature of high-order numerical PDEs is unphysical oscillations in the 
 It is therfore of great interest in the DG algorithm to implement slope limiting
 of the polynomial $\mathbf{U}_h$. We use the total variation diminishing (TVD)
 slope limiter \citep[see, e.g.,][]{cockburn:1998} in conjunction with the
-troubled cell indicator discussed in \citet{fu:2017} to prevent excessive limiting.
+troubled cell indicator discussed in \citet{fu:2017} to prevent excessive limiting
+by flagged elements where limiting is needed.
 The general $s$-stage Runge-Kutta time stepping algorithm, including
 the limiting process, can then be summarized as in \citet{cockburn:2001}:
 \begin{itemize}
@@ -292,10 +293,12 @@ the limiting process, can then be summarized as in \citet{cockburn:2001}:
   \end{equation}
   \item[3.] Set $\bar{\vect{U}}^{n+1}=\bar{\vect{U}}^{(s)}$.
 \end{itemize}
-Above, the TVD limiter and the `positivity' limiter preventing unphysical
-states are denoted by the operators $\Lambda^{\TVD}\{\}$
-and $ \Lambda^{\Pos}\{\}$, respectively. The SSP-RK3 coefficients $\alpha_{ij}$
-and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001}.
+Above, the TVD limiter limiter preventing unphysical
+states is denoted by the operators $\Lambda^{\TVD}\{\}$ The SSP-RK3 coefficients $\alpha_{ij}$
+and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001}. For each step
+in Eq.~\eqref{eq:rkStages}, the TVD limiter is applied to elements flagged
+by the troubled cell indicator. For a more in-depth discussion of the
+limiting process used in \thornado, see \citet{endeve:2019}.
 
 \subsection{Characteristic Decomposition}
 Experience has shown that the slope limiting described in the previous section
@@ -339,14 +342,6 @@ process of characteristic limiting has been done for the ideal EOS
 \citep[][]{cockburn:1998}, we want
 to extend to the nuclear matter EOS case.
 
-\section{Numerical Results}
-\label{sec:results}
-figure figure figure.
-Sod: Definitely want a $y_{e}$ curve, with and without
-characteristic limiting. Perhaps density too, or something. Show comparison
-to the nX=10000 run.
-
-Maybe also do the Noh problem, include results from there.
 
 \section{Derivation of Jacobian and Eigenvalues for the 3D Nuclear Case}
 \label{sec:eigen}
@@ -442,13 +437,47 @@ $\beta = \frac{1}{2} (\delta_{1}+2 \epsilon +\frac{2 P_{\tau} \tau }{P_{\epsilon
   \end{array}
   \right]
 \end{align*}
-where $\phi_{i} = P_{\epsilon}\,\tau\, v_{i}$ and
-$\omega = \tau\, (P_{\epsilon}\,(v^2 - 2\epsilon) - 2\,P_{\tau}\,\tau)$.
+where $\phi_{i} = P_{\epsilon}\,\tau\, v_{i}$,
+$\omega = \tau\, (P_{\epsilon}\,(v^2 - 2\epsilon) - 2\,P_{\tau}\,\tau)$, and
+$\alpha = 2 y_{e} P_{D_{e}} - \tau \chi$.
 
 
 \todo{What is the physical interpretation of h and k? I tried to follow \citet{schaal:2015a},
-and in their eigenvectors (Ideal), h is specific enthalpy and k is specific kinetic energy.}
+and in their eigenvectors (Ideal), h is specific enthalpy and k is specific kinetic energy.
+What about my other defined variables? Should I redefined, or rename?}
 The matrix of left eigenvectors is given by
+
+\section{Preliminary Numerical Results}
+\label{sec:results}
+In this section we present preliminary numerical results obtained with the DG
+method implemented in \thornado  leveraging use of the characteristic
+decomposition. We use the SFHo EOS of nuclear matter \citep{steiner:2013}
+now commonly used in hig-fidelity CCSN simulations.
+These tests serve to gauge the performance of the
+DG characteristic decomposition implementation on a set of benchmarks as an initial
+assessment of its suitability for future CCSN simulations.
+
+\subsection{Sod Shock Tube}
+We present the classic 1D Sod shock tube Riemann problem \citep{sod:1978} in
+Cartesian coordinates. The computational domain is D = [-5,5] km
+with a discontinuity initially located at $x = 0$ km separating the left and right states
+
+\beq
+  \mathbf{U}_{L} = (10^{12} g/cm^3, 0\, km/s, 10^{32} ergs/cm^3, 0.4\rho)^T\,\,\,
+  \mathbf{U}_{R} = (1.25*10^{11} g/cm^3, 0\, km/s, 10^{31} ergs/cm^3, 0.3\rho)^T
+\eeq
+\footnote{How to specify this? Specifically $y_e$}
+
+The test is run until $t = 0.25$ms with 100 elements
+\\
+\todo{Componentwise vs Characteristic vs reference.}\\
+Plots
+\todo{Limiting Paramter Landscape.}\\
+plots.
+\todo{"Best" Parameters}\\
+Plots
+\todo{"Realistic" high density run}\\
+Plots
 
 
 \appendix
