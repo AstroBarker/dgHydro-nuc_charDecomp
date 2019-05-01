@@ -80,32 +80,51 @@ suited to applications in CCSN simulations.
 
 \section{Introduction}
 \label{sec:Intro}
-\todo{Fill in introduction. Contextualize the work.}
 The core collapse supernovae (CCSNe) explosion mechanism is fundamentally three-dimensional
 in nature \citep[see e.g.,][]{blondin:2006, muller:2012, oconnor:2018b}. Alongside general
-reletavistic gravity, complex nuclear equations of state (EOS), and
+reletavistic gravity, complex nuclear matter equations of state (EOS), and
 neutrino transport, hydrodynamics must be accurately modelled,
 creating a very challenging and compelling problem. Hydrodynamic instabilities are critical
 in aiding the explosion, with complex phenomena such as turbulence and
 convection playing key roles in the CCSN mechanism
 \citep{murphy:2011, murphy:2013, couch:2013, couch:2015a, radice:2016, mabanta:2018}.
-The accurate and efficient modelling of the supernova hydrodynamics is crucial if the
+The accurate and efficient modelling of the supernova hydrodynamics is imperative if the
 explosion is to be realistically modelled.
-For in-depth reviews of the CCSN mechanism, see \citet{bethe:1990, janka:2007, janka:2012a, janka:2016, burrows:2013, hix:2014, muller:2016, couch:2017}.
+For in-depth reviews of the CCSN mechanism, see
+\citet{bethe:1990, janka:2007, janka:2012a, janka:2016, burrows:2013, hix:2014, muller:2016, couch:2017}.
 
-\todo{Talk about \thornado, DG methods, Euler Equations, possibly reference other codes that
-employ different methods and those methods' drawbacks.}
+Discontinuous Galerkin (DG) methods have been shown by others
+\citep[see e.g.,][]{radice:2011, schaal:2015a, zanotti:2015, dumbser:2018} to have a
+high potential for apllications to astrophysical problems. They are a desireable
+choice for modelling fluid flows in CCSNe. These methods combine elements of
+spectral and finite volume methods, and achieve high-order accuracy
+on a compact stencil.
 
-This paper will be organized as follows: in Section \ref{sec:eulereq} we briefly
-describe the Euler equations of gas dynamics. Section \ref{sec:DG} describes our
+The {\bf t}oolkit for {\bf h}igh-{\bf or}der {\bf n}eutrino-r{\bf ad}iation hydr{\bf o}dynamics (\thornado) is being developed to simulate neutrino-radiation hydrodynamics in CCSNe and related applications in nuclear astrophysics.
+The spatial discretization of solvers for hyperbolic partial differential equations in \thornado\, is based on the DG method.
+Whether the high-order approach will improve accuracy and efficiency of CCSN models remains to be demonstrated.
+In this paper we provide an initial description and encouraging demonstration
+of the DG method implemented in \thornado\, to solve the non-relativistic Euler equations.
+We focus on basic one-dimensional tests focusing on the implementation of limiters in \thornado.
+
+The DG slope limiting techniques implemented in \thornado\, are similar to those
+used by \cite{schaal:2015a}, but is supplemented with a troubled-cell
+indicator \cite{fu:2017} to prevent excessive limiting (e.g., around smooth extrema).
+It has been shown \citep[see e.g.,][]{schaal:2015a, cockburn:1998, cockburn:1989}
+that limiting on the chracteristic variables, which represent advected quantities,
+shows an improvement over limiting on the conserved variables.
+In this paper, we develop a chracteristic limiter for use with a general tabulated
+nuclear matter EOS in \thornado.
+
+This paper will be organized as follows: in Section~\ref{sec:eulereq} we briefly
+describe the Euler equations of gas dynamics. Section~\ref{sec:DG} describes our
 numerical implementation of the DG method in the one dimensional (1D) case.
-Section \ref{sec:results} shows the results of 1D hydrodynamic simulations,
-and Section \ref{sec:eigen} presents the eigenvectors used in the eigen-decomposition
-of the Euler equations.
+Section~\ref{sec:eigen} presents the eigenvectors used in the eigen-decomposition
+of the Euler equations, and Section~\ref{sec:results}
+shows the results of preliminary 1D hydrodynamic simulations.
 
 \section{Euler Equations of Gas Dynamics in Cartesian Coordinates}
 \label{sec:eulereq}
-\todo{Use this form of the Euler Equations?}
 The non-relativistic Euler equations of gas dynamics
 \citep[see, e.g.,][for details]{leveque:2002} in Cartesian coordinates
 in the absence of sources with a nuclear matter EOS are given by
@@ -127,11 +146,11 @@ conservation of energy,
 \eeq
 and conservation of \textcolor{red}{electron density}
 \beq
-  \partial_{t} D + \divergence{}(D\, \mathbf{v}) = 0
+  \partial_{t} D_{e} + \divergence{}(D_{e}\, \mathbf{v}) = 0
   \label{eq:electronConservation}
 \eeq
 where $\rho$ represents mass density, $\mathbf{v}$ the fluid velocity vector,
-$P$ the fluid pressure, $D=\rho y_e$ where $y_e$ is the electron fraction,
+$P$ the fluid pressure, $D_{e}=\rho y_e$ where $y_e$ is the electron fraction,
 $E=\epsilon \rho +\frac{1}{2}\rho v^2$ the total energy (internal plus kinetic),
 $\epsilon$ is the specific internal energy, and $\mathbf{I}$ is the identity tensor.
 \eqref{eq:massConservation}-\eqref{eq:electronConservation}. The inclusion of
@@ -152,16 +171,13 @@ is the flux vector.
 \section{Numerical Implementation}
 \label{sec:DG}
 
-\todo{Add intro paragraph} \\
-\textcolor{red}{Subsections or no?}
-
 \subsection{The Discontinuous Galerkin Methods}
 In our solver we have chosen the discontinuous Galerkin (DG) method
 for our spatial discretization. In this section we will briefly discuss our
 implementation of the DG method, introducing notation and concepts.
 For simplicity, we will focus on the one dimensional (1D) case. Recall that
 we seek solutions to the Euler equations of hydrodynamics, constituting a
-conservation law of the form
+hyperbolic conservation law of the form
 
 \beq
   \partial_{t} \mathbf{U} + \partial_{x} \mathbf{F}(\mathbf{U}) = 0
@@ -295,7 +311,7 @@ that in each cell our solution is expressed as
 
 \noindent where we have chosen to expand in the Legendre polynomials. We compare
 the weight $c_{1}$, which is proportional to the first derivative of the
-solution in the cell, to the neighboring cell averages by the following
+solution in the cell, to the neighboring cell averages by the following \\
 
 \beq
   \widetilde{c}_{1} = \text{minmod}(c_{1},
@@ -303,8 +319,10 @@ solution in the cell, to the neighboring cell averages by the following
   \label{eq:limiting}
 \eeq
 
-\noindent where $\widetilde{c}_{1}$ is the limited weight. Here, we used the minmod
-function defined as
+\noindent where $\widetilde{c}_{1}$ is the limited weight. The superscripts $-/+$
+indicate the cell averages of the neighboring cells to the  immediate left/right
+of the interface.
+Here, we use the minmod function defined as
 
 \beq
   \text{minmod}(a_{1}, a_{2}, a_{3}) =
@@ -360,9 +378,18 @@ the limiting process, can be summarized as in \citet{cockburn:2001}:
 \end{itemize}
 Above, the TVD limiter limiter preventing unphysical
 states is denoted by the operators $\Lambda^{\TVD}\{\}$. The SSP-RK3 coefficients $\alpha_{ij}$
-and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001}. For each step
+and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001a}. For each step
 in Eq.~\eqref{eq:rkStages}, the TVD limiter is applied to elements flagged
-by the troubled cell indicator.\textcolor{red}{Discuss timestepping conditions?}
+by the troubled cell indicator (where $I_{\bK} > C_{\TCI}$).
+This algorithm is subject to a timestep stability condition $\Delta t_{\TVD}$.
+Let $(h/|\lambda|)=\min_{i\in\{1,\ldots,d\}}(\Delta x^{i}/|\lambda^{i}|)$, where $|\lambda^{i}|$ is the largest absolute eigenvalue of the flux Jacobian.
+Then, assuming Cartesian coordinates (e.g., \cite{cockburn:2001a}):
+\begin{equation}
+  \Delta t_{\TVD} \le \f{1}{d}\,\f{(h/|\lambda|)}{(2k+1)} .
+  \label{eq:timestepRestrictions}
+\end{equation}
+For $d=k=2$, the effective Courant-Friedrichs-Lewy (CFL) factor is $0.1$.
+
 
 \subsection{Characteristic Decomposition}
 \label{sec:characteristicDecomp}
@@ -390,13 +417,13 @@ the rows of $\mathcal{R}^{-1}$ contain the left eigenvectors, and
 $\Lambda$ is a diagonal matrix containing the eigenvalues of the Jacobian.
 At this point, we will introduce the characteristic variable
 $\mathbf{w} = \mathcal{R}^{-1}\mathbf{U}$. Multiplying both sides of Equation
-\eqref{eq:charEq} by $\mathcal{R}^{-1}$, we are able to linearize the system of equations to
+\eqref{eq:charEq} by $\mathcal{R}^{-1}$ and simplifying, we are able to linearize the system of equations to
 a system of advection equations
 
 \beq
   \pderiv{\mathbf{w}}{t} +
   \Lambda \pderiv{\mathbf{w}}{x}
-  = 0.
+  = 0. \\
 \eeq
 Solutions to these advection equations are far simpler to obtain than the
 previous equations. Limiting may then be applied to dampen oscillations in the
@@ -404,16 +431,16 @@ solutions for the characteristic variables $\mathbf{w}$, which are then
 transformed back to the solution of the conserved variables $\mathbf{U}$
 \citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}. While this
 process of characteristic limiting has been done for the ideal EOS
-\citep[][]{cockburn:1998}, we want
-to extend to the nuclear matter EOS case.
+\citep[][]{cockburn:1998}, we want to extend this process to the case of a
+tabulated nuclear matter EOS.
 
 
 \section{Derivation of Jacobian and Eigenvalues for the 3D Nuclear Case}
 \label{sec:eigen}
 
-We assume that $P = P(\tau, \epsilon, n)$, where $\tau = \frac{1}{\rho}$.
-Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D\}$,
-where $m_i = \rho v_i$ and $D = \rho y_{e}$.
+We assume that pressure $P = P(\tau, \epsilon, n)$, where $\tau = \frac{1}{\rho}$.
+Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D_{e}\}$,
+where $m_i = \rho v_i$ and $D_{e} = \rho y_{e}$.
 The flux vector is $\textbf{F}(\textbf{U}) =
 \{m_{1}, m_{1}^{2}\tau + P, m_{1}m_{2}\tau, m_{1}m_{3}\tau,
 (E+P)m_{1}\tau, Dm_{1}\tau\}$. The Jacobian of the flux vector is given by
@@ -439,7 +466,7 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 %\end{table*}
 
 
-\noindent Where $H=(E+P)\tau$ is the specific enthalpy and $P_{x} = \partial_{x}P$\footnote{Maybe define these elsewhere to show what's constant}. The eigenvalues of this Jacobian are given by
+\noindent Where $H=(E+P)\tau$ is the specific enthalpy and $P_{x} = \partial_{x}P$\footnote{Maybe define these elsewhere to show what's constant}. The eigenvalues of the flux Jacobian are given by the diagonal matrix
 
 \begin{align}
 \Lambda =
@@ -453,9 +480,9 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 \end{bmatrix}
 \end{align}
 where $c_{s} = \sqrt{\Gamma P \tau}$, for
-$\Gamma = \frac{\tau (P P_{\epsilon} - P_{\tau}) + P_{D_e} y_{e} \tau^{-1}}{P}$, is
-the local sound speed. In the ideal EOS regime this reduces to the sound speeds given \citet{colella:1985}.
-The right eigenvectors are then given by
+$\Gamma = \left(\tau (P P_{\epsilon} - P_{\tau}) + P_{D_e} y_{e} \tau^{-1}\right) P^{-1}$, is
+the local sound speed. In the ideal EOS regime this reduces to the sound speeds given in \citet{colella:1985}.
+The right eigenvectors are then given by the column vectors of the following matrix
 \begin{align*}
   \mathcal{R}_{1} =
   \left[
@@ -475,7 +502,7 @@ $h_{n} = \frac{c^2}{P_{\epsilon}\tau} + k $, $k = \frac{-y_{e} P_{D_{e}} \tau^{-
 $\delta_{1} = v_{1}^{2}-v_{2}^{2}-v_{3}^{2}$,
 $\chi = P_{\epsilon} ( \delta_{1} + 2\epsilon) + 2P_{\tau}\tau$, and
 $\beta = \frac{1}{2} (\delta_{1}+2 \epsilon +\frac{2 P_{\tau} \tau }{P_{\epsilon}})$.
-The matrix of left eigenvectors is given by
+The left eigenvectors are given by the row vectors of the inverse matrix $\mathcal{L}_{1} = \mathcal{R}_{1}^{-1}$
 
 \begin{align*}
   \mathcal{R}_{1}^{-1} = \frac{1}{c^2}
@@ -507,10 +534,8 @@ The matrix of left eigenvectors is given by
 where $\phi_{i} = P_{\epsilon}\,\tau\, v_{i}$,
 $\omega = \tau\, (P_{\epsilon}\,(v^2 - 2\epsilon) - 2\,P_{\tau}\,\tau)$, and
 $\alpha = 2 y_{e} P_{D_{e}} - \tau \chi$.
-
-
 The left and right eigenvectors presented here are similar in form to those
-presented in \citet{schaal:2015}, but are considerably messier due to the
+presented in \citet{schaal:2015a}, but are considerably messier due to the
 restriction of a nuclear EOS.
 
 \section{Preliminary Numerical Results}
@@ -525,21 +550,27 @@ assessment of its suitability for future CCSN simulations.
 
 \subsection{Sod Shock Tube}
 We present the classic 1D Sod shock tube Riemann problem \citep{sod:1978} in
-Cartesian coordinates. The computational domain is D = [-5,5] km
+Cartesian coordinates. This is an ideal first test as it is a fairly simple
+scenario but contains both a contact discontinuity and a shock to test the
+efficiency of our limiting scheme. The computational domain is D = [-5,5] km
 with a discontinuity initially located at $x = 0$ km separating the left and right states
 
-\begin{align}
+\begin{align*}
   \mathbf{U}_{L} &= (10^{12}~\text{g~cm}^{-3}, 0\,, 3.712*10^{32}~\text{ergs~cm}^{-3}, 0.4*10^{12})^T\,\,\, \\
   \mathbf{U}_{R} &= (1.25*10^{11}~\text{g~cm}^{-3}, 0\, , 3.015*10^{31}~\text{ergs~cm}^{-3}, 0.375*10^{11})^T.
-\end{align}
+\end{align*}
 \footnote{\textbf{Fix e in the state vectors}}
 \noindent The test is run until $t = 0.025$ms with 100 elements
 using $C_{\TCI} = 0.2$ and $\beta_{\TVD} = 2.0$. Results are plotted in
 Figure~\ref{fig:SodSedovOptimal}. Using the characteristic limiting described
-above, the DG method captures the features of the solution without introducing
-noticeable oscillations in the solutions near the discontinuities. In Figure~\ref{fig:shock}
+above, the DG method captures the features of the solution,
+resolving well both the contact discontinuity and shock, without introducing
+noticeable oscillations in the numerical solutions near the discontinuities.
+In Figure~\ref{fig:shock}
 we plot elements in the $xt$-plane flagged by the troubled cell indicator for
-limiting.
+limiting, showing that the troubled cell indocator flagged cells around both
+the shock and contact discontinuity for limiting and maintained that
+for the full time of the test.
 
 \begin{figure}[h!]
   \centering
@@ -615,18 +646,18 @@ limiting in a higher density regime. It is designed with the Sod problem in mind
 The computational domain is $D = [-5,5]$ km
 with a discontinuity initially located at $x = 0$ km separating the left and right states
 
-\begin{align}
+\begin{align*}
   \mathbf{U}_{L} &= (10^{13}~\text{g~cm}^{-3}, 0\,, 3.712*10^{32}~\text{ergs~cm}^{-3}, 0.15*10^{12})^T\,\,\, \\
   \mathbf{U}_{R} &= (1.25*10^{12}~\text{g~cm}^{-3}, 0\, , 3.015*10^{31}~\text{ergs~cm}^{-3}, 0.169*10^{12})^T.
-\end{align}
+\end{align*}
 
 \noindent The test is run until $t = 0.05$ms with 100 elements
 using $C_{\TCI} = 0.1$ and $\beta_{\TVD} = 1.2$. We chose a lower $\beta_{\TVD}$
-here, as larger values resulted in internal energies outside of the
+here, as larger values resulted in unphysical internal energies outside of the
 EOS table causing the test to fail, motivating the development of a
 positivity limiter compatible with a tabulated nuclear matter EOS.
 Inital state values were chosen to be consistent with
-high-fidelity CCSN simulation code \chimera \citep{bruenn:2018} data.
+high-fidelity CCSN simulation code \chimera\, \citep{bruenn:2018} data.
 Results are plotted in
 Figure~\ref{fig:SodSedovHighDens}. Our method captures the main features
 of the solution, but introduces more oscillations than in the lower density

@@ -1,4 +1,126 @@
 
+@Article{	  cockburn:2001a,
+  title		= "Runge-Kutta Discontinuous Galerkin methods for
+		  convection-dominated problems",
+  abstract	= "In this paper, we review the development of the
+		  Runge-Kutta discontinuous Galerkin (RBLDG) methods for
+		  non-linear convection-dominated problems. These robust and
+		  accurate methods have made their way into the main stream
+		  of computational fluid dynamics and are quickly finding use
+		  in a wide variety of applications. They combine a special
+		  class of Runge-Kutta time discretizations, that allows the
+		  method to be non-linearly stable regardless of its
+		  accuracy, with a finite element space discretization by
+		  discontinuous approximations, that incorporates the ideas
+		  of numerical fluxes and slope limiters coined during the
+		  remarkable development of the high-resolution finite
+		  difference and finite volume schemes. The resulting RBLDG
+		  methods are stable, high-order accurate, and highly
+		  parallelizable schemes that can easily handle complicated
+		  geometries and boundary conditions. We review the
+		  theoretical and algorithmic aspects of these methods and
+		  show several applications including nonlinear conservation
+		  laws, the compressible and incompressible Navier-Stokes
+		  equations, and Hamilton-Jacobi-like equations.",
+  keywords	= "Convection-diffusion equations, Discontinuous Galerkin
+		  methods, Non-linear conservation laws",
+  author	= "Bernardo Cockburn and Shu, {Chi Wang}",
+  year		= "2001",
+  month		= "12",
+  day		= "1",
+  language	= "English (US)",
+  volume	= "16",
+  pages		= "173--261",
+  journal	= "Journal of Scientific Computing",
+  issn		= "0885-7474",
+  publisher	= "Springer New York",
+  number	= "3"
+}
+
+@Article{	  dumbser:2018,
+  title		= {Conformal and covariant Z4 formulation of the Einstein
+		  equations: Strongly hyperbolic first-order reduction and
+		  solution with discontinuous Galerkin schemes},
+  author	= {Dumbser, Michael and Guercilena, Federico and K\"oppel,
+		  Sven and Rezzolla, Luciano and Zanotti, Olindo},
+  journal	= {Phys. Rev. D},
+  volume	= {97},
+  issue		= {8},
+  pages		= {084053},
+  numpages	= {35},
+  year		= {2018},
+  month		= {Apr},
+  publisher	= {American Physical Society},
+  doi		= {10.1103/PhysRevD.97.084053},
+  url		= {https://link.aps.org/doi/10.1103/PhysRevD.97.084053}
+}
+
+@Article{	  zanotti:2015,
+  title		= "Spaceâtime adaptive ADER discontinuous Galerkin
+		  finite element schemes with a posteriori sub-cell finite
+		  volume limiting",
+  journal	= "Computers and Fluids",
+  volume	= "118",
+  pages		= "204 - 224",
+  year		= "2015",
+  issn		= "0045-7930",
+  doi		= "https://doi.org/10.1016/j.compfluid.2015.06.020",
+  url		= "http://www.sciencedirect.com/science/article/pii/S0045793015002030",
+  author	= "Olindo Zanotti and Francesco Fambri and Michael Dumbser
+		  and Arturo Hidalgo",
+  keywords	= "Arbitrary high-order discontinuous Galerkin schemes,
+		  sub-cell finite volume limiter, MOOD paradigm, High order
+		  spaceâtime adaptive mesh refinement (AMR), ADER-DG and
+		  ADER-WENO finite volume schemes, Hyperbolic conservation
+		  laws",
+  abstract	= "In this paper we present a novel arbitrary high order
+		  accurate discontinuous Galerkin (DG) finite element method
+		  on spaceâtime adaptive Cartesian meshes (AMR) for
+		  hyperbolic conservation laws in multiple space dimensions,
+		  using a high order a posteriori sub-cell ADER-WENO finite
+		  volume limiter. Notoriously, the original DG method
+		  produces strong oscillations in the presence of
+		  discontinuous solutions and several types of limiters have
+		  been introduced over the years to cope with this problem.
+		  Following the innovative idea recently proposed in [53],
+		  the discrete solution within the troubled cells is
+		  recomputed by scattering the DG polynomial at the previous
+		  time step onto a suitable number of sub-cells along each
+		  direction. Relying on the robustness of classical finite
+		  volume WENO schemes, the sub-cell averages are recomputed
+		  and then gathered back into the DG polynomials over the
+		  main grid. In this paper this approach is implemented for
+		  the first time within a spaceâtime adaptive AMR
+		  framework in two and three space dimensions, after assuring
+		  the proper averaging and projection between sub-cells that
+		  belong to different levels of refinement. The combination
+		  of the sub-cell resolution with the advantages of AMR
+		  allows for an unprecedented ability in resolving even the
+		  finest details in the dynamics of the fluid. The
+		  spectacular resolution properties of the new scheme have
+		  been shown through a wide number of test cases performed in
+		  two and in three space dimensions, both for the Euler
+		  equations of compressible gas dynamics and for the
+		  magnetohydrodynamics (MHD) equations."
+}
+
+@Article{	  radice:2011,
+  title		= {Discontinuous Galerkin methods for general-relativistic
+		  hydrodynamics: Formulation and application to spherically
+		  symmetric spacetimes},
+  author	= {Radice, David and Rezzolla, Luciano},
+  journal	= {Phys. Rev. D},
+  volume	= {84},
+  issue		= {2},
+  pages		= {024010},
+  numpages	= {26},
+  year		= {2011},
+  month		= {Jul},
+  publisher	= {American Physical Society},
+  doi		= {10.1103/PhysRevD.84.024010},
+  url		= {https://link.aps.org/doi/10.1103/PhysRevD.84.024010}
+}
+
 @Article{	  walt:2011,
   author	= {S. van der Walt and S. C. Colbert and G. Varoquaux},
   doi		= {10.1109/MCSE.2011.37},
@@ -256,6 +378,40 @@
   adsnote	= {Provided by the SAO/NASA Astrophysics Data System}
 }
 
+@Article{	  cockburn:1989,
+  abstract	= {This is the third paper in a series in which we construct
+		  and analyze a class of TVB (total variation bounded)
+		  discontinuous Galerkin finite element methods for solving
+		  conservation laws ut+ Sigmai=1 d( fi( u) xi=0. In this
+		  paper we present the method in a system of equations,
+		  stressing the point of how to use the weak form in the
+		  component spaces, but to use the local projection limiting
+		  in the characteristic fields, and how to implement boundary
+		  conditions. A 1-dimensional system is thus chosen as a
+		  model. Different implementation techniques are discussed,
+		  theories analogous to scalar cases are proven for linear
+		  systems, and numerical results are given illustrating the
+		  method on nonlinear systems. Discussions of handling
+		  complicated geometries via adaptive triangle elements will
+		  appear in future papers.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/1989JCoPh..84...90C},
+  author	= {{Cockburn}, B. and {Lin}, S.-Y. and {Shu}, C.-W.},
+  date-added	= {2018-04-04 14:25:29 +0000},
+  date-modified	= {2018-04-04 14:25:30 +0000},
+  doi		= {10.1016/0021-9991(89)90183-6},
+  journal	= {Journal of Computational Physics},
+  month		= sep,
+  pages		= {90-113},
+  title		= {{TVB Runge Kutta Local Projection Discontinuous Galerkin
+		  Finite Element Method for Conservation Laws III:
+		  One-Dimensional Systems}},
+  volume	= 84,
+  year		= 1989,
+  bdsk-url-1	= {https://doi.org/10.1016/0021-9991(89)90183-6},
+  bdsk-url-2	= {http://adsabs.harvard.edu/abs/1989JCoPh..84...90C}
+}
+
 @Article{	  cockburn:1998,
   abstract	= {This is the fifth paper in a series in which we construct
 		  and study the so-called Runge-Kutta discontinuous Galerkin
@@ -356,63 +512,6 @@
   url		= {https://books.google.com/books?id=3WhqLPcMdPsC},
   year		= {1992},
   publisher	= {Springer}
-}
-
-@Article{	  schaal:2015,
-  abstract	= {Cosmological shock waves play an important role in
-		  hierarchical structure formation by dissipating and
-		  thermalizing kinetic energy of gas flows, thereby heating
-		  the Universe. Furthermore, identifying shocks in
-		  hydrodynamical simulations and measuring their Mach number
-		  accurately are critical for calculating the production of
-		  non-thermal particle components through diffusive shock
-		  acceleration. However, shocks are often significantly
-		  broadened in numerical simulations, making it challenging
-		  to implement an accurate shock finder. We here introduce a
-		  refined methodology for detecting shocks in the moving-mesh
-		  code AREPO, and show that results for shock statistics can
-		  be sensitive to implementation details. We put special
-		  emphasis on filtering against spurious shock detections due
-		  to tangential discontinuities and contacts. Both of them
-		  are omnipresent in cosmological simulations, for example in
-		  the form of shear-induced Kelvin-Helmholtz instabilities
-		  and cold fronts. As an initial application of our new
-		  implementation, we analyse shock statistics in
-		  non-radiative cosmological simulations of dark matter and
-		  baryons. We find that the bulk of energy dissipation at
-		  redshift zero occurs in shocks with Mach numbers around
-		  M≈ 2.7. Furthermore, almost 40 per cent of the
-		  thermalization is contributed by shocks in the warm hot
-		  intergalactic medium, whereas ≈60 per cent occurs in
-		  clusters, groups, and smaller haloes. Compared to previous
-		  studies, these findings revise the characterization of the
-		  most important shocks towards higher Mach numbers and lower
-		  density structures. Our results also suggest that regions
-		  with densities above and below deltab = 100 should be
-		  roughly equally important for the energetics of cosmic ray
-		  acceleration through large-scale structure shocks.},
-  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
-  adsurl	= {http://adsabs.harvard.edu/abs/2015MNRAS.446.3992S},
-  archiveprefix	= {arXiv},
-  arxivurl	= {http://arxiv.org/abs/1407.4117},
-  author	= {{Schaal}, K. and {Springel}, V.},
-  date-added	= {2017-08-11 07:26:35 +0000},
-  date-modified	= {2017-12-05 16:36:26 +0000},
-  doi		= {10.1093/mnras/stu2386},
-  eprint	= {1407.4117},
-  journal	= {\mnras},
-  keywords	= {hydrodynamics, shock waves, methods: numerical, galaxies:
-		  clusters: general, large-scale structure of Universe},
-  month		= feb,
-  pages		= {3992-4007},
-  title		= {{Shock finding on a moving mesh - I. Shock statistics in
-		  non-radiative cosmological simulations}},
-  volume	= 446,
-  year		= 2015,
-  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QWC4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9TY2hhYWwvU2NoYWFsMjAxNS1TaG9jayBmaW5kaW5nIG9uIGEgbW92aW5nIG1lc2ggLSBJLiBTaG9jay5wZGbSFwsYGVdOUy5kYXRhTxECBgAAAAACBgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H1NjaGFhbDIwMTUtU2hvY2sgZiNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAZTY2hhYWwAAgBeLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOlNjaGFhbDpTY2hhYWwyMDE1LVNob2NrIGZpbmRpbmcgb24gYSBtb3ZpbmcgbWVzaCAtIEkuIFNob2NrLnBkZgAOAHIAOABTAGMAaABhAGEAbAAyADAAMQA1AC0AUwBoAG8AYwBrACAAZgBpAG4AZABpAG4AZwAgAG8AbgAgAGEAIABtAG8AdgBpAG4AZwAgAG0AZQBzAGgAIAAtACAASQAuACAAUwBoAG8AYwBrAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBcVXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9TY2hhYWwvU2NoYWFsMjAxNS1TaG9jayBmaW5kaW5nIG9uIGEgbW92aW5nIG1lc2ggLSBJLiBTaG9jay5wZGYAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDpAO4A9gMAAwIDBwMSAxsDKQMtAzQDPQNCA08DUgNkA2cDbAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAANu},
-  bdsk-url-1	= {http://dx.doi.org/10.1093/mnras/stu2386},
-  bdsk-url-2	= {http://arxiv.org/abs/1407.4117},
-  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2015MNRAS.446.3992S}
 }
 
 @Article{	  schaal:2015a,
