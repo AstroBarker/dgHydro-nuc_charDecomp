@@ -8,7 +8,7 @@
 \usepackage{stfloats}
 \usepackage{natbib}
 \usepackage{verbatim}
-\usepackage{placeins}
+%\usepackage{placeins}
 \graphicspath{{./figures/}}
 \usepackage{wrapfig}
 \hypersetup{backref,breaklinks,colorlinks,citecolor=blue}
@@ -16,13 +16,16 @@
 \usepackage{definitions}
 \usepackage{subfiles}
 
+\usepackage{placeins}
+
 \bibliographystyle{apj}
 
 \newcommand{\subdate}{\today}
 \newcommand{\shortauth}{Barker et al.}
 \newcommand{\slugcom}{Draft - \today}
-\newcommand{\Pos}{\textnormal{\tiny\textsc{Pos}}}
 \newcommand{\TVD}{\textnormal{\tiny\textsc{Tvd}}}
+\newcommand{\TCI}{\textnormal{\tiny\textsc{TCI}}}
+
 %\newcommand{\slugcom}{Submitted to ApJL on \subdate}
 %\slugcomment{\slugcom}
 
@@ -51,17 +54,13 @@ equation of state for supernova hydrodynamics}
 \affiliation{Department of Physics and Astronomy, University of Tennessee Knoxville, TN 37996}
 \affiliation{Joint Institute for Computational Sciences, Oak Ridge National Laboratory, TN 37831}
 
-%\begin{abstract}
-%\end{abstract}
-% nonlinear hyperbloic cons. laws. develop discontinuities from smooth ICs
-% this can lead to oscillatins which require some limiting process to smooth.
-% limiting in characteristic variables increases the efficiency of slope limiting
+
 \begin{abstract}
 A problem of high importance in computational astrophysics is obtaining accurate
 solutions to the Euler equations of hydrodynamics. We are interested in solving
 the Euler equations in the context of core collapse supernovae.
 The toolkit for high-order neutrino-radiation hydrodynamics (\thornado)
-is being developed for CCSNe simulations and related problems utilizing a spatial discretization
+is being developed for CCSN simulations and related problems utilizing a spatial discretization
 based on the discontinuous Galerkin (DG) method.
 The Euler equations form a hyperbolic set of partial differential equations.
 In the quasi-linear form, the system can be represented
@@ -71,10 +70,12 @@ limiting process. However, the addition of the nuclear equation of state equatio
 to the Euler equations makes the decomposition nontrivial.
 We introduce the framework for the characteristic decomposition of the Euler equations
 with the inclusion of the nuclear EOS terms and
-present results from some initial tests.
+present results from some initial tests. The results confirm that performing limiting
+on the characteristic variables provides better numerical solutions and is
+suited to applications in CCSN simulations.
 \end{abstract}
 
-\keywords{supernovae: general -- hydrodynamics -- convection -- turbulence -- equation of state -- methods: numerical -- stars: massive -- stars: evolution}
+\keywords{supernovae: general -- hydrodynamics -- equation of state -- methods: numerical -- discontinuous Galerkin}
 
 
 \section{Introduction}
@@ -274,15 +275,79 @@ differential equations (ODEs), which may be evolved in time with an ODE solver.
 In Section~\ref{sec:results} we use the third-order strong
 stability-preserving Runge-Kutta (SSP-RK3) method \citep{shu:1988}.
 
-\subsection{Time Integration}
-A common feature of high-order numerical PDEs is unphysical oscillations in the solutions.
+\subsection{Slope Limiting}
+\label{sec:Limiting}
+A common feature of high-order numerical PDEs is unphysical oscillations in the solutions,
+particularly near discontinuities.
 It is therfore of great interest in the DG algorithm to implement slope limiting
 of the polynomial $\mathbf{U}_h$. We use the total variation diminishing (TVD)
 slope limiter \citep[see, e.g.,][]{cockburn:1998} in conjunction with the
 troubled cell indicator discussed in \citet{fu:2017} to prevent excessive limiting
-by flagged elements where limiting is needed.
+by flagging elements where limiting is needed. To do this, we need to reduce under- and
+overshootings of the higher-order solution at cell boundaries compared to
+the cell averages of neighbor cells. Recall from Eq.~\eqref{eq:conservedNodalExpansion}
+that in each cell our solution is expressed as
+
+\beq
+\mathbf{U}_h (x,t) =
+\sum_{l=1}^{N}c_{l}(t)\,P_{l}(x)
+\eeq
+
+\noindent where we have chosen to expand in the Legendre polynomials. We compare
+the weight $c_{1}$, which is proportional to the first derivative of the
+solution in the cell, to the neighboring cell averages by the following
+
+\beq
+  \widetilde{c}_{1} = \text{minmod}(c_{1},
+    \beta_{\TVD}(c_{0}^{+} - c_{0}), \beta_{\TVD}(c_{0} - c_{0}^{-}))
+  \label{eq:limiting}
+\eeq
+
+\noindent where $\widetilde{c}_{1}$ is the limited weight. Here, we used the minmod
+function defined as
+
+\beq
+  \text{minmod}(a_{1}, a_{2}, a_{3}) =
+   \begin{cases}
+      s\,\, \text{min}\{\abs{a_{1}}, \abs{a_{2}}, \abs{a_{3}}\} &
+        s = \text{sign}(a_{1})= \text{sign}(a_{2})= \text{sign}(a_{3}) \\
+      0 & \text{otherwise.}
+   \end{cases}
+\label{eq:minmod}
+\eeq
+
+Limiting is applied to each component of the vector of conserved quantities
+separately and is generally referred to as `Componentwise limiting.`
+The parameter $\beta_{\TVD}$ takes values in the closed interval $\left[1,2\right]$
+and scales the strength of the limiting. A minimal $\beta_{\TVD}$ corresponds with
+the total variation diminishing scheme \textcolor{red}{reference?} but is more
+dissipative than the maximal $\beta_{\TVD}$ case, which is more flexible but allows for more oscillations.
+Increasing $\beta_{\TVD}$ puts more weight on the neighboring cell averages,
+making the minmod function more likely to set $ \widetilde{c}_{1} = c_{1}$.
+
+In order to determine where slope limiting is necessary, we use the
+troubled cell indicator (TCI) \citep{fu:2017} to prevent excessive limiting:\footnote{Would this notation be altered for 1D?}
+
+\begin{equation}
+  I_{\bK}(G) = \f{\sum_{j}|G_{\bK}-G_{\bK}^{(j)}|}{\max_{j}|G_{\bK^{(j)}}^{(j)}|},
+  \label{eq:tci}
+\end{equation}
+
+\noindent where $G\in\vect{G}\subseteq\vect{U}$ and $\vect{G}$ consists of the
+first and final elements of $\vect{U}$. Here, the sum in the numerator and the
+max in the denominator are taken over the neighboring elements sharing a
+boundary with target element $\bK$, $G_{\bK}$ is the cell average in $\bK$,
+$G_{\bK}^{(j)}$ is the cell average
+computed by extrapolating the polynomial representation from the neighboring
+element $\bK^{(j)}$ into $\bK$, and $G_{\bK^{(j)}}^{(j)}$
+is the cell average native to neighbor element $\bK^{(j)}$. An element is flagged
+for limiting if, for any $G\in\vect{G}$, $I_{\bK}(G)>C_{\TCI}$, where
+$C_{\TCI}$ is a defined threshold.
+
+\subsection{Time Integration}
+\label{sec:TimeInt}
 The general $s$-stage Runge-Kutta time stepping algorithm, including
-the limiting process, can then be summarized as in \citet{cockburn:2001}:
+the limiting process, can be summarized as in \citet{cockburn:2001}:
 \begin{itemize}
   \item[1.] Set $\bar{\vect{U}}^{(0)} = \bar{\vect{U}}^{n}$,
   \item[2.] For $i=1,\ldots,s$ compute:
@@ -294,13 +359,13 @@ the limiting process, can then be summarized as in \citet{cockburn:2001}:
   \item[3.] Set $\bar{\vect{U}}^{n+1}=\bar{\vect{U}}^{(s)}$.
 \end{itemize}
 Above, the TVD limiter limiter preventing unphysical
-states is denoted by the operators $\Lambda^{\TVD}\{\}$ The SSP-RK3 coefficients $\alpha_{ij}$
+states is denoted by the operators $\Lambda^{\TVD}\{\}$. The SSP-RK3 coefficients $\alpha_{ij}$
 and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001}. For each step
 in Eq.~\eqref{eq:rkStages}, the TVD limiter is applied to elements flagged
-by the troubled cell indicator. For a more in-depth discussion of the
-limiting process used in \thornado, see \citet{endeve:2019}.
+by the troubled cell indicator.\textcolor{red}{Discuss timestepping conditions?}
 
 \subsection{Characteristic Decomposition}
+\label{sec:characteristicDecomp}
 Experience has shown that the slope limiting described in the previous section
 is more effecient when performed on the so-called `characteristic variables`
 as opposed to the conserved variables $\mathbf{U}_h$
@@ -410,6 +475,8 @@ $h_{n} = \frac{c^2}{P_{\epsilon}\tau} + k $, $k = \frac{-y_{e} P_{D_{e}} \tau^{-
 $\delta_{1} = v_{1}^{2}-v_{2}^{2}-v_{3}^{2}$,
 $\chi = P_{\epsilon} ( \delta_{1} + 2\epsilon) + 2P_{\tau}\tau$, and
 $\beta = \frac{1}{2} (\delta_{1}+2 \epsilon +\frac{2 P_{\tau} \tau }{P_{\epsilon}})$.
+The matrix of left eigenvectors is given by
+
 \begin{align*}
   \mathcal{R}_{1}^{-1} = \frac{1}{c^2}
   \left[
@@ -442,18 +509,17 @@ $\omega = \tau\, (P_{\epsilon}\,(v^2 - 2\epsilon) - 2\,P_{\tau}\,\tau)$, and
 $\alpha = 2 y_{e} P_{D_{e}} - \tau \chi$.
 
 
-\todo{What is the physical interpretation of h and k? I tried to follow \citet{schaal:2015a},
-and in their eigenvectors (Ideal), h is specific enthalpy and k is specific kinetic energy.
-What about my other defined variables? Should I redefined, or rename?}
-The matrix of left eigenvectors is given by
+The left and right eigenvectors presented here are similar in form to those
+presented in \citet{schaal:2015}, but are considerably messier due to the
+restriction of a nuclear EOS.
 
 \section{Preliminary Numerical Results}
 \label{sec:results}
 In this section we present preliminary numerical results obtained with the DG
-method implemented in \thornado  leveraging use of the characteristic
-decomposition. We use the SFHo EOS of nuclear matter \citep{steiner:2013}
-now commonly used in hig-fidelity CCSN simulations.
-These tests serve to gauge the performance of the
+method implemented in \thornado\, leveraging use of the characteristic
+decomposition. Unless otherwise noted, we use the SFHo EOS of
+nuclear matter \citep{steiner:2013} now commonly used in high-fidelity CCSN simulations.
+These tests serve to gauge the performance improvement of the
 DG characteristic decomposition implementation on a set of benchmarks as an initial
 assessment of its suitability for future CCSN simulations.
 
@@ -462,31 +528,195 @@ We present the classic 1D Sod shock tube Riemann problem \citep{sod:1978} in
 Cartesian coordinates. The computational domain is D = [-5,5] km
 with a discontinuity initially located at $x = 0$ km separating the left and right states
 
-\beq
-  \mathbf{U}_{L} = (10^{12} g/cm^3, 0\, km/s, 10^{32} ergs/cm^3, 0.4\rho)^T\,\,\,
-  \mathbf{U}_{R} = (1.25*10^{11} g/cm^3, 0\, km/s, 10^{31} ergs/cm^3, 0.3\rho)^T
-\eeq
-\footnote{How to specify this? Specifically $y_e$}
+\begin{align}
+  \mathbf{U}_{L} &= (10^{12}~\text{g~cm}^{-3}, 0\,, 3.712*10^{32}~\text{ergs~cm}^{-3}, 0.4*10^{12})^T\,\,\, \\
+  \mathbf{U}_{R} &= (1.25*10^{11}~\text{g~cm}^{-3}, 0\, , 3.015*10^{31}~\text{ergs~cm}^{-3}, 0.375*10^{11})^T.
+\end{align}
+\footnote{\textbf{Fix e in the state vectors}}
+\noindent The test is run until $t = 0.025$ms with 100 elements
+using $C_{\TCI} = 0.2$ and $\beta_{\TVD} = 2.0$. Results are plotted in
+Figure~\ref{fig:SodSedovOptimal}. Using the characteristic limiting described
+above, the DG method captures the features of the solution without introducing
+noticeable oscillations in the solutions near the discontinuities. In Figure~\ref{fig:shock}
+we plot elements in the $xt$-plane flagged by the troubled cell indicator for
+limiting.
 
-The test is run until $t = 0.25$ms with 100 elements
-\\
-\todo{Componentwise vs Characteristic vs reference.}\\
-Plots
-\todo{Limiting Paramter Landscape.}\\
-plots.
-\todo{"Best" Parameters}\\
-Plots
-\todo{"Realistic" high density run}\\
-Plots
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=32pc,height=30pc]{optimal.png}
+  \centering
+  \caption{\label{fig:SodSedovOptimal} Numerical solution of Sod's problem using
+    100 elements compared with a reference solution using 10000 elements.}
+\end{figure}
+%\clearpage
+\begin{wrapfigure}{L}{2.8in}
+  \includegraphics[width=18pc]{optimal_shock.png}
+  \caption{$xt$-plane of elements flagged for limiting by the troubled cell indicator.}
+  \label{fig:shock}
+\end{wrapfigure}
 
+\subsection{Optimal Limiting Parameters}
+\label{sec:param}
+In order to determine the optimal limiting parameters $C_{\TCI}$ and $\beta_{\TVD}$,
+we performed a suite of sixteen simulations of Sod's problem with various
+limiting parameters with $\beta_{\TVD}\in\left[1.0,2.0\right]$ and
+$C_{\TCI}\in\left[0.0,0.2\right]$. For each $\left(\beta_{\TVD},C_{\TCI}\right)$ pair,
+we computed the relative error and total variation \textbf{\textcolor{red}{EQUATIONS}} in density and electron
+fraction at $t = 0.025$ms. Results are plotted in Figure~\ref{fig:landscape}.
+We find that, as expected, increasing $\beta_{\TVD}$ tends to monotonically
+decrease the relative error while (non-monotonically) increasing the total variation due to the
+limiter allowing for more oscillations. Increasing $C_{\TCI}$ tends to decrease
+the relative error and increase the total variation.
+We have selected
+$\beta_{\TVD}=1.75$ and $C_{\TCI}=0.1$ to be the optimal parameters providing
+the best combination of relative error and total variation reduction. Unless
+otherwise noted, all following results will use this combination of limiting
+parameters.
+
+\begin{figure}[b]
+  \centering
+  \includegraphics[width=32pc, height=27.5pc]{./figures/error_tv_landscape.png}
+  \caption{\label{fig:landscape} Error - total variation landscapes for various
+  values of the limiting parameters $C_{TCI}$ and $\beta_{TVD}$.}
+\end{figure}
+
+\subsection{Improvement From Componentwise Limiting}
+\label{sec:optimal}
+The motivation for limiting on the characteristic variables is the potential
+improvement from componentwise limiting. In Figure~\ref{fig:SodSedovCW} we plot the
+solution at $t = 0.025$ms using 100 elements employing both characteristic
+limiting (blue) and componentwise limiting (red) compared to a reference
+solution computed with 10000 elements. We observe, for the componentwise limiting,
+noticable oscillations in density around the contact discontinuity as well
+as less resolved discontinuities. The electron fraction displays very
+large oscillations at the left side of the contact discontinuity, up to
+$\pm 0.02$ in the cell averaged electron fraction. This makes characteristic
+limiting particularly appealing for CCSN simulations where the electron fraction
+plays a critical role in the explosion dynamics.
+
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=32pc, height=32pc]{./figures/error_tv_landscape.png}
+%   \caption{\label{fig:landscape} Error - total variation landscapes for various
+%   values of the limiting parameters $C_{TCI}$ and $\beta_{TVD}$.}
+% \end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=36pc]{./figures/characteristic_cw.png}
+  \caption{\label{fig:SodSedovCW} Numerical solution of Sod's problem using
+  100 elements with characteristic limiting (blue) and componentwise limiting
+  (red) compared with a reference solution using 10000 elements.}
+\end{figure}
+
+\subsection{High Density Regime}
+This test is included to verify the performance improvements of the characteristic
+limiting in a higher density regime. It is designed with the Sod problem in mind.
+The computational domain is $D = [-5,5]$ km
+with a discontinuity initially located at $x = 0$ km separating the left and right states
+
+\begin{align}
+  \mathbf{U}_{L} &= (10^{13}~\text{g~cm}^{-3}, 0\,, 3.712*10^{32}~\text{ergs~cm}^{-3}, 0.15*10^{12})^T\,\,\, \\
+  \mathbf{U}_{R} &= (1.25*10^{12}~\text{g~cm}^{-3}, 0\, , 3.015*10^{31}~\text{ergs~cm}^{-3}, 0.169*10^{12})^T.
+\end{align}
+
+\noindent The test is run until $t = 0.05$ms with 100 elements
+using $C_{\TCI} = 0.1$ and $\beta_{\TVD} = 1.2$. We chose a lower $\beta_{\TVD}$
+here, as larger values resulted in internal energies outside of the
+EOS table causing the test to fail, motivating the development of a
+positivity limiter compatible with a tabulated nuclear matter EOS.
+Inital state values were chosen to be consistent with
+high-fidelity CCSN simulation code \chimera \citep{bruenn:2018} data.
+Results are plotted in
+Figure~\ref{fig:SodSedovHighDens}. Our method captures the main features
+of the solution, but introduces more oscillations than in the lower density
+case, even when using the characteristic limiter.
+We notice an undershooting of the right side
+of the contact discontinuity in the electron fraction not previously present
+warranting further investigation.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=36pc]{./figures/highDens.png}
+  \caption{\label{fig:SodSedovHighDens} Results for the high density Sod-like problem
+  computed using 100 elements and $C_{\TCI} = 0.1$ and $\beta_{\TVD} = 1.2$ at $t=0.05$ms.}
+\end{figure}
+
+
+\subsection{EOS Resolution Dependence}
+\label{sec:eosRes}
+In order to test the sensitivity of the limiter on the EOS table resolution,
+we repeated the tests in Section~\ref{sec:optimal} with a higher resolution
+SFHo EOS table. As before, tests are computed using 100 elements until
+$t = 0.025$ms with characteristic limiting and the optimal limiting parameters determined in
+Section~\ref{sec:param} and compared to a reference solution computed using
+10000 elements. Results for both tables are plotted in Figure~\ref{fig:SodSedovSFHoRes}.
+We find nearly no sensitivity to the table resolution, with the exception of
+minor differences in density to the left of the contact discontinuity.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=36pc]{./figures/eos_res.png}
+  \caption{\label{fig:SodSedovSFHoRes} Comparison of numerical solutions to
+  Sod's problem using 100 elements with characteristic limiting and two
+  different EOS table resolutions.}
+\end{figure}
+
+
+\subsection{EOS Table Sensitivity}
+In order to probe the sensitivity of the method to the EOS table, we repeated
+the tests conducted in Section~\ref{sec:optimal} using three different EOS tables:
+the high resolution SFHo table from Section~\ref{sec:eosRes}, the SFHx table
+(\textbf{citation}), and the DD2 table (\textbf{citation}).
+As before, tests are computed using 100 elements until
+$t = 0.025$ms with characteristic limiting and the optimal limiting parameters determined in
+Section~\ref{sec:param}. We find nearly no sensitivity to the EOS table used in
+the low density regime, with the exception of very small variations in density
+to the left of the contact discontinuity. Future work includes testing the
+sensitivity to the EOS table in higher density regimes.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=36pc]{./figures/eos_all.png}
+  \caption{\label{fig:SodSedovEOS} Comparison of numerical solutions to
+  Sod's problem using 100 elements with characteristic limiting and three
+  different EOS tables.}
+\end{figure}
+%\FloatBarrier
+
+\section{Conclusions}
+
+We have presented preliminary developments and numerical results for a
+characteristic limiter to be used with solvers of the non-relativistic
+Euler equations of gas dynamics in the {\bf t}oolkit for {\bf h}igh-{\bf or}der
+{\bf n}eutrino-r{\bf ad}iation hydr{\bf o}dynamics (\thornado). The results
+presented from a suite of 1D test problems, based around Sod's 1D shock
+tube problem, demonstrate the performance of the characteristic limiter
+compared to the componentwise limiter. Moreover, after performing a parameter
+study on the limiter parameters, we found optimal limiting
+parameters for use with the Sod problem. While the optimal limiting parameters
+tend to be problem dependent, we hope to investigate if such an optimal
+parameter exists for CCSN applications. Tests with various EOS tables and
+table resolutions showed little to no sensitivity to the table or its
+resolution in the tests studied. For future work, we will extend these studies
+to other higher density regimes applicable to the CCSN environment.
+Planned near-future work on the nuclear equation of state compatibility of
+\thornado\, includes the development of a positivity limiter and extension of
+the characteristic limtier to handle relativistic and curvilinear problems.
+
+\acknowledgements
+We thank people.
+
+\software{
+  \href{https://matplotlib.org/}{Matplotlib} \citep{hunter:2007a},
+  \href{http://www.numpy.org/}{NumPy} \citep{walt:2011},
+  \href{https://www.scipy.org/}{SciPy} \citep{jones:2001},
+  }
 
 \appendix
 
 \section{Derivatives}
 \input{derivatives}
 
-\acknowledgements
-We thank people.
+
 
 \bibliography{ms}
 
