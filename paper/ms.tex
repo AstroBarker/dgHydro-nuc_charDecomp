@@ -40,7 +40,7 @@
 
 \begin{document}
 
-\title{\thornado-hydro: Generalizing discontinuous galerkin methods for a nuclear
+\title{\thornado-hydro: Generalizing discontinuous Galerkin methods for a nuclear
 equation of state for supernova hydrodynamics}
 \author{Brandon Barker}
 \affiliation{Department of Physics and Astronomy, University of Tennessee Knoxville, TN 37996}
@@ -60,18 +60,19 @@ A problem of high importance in computational astrophysics is obtaining accurate
 solutions to the Euler equations of hydrodynamics. We are interested in solving
 the Euler equations in the context of core collapse supernovae.
 The toolkit for high-order neutrino-radiation hydrodynamics (\thornado)
-is being developed for CCSN simulations and related problems utilizing a spatial discretization
+is being developed for core-collapse supernova (CCSN) simulations and related problems utilizing a spatial discretization
 based on the discontinuous Galerkin (DG) method.
 The Euler equations form a hyperbolic set of partial differential equations.
 In the quasi-linear form, the system can be represented
 as a set of independent advection equations that can be limited separately.
 This use of characteristic variables also increases the efficiency of the slope
-limiting process. However, the addition of the nuclear equation of state equation
-to the Euler equations makes the decomposition nontrivial.
+limiting process for high-order DG methods. However, the addition of a
+tabulated nuclear equation of state to the Euler equations makes the decomposition nontrivial.
 We introduce the framework for the characteristic decomposition of the Euler equations
 with the inclusion of the nuclear EOS terms and
-present results from some initial tests. The results confirm that performing limiting
-on the characteristic variables provides better numerical solutions and is
+present results from some initial tests using a third-order scheme.
+The results confirm that performing limiting
+on the characteristic variables provides better numerical solutions and is perhaps
 suited to applications in CCSN simulations.
 \end{abstract}
 
@@ -95,12 +96,14 @@ For in-depth reviews of the CCSN mechanism, see
 
 Discontinuous Galerkin (DG) methods have been shown by others
 \citep[see e.g.,][]{radice:2011, schaal:2015a, zanotti:2015, dumbser:2018} to have a
-high potential for apllications to astrophysical problems. They are a desireable
+high potential for applications to astrophysical problems. They are a desireable
 choice for modelling fluid flows in CCSNe. These methods combine elements of
 spectral and finite volume methods, and achieve high-order accuracy
 on a compact stencil.
 
-The {\bf t}oolkit for {\bf h}igh-{\bf or}der {\bf n}eutrino-r{\bf ad}iation hydr{\bf o}dynamics (\thornado) is being developed to simulate neutrino-radiation hydrodynamics in CCSNe and related applications in nuclear astrophysics.
+The {\bf t}oolkit for {\bf h}igh-{\bf or}der {\bf n}eutrino-r{\bf ad}iation hydr{\bf o}dynamics
+(\thornado)\footnote{\url{https://github.com/endeve/thornado}}is being developed to simulate neutrino-radiation
+hydrodynamics in CCSNe and related applications in nuclear astrophysics.
 The spatial discretization of solvers for hyperbolic partial differential equations in \thornado\, is based on the DG method.
 Whether the high-order approach will improve accuracy and efficiency of CCSN models remains to be demonstrated.
 In this paper we provide an initial description and encouraging demonstration
@@ -109,24 +112,35 @@ We focus on basic one-dimensional tests focusing on the implementation of limite
 
 The DG slope limiting techniques implemented in \thornado\, are similar to those
 used by \cite{schaal:2015a}, but is supplemented with a troubled-cell
-indicator \cite{fu:2017} to prevent excessive limiting (e.g., around smooth extrema).
+indicator \citep{fu:2017} to prevent excessive limiting (e.g., around smooth extrema).
 It has been shown \citep[see e.g.,][]{schaal:2015a, cockburn:1998, cockburn:1989}
-that limiting on the chracteristic variables, which represent advected quantities,
-shows an improvement over limiting on the conserved variables.
-In this paper, we develop a chracteristic limiter for use with a general tabulated
-nuclear matter EOS in \thornado.
+that limiting on the chracteristic variables (characteristic limiting),
+which represent advected quantities, shows an improvement over limiting
+directly on the conserved variables (componentwise limiting).
+In this paper, we develop a chracteristic
+limiter for use with a general tabulated nuclear matter EOS in \thornado.
+In the case of the ideal EOS, the eigenvectors and eigenvalues which diagonalize
+the flux Jacobian, which are necessary to transform to the characteristic variables,
+are known analytically. All of the thermodynamic derivatives have analytic forms.
+The inclusion of a tabulated nuclear EOS complicates matters, as derivatives
+must be appriximated by interpolating from the EOS table and the diagonalization
+becomes non-trovial.
+We provide explicit analytic expressions for the matrices which diagonalize the
+flux Jacobian of the Euler equations.
 
-This paper will be organized as follows: in Section~\ref{sec:eulereq} we briefly
-describe the Euler equations of gas dynamics. Section~\ref{sec:DG} describes our
+This paper is organized as follows: in Section~\ref{sec:eulereq} we briefly
+describe the Euler equations of gas dynamics including a conservation law
+appropriate for a nuclear EOS. Section~\ref{sec:DG} describes our
 numerical implementation of the DG method in the one dimensional (1D) case.
-Section~\ref{sec:eigen} presents the eigenvectors used in the eigen-decomposition
-of the Euler equations, and Section~\ref{sec:results}
-shows the results of preliminary 1D hydrodynamic simulations.
+Section~\ref{sec:eigen} presents the eigenvectors used in the diagonalization
+of the flux Jacobian of the Euler equations, and Section~\ref{sec:results}
+shows the results of preliminary 1D hydrodynamic Riemann problem similar to that
+of Sod \citep{sod:1978}.
 
 \section{Euler Equations of Gas Dynamics in Cartesian Coordinates}
 \label{sec:eulereq}
 The non-relativistic Euler equations of gas dynamics
-\citep[see, e.g.,][for details]{leveque:2002} in Cartesian coordinates
+\citep[see, e.g.,][for details in the case of an ideal EOS]{leveque:2002}
 in the absence of sources with a nuclear matter EOS are given by
 the equations of conservation of mass,
 \beq
@@ -144,7 +158,7 @@ conservation of energy,
   \partial_{t} E + \divergence{}\left[(E+P)\, \mathbf{v}\right] = 0
   \label{eq:energyConservation}
 \eeq
-and conservation of \textcolor{red}{electron density}
+and conservation of electrons
 \beq
   \partial_{t} D_{e} + \divergence{}(D_{e}\, \mathbf{v}) = 0
   \label{eq:electronConservation}
@@ -161,11 +175,12 @@ We may rewrite Equations \eqref{eq:massConservation}-\eqref{eq:electronConservat
 in a more convenient way:
 
 \beq
-  \partial_{t}\mathbf{U} + \partial_{x}\mathbf{F}(\mathbf{U}) = 0,
+  \partial_{t}\mathbf{U} + \divergence{}\mathbf{F}(\mathbf{U}) = 0,
   \label{eq:conservation}
 \eeq
-where $\mathbf{U} =(\rho,\rho \mathbf{v},E, D)^{T}$ is the vector of conserved quantities
-and $\mathbf{F}(\mathbf{U})=(\rho \mathbf{v},\rho u^{2}+p,(E+P)\mathbf{v}, D\mathbf{v})^{T}$
+where $\mathbf{U} =(\rho,\rho \mathbf{v},E, D_{e})^{T}$ is the vector of conserved quantities
+and $\mathbf{F}(\mathbf{U})=(\rho \mathbf{v},
+\rho\, \mathbf{v} \otimes \mathbf{v} + P\, \mathbf{I},(E+P)\mathbf{v}, D_{e}\mathbf{v})^{T}$
 is the flux vector.
 
 \section{Numerical Implementation}
@@ -173,7 +188,8 @@ is the flux vector.
 
 \subsection{The Discontinuous Galerkin Methods}
 In our solver we have chosen the discontinuous Galerkin (DG) method
-for our spatial discretization. In this section we will briefly discuss our
+for our spatial discretization \citep[see e.g.,][]{schaal:2015, zhang:2010a, cockburn:1998, cockburn:1989}.
+In this section we will briefly discuss our
 implementation of the DG method, introducing notation and concepts.
 For simplicity, we will focus on the one dimensional (1D) case. Recall that
 we seek solutions to the Euler equations of hydrodynamics, constituting a
@@ -191,9 +207,9 @@ coordinates
 \beq
   \bK \in (\xL,x_{R}),
 \eeq
+where $\xL$ and $x_{R}$ are the left and right boundaries of the cell.
 We let the approximation space $\mathbb{V}^{k}$ for the DG method
-be constructed from the tensor product of one-dimensional
-polynomials of degree $k$. Note that functions in $\mathbb{V}^{k}$
+be polynomials of maximal degree $k$. Note that functions in $\mathbb{V}^{k}$
 can be discontinuous across element interfaces. The DG problem is then to find
 $\mathbf{U}_h \in \mathbb{V}^{k}$ which approximates $\mathbf{U}$ in Equation
 \eqref{eq:ode}, such that $\forall$ $\phi \in \mathbb{V}^{k}$ and $\bK \in \cT$
@@ -223,19 +239,18 @@ indicate that the function is evaluated to the immediate left/right of the
 interface. We use the Harten-Lax-van Leer (HLL) flux \citep{harten:1983}
 for all the numerical experiments presented in Section \ref{sec:results}.
 
-In each element $K$, we use a nodal representation of the conserved variables
+In each element $\bK$, we use a nodal representation of the conserved variables
 $\mathbf{U}$:
 
-\beq
-\begin{split}
-  \mathbf{U}(x,t) \approx\, & \mathbf{U}_h (x,t) =
-  \sum_{i=1}^{N}\vect{U}_{i}(t)\,\ell_{i}(x),
-  \quad\text{where}\quad \\
-  & \ell_{i}(\eta)=
-  \prod_{\substack{j=1\\j\ne i}}^{N}\f{\eta-\eta_{j}}{\eta_{i}-\eta_{j}}
+\begin{equation}
+  \vect{U}(x,t)\approx
+  \vect{U}_{h}(x,t)=\sum_{i=1}^{N=k+1}\vect{U}_{i}(t)\,\ell_{i}(x),
+  \quad\text{where}\quad
+  \ell_{i}(\eta)=
+  \prod_{\substack{j=1\\j\ne i}}^{N=k+1}\f{\eta-\eta_{j}}{\eta_{i}-\eta_{j}}
   \label{eq:conservedNodalExpansion}
-\end{split}
-\eeq
+\end{equation}
+
 are Lagrange polynomials defined on $I = \{ \eta : \eta \in (-0.5,0.5) \}$,
 and are constructed to interpolate the node set
 $S_{N}=\{\eta_{i}\}_{i=1}^{N}\subset I$. The spatial coordinate $x$ and the
@@ -243,7 +258,7 @@ reference coordinate $\eta$ are related by the
 mapping $x(\eta)=\xL+(0.5+\eta)\,\Delta x$.
 Then, for any $\eta_{j}\in S_{N}$, $\ell_{i}(\eta_{j})=\delta_{ij}$,
 so that $\vect{U}_{h}(x(\eta_{j}),t)=\vect{U}_{j}(t)$.
-First we define the $M$-point quadrature $Q_{M}:C^{0}(I)\to\mathbb{R}$
+We define the $M$-point quadrature $Q_{M}:C^{0}(I)\to\mathbb{R}$
 with abscissas $\hat{S}_{M}=\{\eta_{q}\}_{q=1}^{M}$ and weights
 $\{w_{q}\}_{q=1}^{M}$, normalized such that $\sum_{q=1}^{M}w_{q}=1$ in order to
 evaluate the integrals in Eq.~\eqref{eq:semidiscreteDG}.
@@ -251,25 +266,26 @@ We use the $M$-point Legendre-Gauss quadrature, which is exact for
 polynomials of degree $\le 2M-1$.
 Then, if $P_{h}(x)$ is such a polynomial, we have
 \beq
-  \f{1}{\Delta x}\int_{K}P_{h}(x)\,dx=\int_{I}P_{h}(\eta)\,d\eta=\sum_{q=1}^{M}w_{q}\,P_{h}(\eta_{q}).
+  \f{1}{\Delta x}\int_{\bK}P_{h}(x)\,dx=\int_{I}P_{h}(\eta)\,d\eta=\sum_{q=1}^{M}w_{q}\,P_{h}(\eta_{q}).
 \eeq
 
-For the sake of efficiency we let $M=N$ and $S_{N}=\hat{S}_{N}$, which is a
-spectral-type nodal collocation DG approximation \citep{bassi:2013}.
+We let $M=N$ and $S_{N}=\hat{S}_{N}$, which is a
+spectral-type nodal collocation DG approximation \citep{bassi:2013}, which is exact
+for Cartesian coordinates and Legendre-Gauss quadrature.
 Inserting Eq.~\eqref{eq:conservedNodalExpansion} into Eq.~\eqref{eq:semidiscreteDG},
 letting $\phi(x)=\ell_{k}(x)$, using the quadratures defined above,
 we obtain
 \begin{align}
-  \pd{}{t}\int_{K}\vect{U}_{h}\,\phi\,dx
-  &\approx w_{k}\,\pd{}{t}\vect{U}_{k}\,\Delta x
+  \pd{}{t}\int_{\bK}\vect{U}_{h}\,\phi\,dx
+  &=w_{k}\,\pd{}{t}\vect{U}_{k}\,\Delta x
   \label{eq:timeDerivativeTerm}
 \end{align}
-for the time derivative piece.
+for the time derivative piece, where $\Delta x = x_{R} - \xL$.
 Similarly, the last term on the left-hand side of Eq.~\eqref{eq:semidiscreteDG}
 becomes
 \beq
   \int_{K}\vect{F}(\vect{U}_{h})\,\pderiv{\phi}{x}\,dx
-  \approx \sum_{q=1}^{N}w_{q}\,\vect{F}(\vect{U}_{q})\,\pderiv{\ell_{k}}{\eta}(\eta_{q}).
+  = \sum_{q=1}^{N}w_{q}\,\vect{F}(\vect{U}_{q})\,\pderiv{\ell_{k}}{\eta}(\eta_{q}).
   \label{eq:volumeTerm}
 \eeq
 Now we may combine Eqs.~\eqref{eq:timeDerivativeTerm}-\eqref{eq:volumeTerm} in
@@ -279,7 +295,7 @@ Eq.~\eqref{eq:semidiscreteDG} resulting in the semi-discrete form
    =-\f{1}{w_{k}\Delta x}
   \Big\{
   \Big[\,
-    \widehat{\vect{F}}\ell_{k}\big|_{x_{H}}
+    \widehat{\vect{F}}\ell_{k}\big|_{x_{R}}
      -\widehat{\vect{F}}\ell_{k}\big|_{\xL}
   \,\Big]
    -\sum_{q=1}^{N}w_{q}\,\vect{F}(\vect{U}_{q})\,\pderiv{\ell_{k}}{\eta}(\eta_{q})
@@ -293,8 +309,8 @@ stability-preserving Runge-Kutta (SSP-RK3) method \citep{shu:1988}.
 
 \subsection{Slope Limiting}
 \label{sec:Limiting}
-A common feature of high-order numerical PDEs is unphysical oscillations in the solutions,
-particularly near discontinuities.
+A common feature of high-order numerical PDEs is unphysical oscillations in the
+solutions around discontinuities.
 It is therfore of great interest in the DG algorithm to implement slope limiting
 of the polynomial $\mathbf{U}_h$. We use the total variation diminishing (TVD)
 slope limiter \citep[see, e.g.,][]{cockburn:1998} in conjunction with the
@@ -302,27 +318,64 @@ troubled cell indicator discussed in \citet{fu:2017} to prevent excessive limiti
 by flagging elements where limiting is needed. To do this, we need to reduce under- and
 overshootings of the higher-order solution at cell boundaries compared to
 the cell averages of neighbor cells. Recall from Eq.~\eqref{eq:conservedNodalExpansion}
-that in each cell our solution is expressed as
+that in each cell our solution is expressed in the nodal form. It is convenient,
+however, for limiting purposes to express the solution in a modal representation:
 
 \beq
 \mathbf{U}_h (x,t) =
-\sum_{l=1}^{N}c_{l}(t)\,P_{l}(x)
+\sum_{l=1}^{N=k+1}c_{l}(t)\,P_{l}(x)
 \eeq
 
-\noindent where we have chosen to expand in the Legendre polynomials. We compare
-the weight $c_{1}$, which is proportional to the first derivative of the
-solution in the cell, to the neighboring cell averages by the following \\
+\noindent where $P_{l}(x)$ are the Legendre polynomials. These
+representations of the solution are equivalent by requiring weak equivalence
 
 \beq
-  \widetilde{c}_{1} = \text{minmod}(c_{1},
-    \beta_{\TVD}(c_{0}^{+} - c_{0}), \beta_{\TVD}(c_{0} - c_{0}^{-}))
+  \sum_{j=1}^{N}\int_{\bK} \left( \vect{U}_{j}(t)\, \ell_{j}(x) -
+    c_{j}(t)\, P_{j}(x) \right) \phi\, dx = 0 \quad \forall\,\phi \in \mathbb{V}^{k}.
+    \label{eq:NodalModal}
+\eeq
+
+\noindent Letting $\phi$ be the Lagrange interpolating polynomials $\ell_{i}$, we have
+
+\beq
+  \sum_{j=1}^{N}\int_{\bK}\ell_{i}(x)\, \ell_{j}(x)\, dx\, \vect{U}_{j}(t) =
+  \sum_{j=1}^{N}\int_{\bK}\ell_{i}(x)\, P_{j}(x)\, dx\, c_{j}(t).
+\eeq
+
+\noindent Now letting $ M_{ij} = \int_{\bK}\ell_{i}(x)\, \ell_{j}(x)\, dx$ be the mass matrix,
+$A_{ij} = \int_{\bK}\ell_{i}(x)\, P_{j}(x)\, dx$, $\bar{\vect{U}} = \{U_{1},...,U_{N}
+\}$ be the nodal coefficients, and $\bar{\vect{c}} = \{c_{1},...,c_{N}\}$
+be the modal coefficients, we see that the different representations are related by
+a linear transformation
+
+\beq
+  M \bar{\vect{U}} = A \bar{\vect{c}}
+\eeq
+To perform slope limiting, we compare
+the weight $c_{2}$, which is proportional to the first derivative of the
+solution in the cell, to the neighboring cell averages by the following
+
+\beq
+  \mathcal{M}\,\widetilde{c}_{2} = \text{minmod}(\mathcal{M}c_{2},
+    \beta_{\TVD}\mathcal{M}(c_{1}^{+} - c_{1}), \beta_{\TVD}\mathcal{M}(c_{1} - c_{1}^{-}))
   \label{eq:limiting}
 \eeq
 
-\noindent where $\widetilde{c}_{1}$ is the limited weight. The superscripts $-/+$
+\noindent where $\widetilde{c}_{2}$ is the limited weight. The superscripts $-/+$
 indicate the cell averages of the neighboring cells to the  immediate left/right
-of the interface.
-Here, we use the minmod function defined as
+of the interface and $\mathcal{M}$ is a transformation matrix. For componentwise
+limiting, we let $\mathcal{M}$ be the identity matrix. Notice that
+
+\beq
+%  \begin{align}
+    \frac{1}{\Delta x}\int_{\bK}\vect{U}_{h}\,dx =
+      \frac{1}{\Delta x} \sum_{l=1}^{N}\int_{\bK}P_{l}(x)\,\cdot 1\, dx\, c_{l}
+      = \delta_{l1} c_{l} = c_{1}
+  \label{eq:cellAverage}
+%  \end{align}
+\eeq
+so $c_{1}$ is precisely the cell average. The minmod function in
+Eq.~\eqref{eq:limiting} is defined as
 
 \beq
   \text{minmod}(a_{1}, a_{2}, a_{3}) =
@@ -334,25 +387,32 @@ Here, we use the minmod function defined as
 \label{eq:minmod}
 \eeq
 
-Limiting is applied to each component of the vector of conserved quantities
-separately and is generally referred to as `Componentwise limiting.`
 The parameter $\beta_{\TVD}$ takes values in the closed interval $\left[1,2\right]$
 and scales the strength of the limiting. A minimal $\beta_{\TVD}$ corresponds with
-the total variation diminishing scheme \textcolor{red}{reference?} but is more
-dissipative than the maximal $\beta_{\TVD}$ case, which is more flexible but allows for more oscillations.
+the total variation diminishing scheme but is more
+dissipative than the maximal $\beta_{\TVD}$ case, which is potentially more oscillatory.
 Increasing $\beta_{\TVD}$ puts more weight on the neighboring cell averages,
-making the minmod function more likely to set $ \widetilde{c}_{1} = c_{1}$.
+making the minmod function more likely to set $\widetilde{c}_{2} = c_{2}$, when
+no limiting is applied. If instead $\widetilde{c}_{2} \neq c_{2}$, the solution
+is truncated to first order
+
+\beq
+  \vect{U}_{h} \to \widetilde{\vect{U}}_{h} = c_{1}\, P_{1}(x) + \widetilde{c}_{2}\,P_{2}(x)
+\eeq
+and, by Eq.~\eqref{eq:minmod}, $\widetilde{c}_{2}$ can potentially be zero as well.
+Notice that, by Eq.~\eqref{eq:cellAverage}, the cell average is not altered by
+the limiting process, so the process is conservatory.
 
 In order to determine where slope limiting is necessary, we use the
-troubled cell indicator (TCI) \citep{fu:2017} to prevent excessive limiting:\footnote{Would this notation be altered for 1D?}
+troubled cell indicator (TCI) \citep{fu:2017} to prevent excessive limiting
 
 \begin{equation}
   I_{\bK}(G) = \f{\sum_{j}|G_{\bK}-G_{\bK}^{(j)}|}{\max_{j}|G_{\bK^{(j)}}^{(j)}|},
   \label{eq:tci}
 \end{equation}
 
-\noindent where $G\in\vect{G}\subseteq\vect{U}$ and $\vect{G}$ consists of the
-first and final elements of $\vect{U}$. Here, the sum in the numerator and the
+\noindent where $G\in\vect{G}\subseteq\vect{U}$ and $\vect{G} = \left(\rho,E\right)$.
+Here, the sum in the numerator and the
 max in the denominator are taken over the neighboring elements sharing a
 boundary with target element $\bK$, $G_{\bK}$ is the cell average in $\bK$,
 $G_{\bK}^{(j)}$ is the cell average
@@ -364,6 +424,9 @@ $C_{\TCI}$ is a defined threshold.
 
 \subsection{Time Integration}
 \label{sec:TimeInt}
+Eq.~\eqref{eq:semidiscreteDiscretized} presented a system of ODEs that must
+be evolved in time. We use the third-order strong stability-preserving
+Runge-Kutta (SSP-RK) scheme \citep{shu:1988}.
 The general $s$-stage Runge-Kutta time stepping algorithm, including
 the limiting process, can be summarized as in \citet{cockburn:2001}:
 \begin{itemize}
@@ -371,24 +434,26 @@ the limiting process, can be summarized as in \citet{cockburn:2001}:
   \item[2.] For $i=1,\ldots,s$ compute:
   \begin{equation}
   \small  \bar{\vect{U}}^{(i)}
-    = \Big\{\Lambda^{\TVD}\Big\{\sum_{j=0}^{i-1}\alpha_{ij}\,\bar{\vect{U}}^{(j)}+\beta_{ij}\,\Delta t\,\bar{\vect{F}}\big(\bar{\vect{U}}^{(j)}\big)\Big\}\Big\},
+    = \Lambda^{\TVD}\Big\{\sum_{j=0}^{i-1}\alpha_{ij}\,\bar{\vect{U}}^{(j)}+\beta_{ij}\,\Delta t\,\bar{\vect{F}}\big(\bar{\vect{U}}^{(j)}\big)\Big\},
     \label{eq:rkStages}
   \end{equation}
   \item[3.] Set $\bar{\vect{U}}^{n+1}=\bar{\vect{U}}^{(s)}$.
 \end{itemize}
 Above, the TVD limiter limiter preventing unphysical
-states is denoted by the operators $\Lambda^{\TVD}\{\}$. The SSP-RK3 coefficients $\alpha_{ij}$
+states is denoted by the operator $\Lambda^{\TVD}\{\}$. The SSP-RK3 coefficients $\alpha_{ij}$
 and $\beta_{ij}$ may be found in Table~2.1 in \citet{cockburn:2001a}. For each step
 in Eq.~\eqref{eq:rkStages}, the TVD limiter is applied to elements flagged
 by the troubled cell indicator (where $I_{\bK} > C_{\TCI}$).
-This algorithm is subject to a timestep stability condition $\Delta t_{\TVD}$.
-Let $(h/|\lambda|)=\min_{i\in\{1,\ldots,d\}}(\Delta x^{i}/|\lambda^{i}|)$, where $|\lambda^{i}|$ is the largest absolute eigenvalue of the flux Jacobian.
-Then, assuming Cartesian coordinates (e.g., \cite{cockburn:2001a}):
+This algorithm is subject to a timestep stability condition $\Delta t_{\TVD}$
+where $|\lambda|$ is the magnitude of the largest eigenvalue of the flux Jacobian.
+Then (e.g., \cite{cockburn:2001a}):
 \begin{equation}
-  \Delta t_{\TVD} \le \f{1}{d}\,\f{(h/|\lambda|)}{(2k+1)} .
+  \Delta t_{\TVD} \le \f{1}{d}\,\f{(\Delta x/|\lambda|)}{(2k+1)}
   \label{eq:timestepRestrictions}
 \end{equation}
-For $d=k=2$, the effective Courant-Friedrichs-Lewy (CFL) factor is $0.1$.
+where d is the dimension. For $d=1,k=2$ (third-order scheme) the effective Courant-Friedrichs-Lewy (CFL) factor is $0.2$.
+In the numerical experiments presented in Section~\ref{sec:results} we use
+a more conservative timestep restriction of $\Delta t = 0.1 (\Delta x/|\lambda|)$.
 
 
 \subsection{Characteristic Decomposition}
@@ -396,15 +461,16 @@ For $d=k=2$, the effective Courant-Friedrichs-Lewy (CFL) factor is $0.1$.
 Experience has shown that the slope limiting described in the previous section
 is more effecient when performed on the so-called `characteristic variables`
 as opposed to the conserved variables $\mathbf{U}_h$
-\citep[see, e.g.,][for a description]{cockburn:1998}. We begin by
+\citep[see, e.g.,][for a description]{cockburn:1998}.
+Inspired by theory for linear systems, we begin by
 rewriting Eq.~\eqref{eq:conservation} in the quasi-linear form as follows
 \beq
   \pderiv{\mathbf{U}}{t}
-  + \pderiv{\mathbf{U}}{\mathbf{x}} \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}}
+  + \pderiv{\mathbf{F(\mathbf{U})}}{\mathbf{U}}\pderiv{\mathbf{U}}{x}
   = 0.
   \label{eq:charEq}
 \eeq
-Because the Euler equations for a systemer of hyperblic
+Because the Euler equations form a system of hyperblic
 partial differential equations \citep[see, e.g.,][]{leveque:1992}, we can decompose the
 Jacobian of the flux vector as
 
@@ -415,6 +481,8 @@ Jacobian of the flux vector as
 where the columns of $\mathcal{R}$ contain the right eigenvectors of the Jacobian,
 the rows of $\mathcal{R}^{-1}$ contain the left eigenvectors, and
 $\Lambda$ is a diagonal matrix containing the eigenvalues of the Jacobian.
+For hyperbolic systems, the eigenvalues are real and the eigenvectors form a
+complete set \citep[see e.g.,][]{leveque:1992}.
 At this point, we will introduce the characteristic variable
 $\mathbf{w} = \mathcal{R}^{-1}\mathbf{U}$. Multiplying both sides of Equation
 \eqref{eq:charEq} by $\mathcal{R}^{-1}$ and simplifying, we are able to linearize the system of equations to
@@ -425,25 +493,29 @@ a system of advection equations
   \Lambda \pderiv{\mathbf{w}}{x}
   = 0. \\
 \eeq
-Solutions to these advection equations are far simpler to obtain than the
-previous equations. Limiting may then be applied to dampen oscillations in the
+Solutions to these now decoupled advection equations are far simpler to obtain than the
+previous equations. Recall in Eq.~\eqref{eq:minmod} that the limiting cell
+averages were transformed by a matrix $\mathcal{M}$. If we let
+$\mathcal{M}=\mathcal{R}^{-1}$ then limiting is performed on the characteristic variables.
+Limiting may then be applied to dampen oscillations in the
 solutions for the characteristic variables $\mathbf{w}$, which are then
 transformed back to the solution of the conserved variables $\mathbf{U}$
-\citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}. While this
+\citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}.
+While this
 process of characteristic limiting has been done for the ideal EOS
 \citep[][]{cockburn:1998}, we want to extend this process to the case of a
 tabulated nuclear matter EOS.
 
 
-\section{Derivation of Jacobian and Eigenvalues for the 3D Nuclear Case}
+\section{Jacobian and Eigensystem for the Nuclear Case}
 \label{sec:eigen}
 
-We assume that pressure $P = P(\tau, \epsilon, n)$, where $\tau = \frac{1}{\rho}$.
+We assume that pressure $P = P(\tau, \epsilon, D_{e})$, where $\tau = \frac{1}{\rho}$.
 Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D_{e}\}$,
 where $m_i = \rho v_i$ and $D_{e} = \rho y_{e}$.
 The flux vector is $\textbf{F}(\textbf{U}) =
 \{m_{1}, m_{1}^{2}\tau + P, m_{1}m_{2}\tau, m_{1}m_{3}\tau,
-(E+P)m_{1}\tau, Dm_{1}\tau\}$. The Jacobian of the flux vector is given by
+(E+P)m_{1}\tau, D_{e}m_{1}\tau\}$. The Jacobian of the flux vector is given by
 
 
 %\begin{table*}[ht!]
@@ -466,7 +538,15 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 %\end{table*}
 
 
-\noindent Where $H=(E+P)\tau$ is the specific enthalpy and $P_{x} = \partial_{x}P$\footnote{Maybe define these elsewhere to show what's constant}. The eigenvalues of the flux Jacobian are given by the diagonal matrix
+\noindent Where $H=(E+P)\tau$ is the specific enthalpy and
+\beq
+%  \begin{align}
+    P_{\epsilon}  = \left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau,D_{e}}, \quad
+    P_{D_e}  = \left(\frac{\partial{P}}{\partial{D_{e}}}\right)_{\tau, \epsilon}, \quad
+    P_{\tau}  = \left(\frac{\partial{P}}{\partial{\tau}}\right)_{\epsilon, D_{e}}.
+%  \end{align}
+\eeq
+The eigenvalues of the flux Jacobian are given by the diagonal matrix
 
 \begin{align}
 \Lambda =
@@ -479,9 +559,10 @@ The flux vector is $\textbf{F}(\textbf{U}) =
   0 & 0 & 0 & 0 & 0 & v_{1} + c_{s}
 \end{bmatrix}
 \end{align}
-where $c_{s} = \sqrt{\Gamma P \tau}$, for
+where $c_{s} = \sqrt{\Gamma P \tau}$, with
 $\Gamma = \left(\tau (P P_{\epsilon} - P_{\tau}) + P_{D_e} y_{e} \tau^{-1}\right) P^{-1}$, is
-the local sound speed. In the ideal EOS regime this reduces to the sound speeds given in \citet{colella:1985}.
+the local sound speed. In the case of the general EOS $P=P(\tau,\epsilon)$,
+this reduces to the sound speeds given in \citet{colella:1985}.
 The right eigenvectors are then given by the column vectors of the following matrix
 \begin{align*}
   \mathcal{R}_{1} =
@@ -496,7 +577,7 @@ The right eigenvectors are then given by the column vectors of the following mat
   \end{array}
   \right]
 \end{align*}
-where the follow definitions have been used:
+where the following definitions have been used:
 $h_{n} = \frac{c^2}{P_{\epsilon}\tau} + k $, $k = \frac{-y_{e} P_{D_{e}} \tau^{-1}
 + P_{\epsilon} (\frac{1}{2}v^2 + \epsilon) + P_{\tau}\tau}{P_{\epsilon}}$,
 $\delta_{1} = v_{1}^{2}-v_{2}^{2}-v_{3}^{2}$,
@@ -535,7 +616,7 @@ where $\phi_{i} = P_{\epsilon}\,\tau\, v_{i}$,
 $\omega = \tau\, (P_{\epsilon}\,(v^2 - 2\epsilon) - 2\,P_{\tau}\,\tau)$, and
 $\alpha = 2 y_{e} P_{D_{e}} - \tau \chi$.
 The left and right eigenvectors presented here are similar in form to those
-presented in \citet{schaal:2015a}, but are considerably messier due to the
+presented in \citet{schaal:2015a}, but are considerably more complicated due to the
 restriction of a nuclear EOS.
 
 \section{Preliminary Numerical Results}

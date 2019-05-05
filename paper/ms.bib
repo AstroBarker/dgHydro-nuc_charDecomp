@@ -1,4 +1,44 @@
 
+@Article{	  zhang:2010a,
+  title		= "On positivity-preserving high order discontinuous Galerkin
+		  schemes for compressible Euler equations on rectangular
+		  meshes",
+  journal	= "Journal of Computational Physics",
+  volume	= "229",
+  number	= "23",
+  pages		= "8918 - 8934",
+  year		= "2010",
+  issn		= "0021-9991",
+  doi		= "https://doi.org/10.1016/j.jcp.2010.08.016",
+  url		= "http://www.sciencedirect.com/science/article/pii/S0021999110004535",
+  author	= "Xiangxiong Zhang and Chi-Wang Shu",
+  keywords	= "Hyperbolic conservation laws, Discontinuous Galerkin
+		  method, Positivity preserving, High order accuracy,
+		  Compressible Euler equations, Gas dynamics, Finite volume
+		  scheme, Essentially non-oscillatory scheme, Weighted
+		  essentially non-oscillatory scheme",
+  abstract	= "We construct uniformly high order accurate discontinuous
+		  Galerkin (DG) schemes which preserve positivity of density
+		  and pressure for Euler equations of compressible gas
+		  dynamics. The same framework also applies to high order
+		  accurate finite volume (e.g. essentially non-oscillatory
+		  (ENO) or weighted ENO (WENO)) schemes. Motivated by
+		  Perthame and Shu (1996) [20] and Zhang and Shu (2010) [26],
+		  a general framework, for arbitrary order of accuracy, is
+		  established to construct a positivity preserving limiter
+		  for the finite volume and DG methods with first order Euler
+		  forward time discretization solving one-dimensional
+		  compressible Euler equations. The limiter can be proven to
+		  maintain high order accuracy and is easy to implement.
+		  Strong stability preserving (SSP) high order time
+		  discretizations will keep the positivity property.
+		  Following the idea in Zhang and Shu (2010) [26], we extend
+		  this framework to higher dimensions on rectangular meshes
+		  in a straightforward way. Numerical tests for the third
+		  order DG method are reported to demonstrate the
+		  effectiveness of the methods."
+}
+
 @Article{	  cockburn:2001a,
   title		= "Runge-Kutta Discontinuous Galerkin methods for
 		  convection-dominated problems",
@@ -512,6 +552,63 @@
   url		= {https://books.google.com/books?id=3WhqLPcMdPsC},
   year		= {1992},
   publisher	= {Springer}
+}
+
+@Article{	  schaal:2015,
+  abstract	= {Cosmological shock waves play an important role in
+		  hierarchical structure formation by dissipating and
+		  thermalizing kinetic energy of gas flows, thereby heating
+		  the Universe. Furthermore, identifying shocks in
+		  hydrodynamical simulations and measuring their Mach number
+		  accurately are critical for calculating the production of
+		  non-thermal particle components through diffusive shock
+		  acceleration. However, shocks are often significantly
+		  broadened in numerical simulations, making it challenging
+		  to implement an accurate shock finder. We here introduce a
+		  refined methodology for detecting shocks in the moving-mesh
+		  code AREPO, and show that results for shock statistics can
+		  be sensitive to implementation details. We put special
+		  emphasis on filtering against spurious shock detections due
+		  to tangential discontinuities and contacts. Both of them
+		  are omnipresent in cosmological simulations, for example in
+		  the form of shear-induced Kelvin-Helmholtz instabilities
+		  and cold fronts. As an initial application of our new
+		  implementation, we analyse shock statistics in
+		  non-radiative cosmological simulations of dark matter and
+		  baryons. We find that the bulk of energy dissipation at
+		  redshift zero occurs in shocks with Mach numbers around
+		  M≈ 2.7. Furthermore, almost 40 per cent of the
+		  thermalization is contributed by shocks in the warm hot
+		  intergalactic medium, whereas ≈60 per cent occurs in
+		  clusters, groups, and smaller haloes. Compared to previous
+		  studies, these findings revise the characterization of the
+		  most important shocks towards higher Mach numbers and lower
+		  density structures. Our results also suggest that regions
+		  with densities above and below deltab = 100 should be
+		  roughly equally important for the energetics of cosmic ray
+		  acceleration through large-scale structure shocks.},
+  adsnote	= {Provided by the SAO/NASA Astrophysics Data System},
+  adsurl	= {http://adsabs.harvard.edu/abs/2015MNRAS.446.3992S},
+  archiveprefix	= {arXiv},
+  arxivurl	= {http://arxiv.org/abs/1407.4117},
+  author	= {{Schaal}, K. and {Springel}, V.},
+  date-added	= {2017-08-11 07:26:35 +0000},
+  date-modified	= {2017-12-05 16:36:26 +0000},
+  doi		= {10.1093/mnras/stu2386},
+  eprint	= {1407.4117},
+  journal	= {\mnras},
+  keywords	= {hydrodynamics, shock waves, methods: numerical, galaxies:
+		  clusters: general, large-scale structure of Universe},
+  month		= feb,
+  pages		= {3992-4007},
+  title		= {{Shock finding on a moving mesh - I. Shock statistics in
+		  non-radiative cosmological simulations}},
+  volume	= 446,
+  year		= 2015,
+  bdsk-file-1	= {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QWC4uLy4uL0Ryb3Bib3gvTGl0ZXJhdHVyZS9TY2hhYWwvU2NoYWFsMjAxNS1TaG9jayBmaW5kaW5nIG9uIGEgbW92aW5nIG1lc2ggLSBJLiBTaG9jay5wZGbSFwsYGVdOUy5kYXRhTxECBgAAAAACBgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////H1NjaGFhbDIwMTUtU2hvY2sgZiNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAgAEAAAKIGN1AAAAAAAAAAAAAAAAAAZTY2hhYWwAAgBeLzpVc2VyczpzbWM6RHJvcGJveDpMaXRlcmF0dXJlOlNjaGFhbDpTY2hhYWwyMDE1LVNob2NrIGZpbmRpbmcgb24gYSBtb3ZpbmcgbWVzaCAtIEkuIFNob2NrLnBkZgAOAHIAOABTAGMAaABhAGEAbAAyADAAMQA1AC0AUwBoAG8AYwBrACAAZgBpAG4AZABpAG4AZwAgAG8AbgAgAGEAIABtAG8AdgBpAG4AZwAgAG0AZQBzAGgAIAAtACAASQAuACAAUwBoAG8AYwBrAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBcVXNlcnMvc21jL0Ryb3Bib3gvTGl0ZXJhdHVyZS9TY2hhYWwvU2NoYWFsMjAxNS1TaG9jayBmaW5kaW5nIG9uIGEgbW92aW5nIG1lc2ggLSBJLiBTaG9jay5wZGYAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDpAO4A9gMAAwIDBwMSAxsDKQMtAzQDPQNCA08DUgNkA2cDbAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAANu},
+  bdsk-url-1	= {http://dx.doi.org/10.1093/mnras/stu2386},
+  bdsk-url-2	= {http://arxiv.org/abs/1407.4117},
+  bdsk-url-3	= {http://adsabs.harvard.edu/abs/2015MNRAS.446.3992S}
 }
 
 @Article{	  schaal:2015a,
