@@ -15,5 +15,5 @@ We hope that this work will improve the fidelity of CCSN simulations.
 
 The work done here will be extended to include 2D tests and published soon after.
 
-Example of a test Riemann problem showing the significant improvements of characteristic limiting: 
-![plot](./characteristic_cw.png)
+Example of a test Riemann problem showing the significant improvements of characteristic limiting:
+![plot](characteristic_cw.png)
