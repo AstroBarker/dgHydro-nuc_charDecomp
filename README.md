@@ -1,7 +1,7 @@
 # Undergraduate Thesis for Brandon Barker, University of Tennessee, Knoxville
 Repo for work for my undergraduate senior thesis at the University of Tennessee, Knoxville.
 
-A copy of my thesis in the university's open-access database can be found [here](https://trace.tennessee.edu/utk_chanhonoproj/).
+A copy of my thesis in the university's open-access database can be found [here](https://trace.tennessee.edu/cgi/viewcontent.cgi?article=3333&context=utk_chanhonoproj).
 
 For this project, I found analytic forms for the right and left eigenvectors
 of the flux Jacobian of the Euler equations of hydrodynamics with an additional conservation law

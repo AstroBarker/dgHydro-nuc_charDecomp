@@ -1,5 +1,3 @@
-3d 3d 3d
-put Astronum Eq 15 here as well, restate U = (...)
 For the non-relativistic Euler equations, the state and flux vectors are given by
 \begin{equation}
   \vect{U}=\big(\rho,\rho v_{j},E\big)^{T},~
@@ -55,7 +53,7 @@ The stress tensor is $\Pi^{i}_{~j}=\rho u^{i} u_{j}+p\delta^{i}_{~j}$, and $E=e+
 				v_{3}(-H - P_{\tau}\tau^{2} -P_{\epsilon}\tau(\epsilon - \frac{v^{2}}{2})) &
 				 - P_{\epsilon}v_{1}v_{3}\tau & -P_{\epsilon}v_{2}v_{3}\tau & H - P_{\epsilon}v_{3}^{2}\tau &
 				  v_{3}(1+P_{\epsilon}\tau) & v_{3}P_{D_{e}} \\
-				-v_{3}y_{e} & 0 & y_{e} & 0 & 0 & v_{3}\\
+				-v_{3}y_{e} & 0 & 0 & y_{e} & 0 & v_{3}\\
 			\end{array}
 			\right]
 	\end{align}
@@ -86,7 +84,7 @@ The right eigenvectors are then given by the column vectors of the following mat
     v_{1}-c & 0 & v_{1} & v_{1} & 0 & c+v_{1} \\
     v_{2} & 1 & 0 & 0 & 0 & v_{2} \\
     v_{3} & 0 & 0 & 0 & 1 & v_{3} \\
-    h-c v_{1} & v_{2} & \beta_{1} & 0 & v_{3} & h+c v_{1} \\
+    h_{n}-c v_{1} & v_{2} & \beta_{1} & 0 & v_{3} & h_{n}+c v_{1} \\
     y_{e}  & 0 & 0 & \frac{\tau  \chi_{1} }{2 P_{D_{e}}} & 0 & y_{e}  \\
   \end{array}
   \right]
@@ -100,23 +98,33 @@ The right eigenvectors are then given by the column vectors of the following mat
     v_{1} & 1 & 0 & 0 & 0 & v_{1} \\
     v_{2}-c & 0 & v_{2} & v_{2} & 0 & c+v_{2} \\
     v_{3} & 0 & 0 & 0 & 1 & v_{3} \\
-    h-c v_{2} & v_{1} & \beta_{2} & 0 & v_{3} & h+c v_{2} \\
+    h_{n}-c v_{2} & v_{1} & \beta_{2} & 0 & v_{3} & h_{n}+c v_{2} \\
     y_{e}  & 0 & 0 & \frac{\tau  \chi_{2} }{2 P_{D_{e}}} & 0 & y_{e}  \\
   \end{array}
   \right]
 \end{align*}
 
+\begin{align*}
+  \mathcal{R}_{3} =
+  \left[
+  \begin{array}{cccccc}
+    1 & 0 & 1 & 1 & 0 & 1 \\
+    v_{1} & 1 & 0 & 0 & 0 & v_{1} \\
+    v_{2} & 0 & 0 & 0 & 1 & v_{2} \\
+    v_{3}-c & 0 & v_{3} & v_{3} & 0 & v_{3}+c \\
+    h_{n}-c v_{3} & v_{1} & \beta_{3} & 0 & v_{2} & h_{n}+c v_{3} \\
+    y_{e}  & 0 & 0 & \frac{\tau  \chi_{3} }{2 P_{D_{e}}} & 0 & y_{e}  \\
+  \end{array}
+  \right]
+\end{align*}
 
 where the following definitions have been used:
 $h_{n} = \frac{c^2}{P_{\epsilon}\tau} + k $, $k = \frac{-y_{e} P_{D_{e}} \tau^{-1}
 + P_{\epsilon} (\frac{1}{2}v^2 + \epsilon) + P_{\tau}\tau}{P_{\epsilon}}$,
-$\delta_{1} = v_{1}^{2}-v_{2}^{2}-v_{3}^{2}$,
-$\chi_{1} = P_{\epsilon} ( \delta_{1} + 2\epsilon) + 2P_{\tau}\tau$, and
-$\beta_{1} = \frac{1}{2} (\delta_{1}+2 \epsilon +\frac{2 P_{\tau} \tau }{P_{\epsilon}})$.
-
-
-
-The left eigenvectors are given by the row vectors of the inverse matrix $\mathcal{L}_{1} = \mathcal{R}_{1}^{-1}$
+$\delta_{i} = 2v_{i}^{2}-v^{2}$,
+$\chi_{i} = P_{\epsilon} ( \delta_{i} + 2\epsilon) + 2P_{\tau}\tau$, and
+$\beta_{i} = \frac{1}{2} (\delta_{i}+2 \epsilon +\frac{2 P_{\tau} \tau }{P_{\epsilon}})$.
+The left eigenvectors are given by the row vectors of the inverse matrix $\mathcal{L}_{i} = \mathcal{R}_{i}^{-1}$
 
 \begin{align*}
   \mathcal{R}_{1}^{-1} = \frac{1}{c^2}
@@ -167,8 +175,36 @@ The left eigenvectors are given by the row vectors of the inverse matrix $\mathc
    -\frac{v_{3} \omega }{2} & \phi_{1} v_{3}  & \phi_{2} v_{3}   &
      c^2+\phi_{3} v_{3}  & -\phi_{3}  & -P_{D_{e}} v_{3}
       \\
-   \frac{1}{4} (\omega -2 c  v_{2}) & \frac{1}{2} \phi_{1}  & \frac{1}{2} (c-\phi_{2})
+   \frac{1}{4} (\omega -2 c  v_{2}) & -\frac{1}{2} \phi_{1}  & \frac{1}{2} (c-\phi_{2})
        & -\frac{1}{2} \phi_{3}  & \frac{P_{\epsilon} \tau }{2} & \frac{P_{D_{e}}}{2}
+     \\
+  \end{array}
+  \right]
+\end{align*}
+
+\begin{align*}
+  \mathcal{R}_{3}^{-1} = \frac{1}{c^2}
+  \left[
+  \begin{array}{cccccc}
+   \frac{1}{4} (2 c v_{3}+\omega ) & -\frac{1}{2} \phi_{1} & -\frac{1}{2} \phi_{2}
+    & -\frac{1}{2}(c+\phi_{3})  & \frac{P_{\epsilon} \tau }{2} & \frac{P_{D_{e}}}{2}
+     \\
+   -\frac{v_{1} \omega }{2} & c^2 + \phi_{1} v_{1}  & \phi_{2} v_{1}  &
+     \phi_{3} v_{1}  & -\phi_{1}  & -P_{D_{e}} v_{1}
+     \\
+   \frac{2 \chi_{3}  c^2+\alpha_{3}  \omega \tau^{-1} }{2 \chi_{3} } & -\frac{\phi_{1} \alpha_{3}  }{\chi_{3} \tau } &
+     -\frac{\phi_{2} \alpha_{3}  }{\chi_{3} \tau } & -\frac{\phi_{3} \alpha_{3} }{\chi_{3} \tau } &
+     \frac{P_{\epsilon} \alpha_{3} }{\chi_{3} } & \frac{P_{D_{e}} \left(\alpha_{3} -2 c^2\right)}{\tau \chi_{3} }
+      \\
+   -\frac{y_{e} P_{D_{e}} \omega }{\chi_{3} \tau } & \frac{2 y_{e} P_{D_{e}} \phi_{1} }{\chi_{3} \tau } & \frac{2 y_{e} P_{D_{e}}
+     \phi_{2} }{\chi_{3} \tau} & \frac{2 y_{e} P_{D_{e}} \phi_{3} }{\chi_{3} \tau} & -\frac{2 y_{e}
+     P_{D_{e}} P_{\epsilon} }{\chi_{3} } & \frac{2 P_{D_{e}} \left(c^2-y_{e} P_{D_{e}} \right)}{\tau \chi_{3} }
+      \\
+   -\frac{v_{2} \omega }{2} & \phi_{2} v_{1}  & c^2+\phi_{2} v_{2}   &
+     \phi_{2} v_{3}  & -\phi_{2}  & -P_{D_{e}} v_{2}
+      \\
+   \frac{1}{4} (\omega -2 c  v_{3}) & -\frac{1}{2} \phi_{1}  & -\frac{1}{2} \phi_{2}
+       & \frac{1}{2} (c-\phi_{3})  & \frac{P_{\epsilon} \tau }{2} & \frac{P_{D_{e}}}{2}
      \\
   \end{array}
   \right]

@@ -102,7 +102,7 @@ spectral and finite volume methods, and achieve high-order accuracy
 on a compact stencil.
 
 The {\bf t}oolkit for {\bf h}igh-{\bf or}der {\bf n}eutrino-r{\bf ad}iation hydr{\bf o}dynamics
-(\thornado)\footnote{\url{https://github.com/endeve/thornado}}is being developed to simulate neutrino-radiation
+(\thornado)\citep{endeve:2019}\footnote{\url{https://github.com/endeve/thornado}}is being developed to simulate neutrino-radiation
 hydrodynamics in CCSNe and related applications in nuclear astrophysics.
 The spatial discretization of solvers for hyperbolic partial differential equations in \thornado\, is based on the DG method.
 Whether the high-order approach will improve accuracy and efficiency of CCSN models remains to be demonstrated.
@@ -506,6 +506,19 @@ process of characteristic limiting has been done for the ideal EOS
 \citep[][]{cockburn:1998}, we want to extend this process to the case of a
 tabulated nuclear matter EOS.
 
+% \subsection{Equation of State}
+
+% It is commonplace in the simulation of CCSNe to employ a tabulated EOS allowing for a wide 
+% range of physical conditions. The EOS will provide the thermodynamic quantities such as pressure, 
+% internal energy, and entropy as functions of the table variables density, temperature, and electron 
+% fraction. These quantities and their derivatives are crucial for the hydrodynamics, nuclear reactions, and 
+% neutrino transport as well as the characteristic limiting described in Section~\ref{sec:eigen}. To 
+% compute a thermodynamic quantity $\nu$, a thermodynamic grid in $\left( log\, \rho, log\, T, y_{e} \right)$ space 
+% is constructed, and then $log\, \nu$ may be computed by linear interpolation from the 
+% surrounding corners of the grid. It is then simple to determine the derivative of $\nu$ 
+% with respect to $\rho$, $T$, or $y_e$ by differentiating the linear interpolation 
+% equation with respect to the desired variable \citep[see e.g.,][for a more detailed description]{mezzacappa:1999, bruenn:2018}.
+
 
 \section{Jacobian and Eigensystem for the Nuclear Case}
 \label{sec:eigen}
@@ -574,7 +587,7 @@ The right eigenvectors are then given by the column vectors of the following mat
    v_{1}-c & 0 & v_{1} & v_{1} & 0 & c+v_{1} \\
    v_{2} & 1 & 0 & 0 & 0 & v_{2} \\
    v_{3} & 0 & 0 & 0 & 1 & v_{3} \\
-   h-c v_{1} & v_{2} & \beta & 0 & v_{3} & h+c v_{1} \\
+   h_{n}-c v_{1} & v_{2} & \beta & 0 & v_{3} & h_{n}+c v_{1} \\
    y_{e}  & 0 & 0 & \frac{\tau  \chi }{2 P_{D_{e}}} & 0 & y_{e}  \\
   \end{array}
   \right]
