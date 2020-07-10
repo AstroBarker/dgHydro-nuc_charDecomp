@@ -1,15 +1,74 @@
-Derivatives of pressure with respect to $\tau$, $\epsilon$, and $D_{e}$
-in terms of the table variables $\rho$, $T$, $y_e$. \\
+We have an equation of state $P \,=\, P(\tau, \epsilon, D_{e})$ with $\tau \,=\, \rho^{-1}$, 
+$\epsilon \,=\, e/ \rho$, and $D_{e} = \rho \, Y_{e}$. On the other hand, 
+our tabulated equation of state constructs thermodynamic variables in terms of $\rho$, $T$, and $Y_{e}$. We 
+need to express the thermodynamic derivatives of pressure necessary for characteristic limiting in terms of the table variables.
+We start with the differential of pressure 
+
+\begin{equation}
+ \label{eq:pressure_var1}
+  dP = (\partial_{\tau}P)_{\epsilon, D_{e}}d\tau + (\partial_{\epsilon}P)_{\tau, D_{e}}d\epsilon + (\partial_{D_{e}}P)_{\epsilon, \tau}dD_{e}.
+\end{equation}
+
+Similarly, we may express the differentials of $\tau$, $\epsilon$, and $D_{e}$ in terms of the table variables
+
+\begin{equation}
+\begin{split}
+  d\tau &= - \rho^{-2} d\rho\\
+  d\epsilon &= (\partial_{\rho}\epsilon)_{T,Y_{e}}d\rho + (\partial_{T}\epsilon)_{\rho,Y_{e}}dT + (\partial_{Y_{e}}\epsilon)_{T,\rho}dY_{e}\\
+  dD_{e} &= (\partial_{\rho}D_{e})_{T,Y_{e}}d\rho + (\partial_{T}D_{e})_{\epsilon,Y_{e}}dT + (\partial_{Y_{e}}D_{e})_{T,\epsilon}dY_{e}\\
+   & = Y_{e} d\rho + \rho dY_{e}
+\end{split}
+\end{equation}
+
+Inserting these differentials into Equation~\ref{eq:pressure_var1}, we find an expression for the pressure differential
+
+\begin{equation} \label{eq:pressure_dif}
+\begin{split}
+  dP = &\left[ -\rho^{2} (\partial_{\tau}P)_{\epsilon, D_{e}} + (\partial_{\rho}\epsilon)_{T,Y_{e}}\,(\partial_{\epsilon}P)_{\tau, D_{e}}
+    + Y_{e} (\partial_{D_{e}}P)_{\epsilon, \tau} \right] d\rho \\
+    & + (\partial_{T}\epsilon)_{\rho,Y_{e}} (\partial_{\epsilon}P)_{\tau, D_{e}} dT \\
+	& + \left[ (\partial_{Y_{e}}\epsilon)_{T,\rho} (\partial_{\epsilon}P)_{\tau, D_{e}} + \rho (\partial_{D_{e}}P)_{\epsilon, \tau}\right]dY_{e}   
+\end{split}
+\end{equation}
+
+On the other hand, we have the differential of pressure in terms of the table variables
+
+\begin{equation}
+ \label{eq:pressure_table}
+  dP = (\partial_{\rho}P)_{T, Y_{e}}d\rho + (\partial_{T}P)_{\rho, Y_{e}}dT + (\partial_{Y_{e}}P)_{T, \rho}dY_{e}.
+\end{equation}
+
+Comparing Equation~\ref{eq:pressure_dif} and Equation~\ref{eq:pressure_table}, we have the system of equations
+
+\begin{gather}
+  \begin{bmatrix} 
+ 	-\rho^{2} & (\partial_{\rho}\epsilon)_{T,Y_{e}} & Y_{e} \\ 
+ 	0 & (\partial_{T}\epsilon)_{\rho,Y_{e}} & 0 \\
+	 0 & (\partial_{Y_{e}}\epsilon)_{T,\rho} & \rho
+  \end{bmatrix}
+  \begin{bmatrix}
+	(\partial_{\tau}P)_{\epsilon, D_{e}} \\ (\partial_{\epsilon}P)_{\tau, D_{e}} \\ (\partial_{D_{e}}P)_{\epsilon, \tau}
+  \end{bmatrix}
+ =
+  \begin{bmatrix}
+	(\partial_{\rho}P)_{T, Y_{e}} \\ (\partial_{T}P)_{\rho, Y_{e}} \\ (\partial_{Y_{e}}P)_{T, \rho}
+  \end{bmatrix}
+\end{gather}
+
+Solving, with some simplifications, we find the derivatives of pressure with respect to $\tau$, $\epsilon$, and $D_{e}$
+in terms of the table variables $\rho$, $T$, $Y_{e}$. \\
+
 \begin{footnotesize}
 \begin{eqnarray}
-	\left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau,D_{e}} &=& \left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}_{\rho, y_{e}}\left(\frac{\partial{P}}{\partial{T}}\right)_{\rho, y_{e}} \\
+	\left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau,D_{e}} &=& \left(\frac{\partial{\epsilon}}{\partial{T}}\right)^{-1}_{\rho, Y_{e}}\left(\frac{\partial{P}}{\partial{T}}\right)_{\rho, Y_{e}} \\
 	\left(\frac{\partial{P}}{\partial{D_{e}}}\right)_{\tau, \epsilon} &=& \tau \left[
-					\left(\frac{\partial{P}}{\partial{y_e}}\right)_{\rho, T} -
-          \left(\frac{\partial{\epsilon}}{\partial{y_e}}\right)_{\rho, T}
+					\left(\frac{\partial{P}}{\partial{Y_{e}}}\right)_{\rho, T} -
+          \left(\frac{\partial{\epsilon}}{\partial{Y_{e}}}\right)_{\rho, T}
 					\left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau, D_{e}}\right]\\
-	\left(\frac{\partial{P}}{\partial{\tau}}\right)_{\epsilon, D_{e}} &=& -\tau^{-2}
-					\left[ \left(\frac{\partial{P}}{\partial{D_{e}}}\right)_{\tau, \epsilon}
-					(y_e - 1) + \left( \frac{\partial{\epsilon}}{\partial{\rho}} \right)_{y_{e}, T}
-          \left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau, D_{e}}\right]
+	\left(\frac{\partial{P}}{\partial{\tau}}\right)_{\epsilon, D_{e}} &=& \tau^{-2}
+					\left[ Y_{e}\left(\frac{\partial{P}}{\partial{D_{e}}}\right)_{\tau, \epsilon}
+					 + \left( \frac{\partial{\epsilon}}{\partial{\rho}} \right)_{Y_{e}, T}
+          \left(\frac{\partial{P}}{\partial{\epsilon}}\right)_{\tau, D_{e}} - 
+		  \left(\frac{\partial{P}}{\partial{\rho}}\right)_{T, Y_{e}} \right]
 \end{eqnarray}
 \end{footnotesize}

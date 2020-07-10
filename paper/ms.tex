@@ -36,7 +36,7 @@
 
 \bibliographystyle{aasjournal}
 \received{\today}
-\shorttitle{Discontinuous Galerkin methods with a nuclear EOS}
+\shorttitle{Discontinuous Galerkin methods with a nuclear EoS}
 
 \begin{document}
 
@@ -69,7 +69,7 @@ This use of characteristic variables also increases the efficiency of the slope
 limiting process for high-order DG methods. However, the addition of a
 tabulated nuclear equation of state to the Euler equations makes the decomposition nontrivial.
 We introduce the framework for the characteristic decomposition of the Euler equations
-with the inclusion of the nuclear EOS terms and
+with the inclusion of the nuclear EoS terms and
 present results from some initial tests using a third-order scheme.
 The results confirm that performing limiting
 on the characteristic variables provides better numerical solutions and is perhaps
@@ -83,13 +83,19 @@ suited to applications in CCSN simulations.
 \label{sec:Intro}
 The core collapse supernovae (CCSNe) explosion mechanism is fundamentally three-dimensional
 in nature \citep[see e.g.,][]{blondin:2006, muller:2012, oconnor:2018b}. Alongside general
-reletavistic gravity, complex nuclear matter equations of state (EOS), and
+reletavistic gravity, microphysics through a complex nuclear matter equations of state (EoS), and
 neutrino transport, hydrodynamics must be accurately modelled,
-creating a very challenging and compelling problem. Hydrodynamic instabilities are critical
+creating a very challenging and compelling problem. These areas, constituting the 
+"four pillars" of CCSNe, each present a formidable theoretical and computational 
+problem in their own right and are deeply coupled in the context of CCSNe.
+Hydrodynamic instabilities are critical
 in aiding the explosion, with complex phenomena such as turbulence and
-convection playing key roles in the CCSN mechanism
-\citep{murphy:2011, murphy:2013, couch:2013, couch:2015a, radice:2016, mabanta:2018}.
-The accurate and efficient modelling of the supernova hydrodynamics is imperative if the
+convection playing key roles in driving the CCSN mechanism
+\citep{murphy:2011, murphy:2013, couch:2013, couch:2015a, radice:2016, couch:2020}. The 
+EoS provides many of the thermodynamic quantities (e.g., 
+pressure, internal energy, and entropy) that are necessary for the hydrodynamics 
+as well as nuclear reactions and neutrino transport.
+The accurate and efficient modelling of the supernova hydrodynamics and associated microphysics is imperative if the
 explosion is to be realistically modelled.
 For in-depth reviews of the CCSN mechanism, see
 \citet{bethe:1990, janka:2007, janka:2012a, janka:2016, burrows:2013, hix:2014, muller:2016, couch:2017}.
@@ -118,19 +124,19 @@ that limiting on the chracteristic variables (characteristic limiting),
 which represent advected quantities, shows an improvement over limiting
 directly on the conserved variables (componentwise limiting).
 In this paper, we develop a chracteristic
-limiter for use with a general tabulated nuclear matter EOS in \thornado.
-In the case of the ideal EOS, the eigenvectors and eigenvalues which diagonalize
+limiter for use with a general tabulated nuclear matter EoS in \thornado.
+In the case of the ideal EoS, the eigenvectors and eigenvalues which diagonalize
 the flux Jacobian, which are necessary to transform to the characteristic variables,
 are known analytically. All of the thermodynamic derivatives have analytic forms.
-The inclusion of a tabulated nuclear EOS complicates matters, as derivatives
-must be appriximated by interpolating from the EOS table and the diagonalization
+The inclusion of a tabulated nuclear EoS complicates matters, as derivatives
+must be appriximated by interpolating from the EoS table and the diagonalization
 becomes non-trovial.
 We provide explicit analytic expressions for the matrices which diagonalize the
 flux Jacobian of the Euler equations.
 
 This paper is organized as follows: in Section~\ref{sec:eulereq} we briefly
 describe the Euler equations of gas dynamics including a conservation law
-appropriate for a nuclear EOS. Section~\ref{sec:DG} describes our
+appropriate for a nuclear EoS. Section~\ref{sec:DG} describes our
 numerical implementation of the DG method in the one dimensional (1D) case.
 Section~\ref{sec:eigen} presents the eigenvectors used in the diagonalization
 of the flux Jacobian of the Euler equations, and Section~\ref{sec:results}
@@ -140,8 +146,8 @@ of Sod \citep{sod:1978}.
 \section{Euler Equations of Gas Dynamics in Cartesian Coordinates}
 \label{sec:eulereq}
 The non-relativistic Euler equations of gas dynamics
-\citep[see, e.g.,][for details in the case of an ideal EOS]{leveque:2002}
-in the absence of sources with a nuclear matter EOS are given by
+\citep[see, e.g.,][for details in the case of an ideal EoS]{leveque:2002}
+in the absence of sources with a nuclear matter EoS are given by
 the equations of conservation of mass,
 \beq
   \partial_{t} \rho + \divergence{} (\rho\,  \mathbf{v}) = 0
@@ -164,13 +170,13 @@ and conservation of electrons
   \label{eq:electronConservation}
 \eeq
 where $\rho$ represents mass density, $\mathbf{v}$ the fluid velocity vector,
-$P$ the fluid pressure, $D_{e}=\rho y_e$ where $y_e$ is the electron fraction,
+$P$ the fluid pressure, $D_{e}=\rho Y_{e}$ where $Y_{e}$ is the electron fraction,
 $E=\epsilon \rho +\frac{1}{2}\rho v^2$ the total energy (internal plus kinetic),
 $\epsilon$ is the specific internal energy, and $\mathbf{I}$ is the identity tensor.
 \eqref{eq:massConservation}-\eqref{eq:electronConservation}. The inclusion of
-Equation \eqref{eq:electronConservation} is because we require a nuclear EOS.
-These equations are closed by a tabulated EOS where the pressure is given by a function of
-density, temperature $T$ and the electron fraction: $P = P(\rho, T, y_e)$.
+Equation \eqref{eq:electronConservation} is because we require a nuclear EoS.
+These equations are closed by a tabulated EoS where the pressure is given by a function of
+density, temperature $T$ and the electron fraction: $P = P(\rho, T, Y_{e})$.
 We may rewrite Equations \eqref{eq:massConservation}-\eqref{eq:electronConservation}
 in a more convenient way:
 
@@ -502,22 +508,36 @@ solutions for the characteristic variables $\mathbf{w}$, which are then
 transformed back to the solution of the conserved variables $\mathbf{U}$
 \citep[see e.g.,][for a description]{cockburn:1998, schaal:2015a}.
 While this
-process of characteristic limiting has been done for the ideal EOS
+process of characteristic limiting has been done for the ideal EoS
 \citep[][]{cockburn:1998}, we want to extend this process to the case of a
-tabulated nuclear matter EOS.
+tabulated nuclear matter EoS.
 
-% \subsection{Equation of State}
+\section{Equation of State}
+\label{sec:eos}
 
-% It is commonplace in the simulation of CCSNe to employ a tabulated EOS allowing for a wide 
-% range of physical conditions. The EOS will provide the thermodynamic quantities such as pressure, 
-% internal energy, and entropy as functions of the table variables density, temperature, and electron 
-% fraction. These quantities and their derivatives are crucial for the hydrodynamics, nuclear reactions, and 
-% neutrino transport as well as the characteristic limiting described in Section~\ref{sec:eigen}. To 
-% compute a thermodynamic quantity $\nu$, a thermodynamic grid in $\left( log\, \rho, log\, T, y_{e} \right)$ space 
-% is constructed, and then $log\, \nu$ may be computed by linear interpolation from the 
-% surrounding corners of the grid. It is then simple to determine the derivative of $\nu$ 
-% with respect to $\rho$, $T$, or $y_e$ by differentiating the linear interpolation 
-% equation with respect to the desired variable \citep[see e.g.,][for a more detailed description]{mezzacappa:1999, bruenn:2018}.
+The EoS will provide the thermodynamic quantities such as pressure, 
+internal energy, and entropy as functions of the table variables density, temperature, and electron 
+fraction. These quantities and, as we will see, their derivatives are crucial for the hydrodynamics, nuclear reactions, and 
+neutrino transport as well as the characteristic limiting described in Section~\ref{sec:eigen}. 
+
+\subsection{Tabulated EoS}
+
+For the conditions prevalent in stellar interiors, particularly in the high density regimes of stellar collapse, 
+a simple analytic form for the equation of state does not exist. For a CCSNe simulation, we seek to model a wide 
+range of conditions including matter at densities above nuclear saturation, the formation of a proto-neutron star, 
+and matter not in nuclear statistical equilibrium. These conditions correspond to temperatures ranging from 
+0.5 MeV or less up to around 100 MeV during black hole formation and densities convering many orders 
+of magnitude \citep[see, e.g.,][]{fischer:2011}. Constructing an equation of state for this wide array of conditions is no 
+small task, involving describing the many body nucleon-nucleon interactions and other relevant physics 
+\citep[for a detailed review, see][]{oertel:2017}.
+
+It is commonplace in the simulation of CCSNe to employ a tabulated EoS allowing for a wide 
+range of physical conditions. 
+To compute a thermodynamic quantity $\nu$, a thermodynamic grid in $\left( log\, \rho, log\, T, Y_{e} \right)$ space 
+is constructed, and then $log\, \nu$ may be computed by linear interpolation from the 
+surrounding corners of the grid. It is then simple to determine the derivative of $\nu$ 
+with respect to $\rho$, $T$, or $Y_{e}$ by differentiating the linear interpolation 
+equation with respect to the desired variable \citep[see e.g.,][for a more detailed description]{mezzacappa:1999, bruenn:2018}.
 
 
 \section{Jacobian and Eigensystem for the Nuclear Case}
@@ -525,7 +545,7 @@ tabulated nuclear matter EOS.
 
 We assume that pressure $P = P(\tau, \epsilon, D_{e})$, where $\tau = \frac{1}{\rho}$.
 Let the vector of conserved variables be $\textbf{U} = \{\rho, m_1, m_2, m_3, E, D_{e}\}$,
-where $m_i = \rho v_i$ and $D_{e} = \rho y_{e}$.
+where $m_i = \rho v_i$ and $D_{e} = \rho Y_{e}$.
 The flux vector is $\textbf{F}(\textbf{U}) =
 \{m_{1}, m_{1}^{2}\tau + P, m_{1}m_{2}\tau, m_{1}m_{3}\tau,
 (E+P)m_{1}\tau, D_{e}m_{1}\tau\}$. The Jacobian of the flux vector is given by
@@ -543,7 +563,7 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 			-v_{1}v_{2} & v_2 & v_1 & 0 & 0 & 0 \\
 			-v_{1}v_{3} & v_{3} & 0 & v_{1} & 0 & 0 \\
 			v_{1}(-H - P_{\tau}\tau^{2} -P_{\epsilon}\tau(\epsilon - \frac{v^{2}}{2})) & H - P_{\epsilon}v_{1}^{2}\tau  & -P_{\epsilon}v_{1}v_{2}\tau & -P_{\epsilon}v_{1}v_{3}\tau  & v_{1}(1+P_{\epsilon}\tau) & v_{1} P_{D_{e}} \\
-			-v_{1} y_{e} & y_{e} & 0 & 0 & 0 & v_{1} \\
+			-v_{1} Y_{e} & Y_{e} & 0 & 0 & 0 & v_{1} \\
 		\end{array}
     \right]
 \end{align}
@@ -560,7 +580,7 @@ The flux vector is $\textbf{F}(\textbf{U}) =
 %  \end{align}
 \eeq
 are the necessary thermodynamic derivatives. Expressions for these derivatives
-in terms of the table variables $\rho, T, \text{and}~y_{e}$ are given in Appendix~\ref{appendix:deriv}.
+in terms of the table variables $\rho, T, \text{and}~Y_{e}$ are given in Appendix~\ref{appendix:deriv}.
 The eigenvalues of the flux Jacobian are given by the diagonal matrix
 
 \begin{align}
@@ -575,8 +595,8 @@ The eigenvalues of the flux Jacobian are given by the diagonal matrix
 \end{bmatrix}
 \end{align}
 where $c_{s} = \sqrt{\Gamma P \tau}$, with
-$\Gamma = \left(\tau (P P_{\epsilon} - P_{\tau}) + P_{D_e} y_{e} \tau^{-1}\right) P^{-1}$, is
-the local sound speed. In the case of the general EOS $P=P(\tau,\epsilon)$,
+$\Gamma = \left(\tau (P P_{\epsilon} - P_{\tau}) + P_{D_e} Y_{e} \tau^{-1}\right) P^{-1}$, is
+the local sound speed. In the case of the general EoS $P=P(\tau,\epsilon)$,
 this reduces to the sound speeds given in \citet{colella:1985}.
 The right eigenvectors are then given by the column vectors of the following matrix
 \begin{align*}
@@ -588,12 +608,12 @@ The right eigenvectors are then given by the column vectors of the following mat
    v_{2} & 1 & 0 & 0 & 0 & v_{2} \\
    v_{3} & 0 & 0 & 0 & 1 & v_{3} \\
    h_{n}-c v_{1} & v_{2} & \beta & 0 & v_{3} & h_{n}+c v_{1} \\
-   y_{e}  & 0 & 0 & \frac{\tau  \chi }{2 P_{D_{e}}} & 0 & y_{e}  \\
+   Y_{e}  & 0 & 0 & \frac{\tau  \chi }{2 P_{D_{e}}} & 0 & Y_{e}  \\
   \end{array}
   \right]
 \end{align*}
 where the following definitions have been used:
-$h_{n} = \frac{c^2}{P_{\epsilon}\tau} + k $, $k = \frac{-y_{e} P_{D_{e}} \tau^{-1}
+$h_{n} = \frac{c^2}{P_{\epsilon}\tau} + k $, $k = \frac{-Y_{e} P_{D_{e}} \tau^{-1}
 + P_{\epsilon} (\frac{1}{2}v^2 + \epsilon) + P_{\tau}\tau}{P_{\epsilon}}$,
 $\delta_{1} = v_{1}^{2}-v_{2}^{2}-v_{3}^{2}$,
 $\chi = P_{\epsilon} ( \delta_{1} + 2\epsilon) + 2P_{\tau}\tau$, and
@@ -614,9 +634,9 @@ The left eigenvectors are given by the row vectors of the inverse matrix $\mathc
      -\frac{\phi_{2} \alpha  }{\chi \tau } & -\frac{\phi_{3} \alpha }{\chi \tau } &
      \frac{P_{\epsilon} \alpha }{\chi } & \frac{P_{D_{e}} \left(\alpha -2 c^2\right)}{\tau \chi }
       \\
-   -\frac{y_{e} P_{D_{e}} \omega }{\chi \tau } & \frac{2 y_{e} P_{D_{e}} \phi_{1} }{\chi \tau } & \frac{2 y_{e} P_{D_{e}}
-     \phi_{2} }{\chi \tau} & \frac{2 y_{e} P_{D_{e}} \phi_{3} }{\chi \tau} & -\frac{2 y_{e}
-     P_{D_{e}} P_{\epsilon} }{\chi } & \frac{2 P_{D_{e}} \left(c^2-y_{e} P_{D_{e}} \right)}{\tau  \chi }
+   -\frac{Y_{e} P_{D_{e}} \omega }{\chi \tau } & \frac{2 Y_{e} P_{D_{e}} \phi_{1} }{\chi \tau } & \frac{2 Y_{e} P_{D_{e}}
+     \phi_{2} }{\chi \tau} & \frac{2 Y_{e} P_{D_{e}} \phi_{3} }{\chi \tau} & -\frac{2 Y_{e}
+     P_{D_{e}} P_{\epsilon} }{\chi } & \frac{2 P_{D_{e}} \left(c^2-Y_{e} P_{D_{e}} \right)}{\tau  \chi }
       \\
    -\frac{v_{3} \omega }{2} & \phi_{1} v_{3}  & \phi_{2} v_{3}   &
      c^2+\phi_{3} v_{3}  & -\phi_{3}  & -P_{D_{e}} v_{3}
@@ -629,10 +649,10 @@ The left eigenvectors are given by the row vectors of the inverse matrix $\mathc
 \end{align*}
 where $\phi_{i} = P_{\epsilon}\,\tau\, v_{i}$,
 $\omega = \tau\, (P_{\epsilon}\,(v^2 - 2\epsilon) - 2\,P_{\tau}\,\tau)$, and
-$\alpha = 2 y_{e} P_{D_{e}} - \tau \chi$.
+$\alpha = 2 Y_{e} P_{D_{e}} - \tau \chi$.
 The left and right eigenvectors presented here are similar in form to those
 presented in \citet{schaal:2015a}, but are considerably more complicated due to the
-restriction of a nuclear EOS. Having an explicit form for these matrices is
+restriction of a nuclear EoS. Having an explicit form for these matrices is
 desirable as it eliminates the need to numerically diagonalize the flux
 Jacobian\footnote{These matrices and their derivations are available in Mathematica
 notebooks at \url{https://github.com/AstroBarker/dgHydro-nuc_charDecomp}}.
@@ -641,7 +661,7 @@ notebooks at \url{https://github.com/AstroBarker/dgHydro-nuc_charDecomp}}.
 \label{sec:results}
 In this section we present preliminary numerical results obtained with the DG
 method implemented in \thornado\, leveraging use of the characteristic
-decomposition. Unless otherwise noted, we use the SFHo EOS of
+decomposition. Unless otherwise noted, we use the SFHo EoS of
 nuclear matter \citep{steiner:2013} now commonly used in high-fidelity CCSN simulations
 due to its consistency with neutron star mass and radius observations.
 These tests serve to gauge the performance improvement of the
@@ -653,7 +673,7 @@ assessment of its suitability for future CCSN simulations.
 We present a 1D Riemann problem inspired by the classic 1D Sod shock tube Riemann problem \citep{sod:1978} in
 Cartesian coordinates. This is an ideal first test as it is a fairly simple
 scenario but contains both a contact discontinuity and a shock to test the
-efficiency of our limiting scheme, though due to the nature of our EOS, an analytic
+efficiency of our limiting scheme, though due to the nature of our EoS, an analytic
 solution does not exist. The computational domain is D = [-5,5]~km
 with a discontinuity initially located at $x = 0$~km separating the left and right states
 
@@ -690,8 +710,8 @@ for the full time of the test.
     compared with a reference solution (black) using 10000 elements.}
 \end{figure}
 %\clearpage
-\begin{wrapfigure}{L}{2.8in}
-  \includegraphics[width=18pc]{optimal_shock.png}
+\begin{wrapfigure}{L}{0.35\textwidth}
+  \includegraphics[width=0.35\textwidth]{optimal_shock.png}
   \caption{$xt$-plane of elements flagged for limiting by the troubled cell indicator
   in the Riemann problem of Section~\ref{sec:results:1}.}
   \label{fig:shock}
@@ -748,6 +768,7 @@ a significant improvement over componentwise limiting.
 This makes characteristic
 limiting particularly appealing for CCSN simulations where the electron fraction
 plays a critical role in the explosion dynamics.
+\vspace{3cm}
 
 % \begin{figure}[h]
 %   \centering
@@ -763,9 +784,9 @@ plays a critical role in the explosion dynamics.
   100 elements with characteristic limiting (blue) and componentwise limiting
   (red) for density (upper left), pressure (upper right),
   velocity (lower left), and electron fraction (lower right)
-  compared to a reference solution (black) using 10000 elements.compared with a reference solution using 10000 elements.}
+  compared to a reference solution (black) using 10000 elements.}
 \end{figure}
-
+\clearpage
 \vspace{1cm}
 \subsection{High Density Regime}
 This test is included to verify the performance improvements of characteristic
@@ -774,41 +795,38 @@ The computational domain is $D = [-5,5]$~km
 with a discontinuity initially located at $x = 0$~km separating the left and right states
 
 \begin{align*}
-  \mathbf{U}_{L} &= (10^{13}~\text{g~cm}^{-3}, 0\,, 3.712\text{x}10^{32}~\text{ergs~cm}^{-3}, 0.15\text{x}10^{12})^T\,\,\, \\
-  \mathbf{U}_{R} &= (1.25\text{x}10^{12}~\text{g~cm}^{-3}, 0\, , 3.015\text{x}10^{31}~\text{ergs~cm}^{-3}, 0.169\text{x}10^{12})^T.
+  \mathbf{U}_{L} &= (10^{13}~\text{g~cm}^{-3}, 0\,, 3.712\text{x}10^{32}~\text{ergs~cm}^{-3}, 0.15\text{x}10^{13})^T\,\,\, \\
+  \mathbf{U}_{R} &= (1.25\text{x}10^{12}~\text{g~cm}^{-3}, 0\, , 3.015\text{x}10^{31}~\text{ergs~cm}^{-3}, 0.169\text{x}10^{13})^T.
 \end{align*}
 
-\noindent The test is run until $t = 0.05$~ms with 100 elements
+\noindent The test is run until $t = 0.075$~ms with 400 elements
 using $C_{\TCI} = 0.1$ and $\beta_{\TVD} = 1.2$. We chose a lower $\beta_{\TVD}$
 here, as larger values resulted in unphysical internal energies outside of the
-EOS table causing the test to fail, motivating the development of a
-positivity limiter compatible with a tabulated nuclear matter EOS \citep{zhang:2010a}.
+EoS table causing the test to fail, motivating the development of a
+positivity limiter compatible with a tabulated nuclear matter EoS \citep{zhang:2010a}.
 Inital state values were chosen to be consistent with
 high-fidelity CCSN simulation code \chimera\, \citep{bruenn:2018} data by first
 choosing the left and right densities to be an order of magnitude larger than in
 Section~\ref{sec:results:1}, and then finding temperatures and electron fractions
 consistent with those densities from \chimera\, data, and computing the other
-state variables from the EOS table.
+state variables from the EoS table.
 Results are plotted in
-Figure~\ref{fig:SodSedovHighDens}. Our method captures the main features
-of the solution, but introduces more oscillations than in the lower density
-case, even when using the characteristic limiter.
-We notice an undershooting of the right side
-of the contact discontinuity in the electron fraction not previously present
-warranting further investigation.
+Figure~\ref{fig:SodSedovHighDens}. Our method captures the solution well even 
+in these high density regimes relevant for CCSNe without introducing 
+any spurious oscillations.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=36pc]{./figures/highDens.png}
+  \includegraphics[width=32pc]{./figures/highDens.png}
   \caption{\label{fig:SodSedovHighDens} Results for the high density Sod-like problem
   computed using 100 elements and $C_{\TCI} = 0.1$ and $\beta_{\TVD} = 1.2$ at $t=0.05$ms.}
 \end{figure}
-
-\subsection{EOS Resolution Dependence}
-\label{sec:eosRes}
-In order to test the sensitivity of the limiter on the EOS table resolution,
+\FloatBarrier
+\subsection{EoS Resolution Dependence}
+\label{sec:EoSRes}
+In order to test the sensitivity of the limiter on the EoS table resolution,
 we repeated the tests in Section~\ref{sec:optimal} with a higher resolution
-SFHo EOS table. As before, tests are computed using 100 elements until
+SFHo EoS table. As before, tests are computed using 100 elements until
 $t = 0.025$ms with characteristic limiting and the optimal limiting parameters determined in
 Section~\ref{sec:param} and compared to a reference solution computed using
 10000 elements. Results for both tables are plotted in Figure~\ref{fig:SodSedovSFHoRes}.
@@ -816,35 +834,35 @@ We find no sensitivity to the table resolution, with the exception of
 minor differences in density to the left of the contact discontinuity.
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=36pc]{./figures/eos_res.png}
+  \includegraphics[width=36pc]{./figures/EoS_res.png}
   \caption{\label{fig:SodSedovSFHoRes} Comparison of numerical solutions to
   Sod's problem using 100 elements with characteristic limiting and two
-  different EOS table resolutions (low: red, high: black) for density (upper left), pressure (upper right),
+  different EoS table resolutions (low: red, high: black) for density (upper left), pressure (upper right),
   velocity (lower left), and electron fraction (lower right)
-  compared with a reference solution (black) using 10000 elements and the low resolution EOS table.}
+  compared with a reference solution (black) using 10000 elements and the low resolution EoS table.}
 \end{figure}
+\FloatBarrier
 
-
-\subsection{EOS Table Sensitivity}
-In order to probe the sensitivity of the method to the EOS table, we repeated
-the tests conducted in Section~\ref{sec:optimal} using three different EOS tables:
-the high resolution SFHo table from Section~\ref{sec:eosRes}, the SFHx table, and the DD2 table.
+\subsection{EoS Table Sensitivity}
+In order to probe the sensitivity of the method to the EoS table, we repeated
+the tests conducted in Section~\ref{sec:optimal} using three different EoS tables:
+the high resolution SFHo table from Section~\ref{sec:EoSRes}, the SFHx table, and the DD2 table.
 As before, tests are computed using 100 elements until
 $t = 0.025$ms with characteristic limiting and the optimal limiting parameters determined in
-Section~\ref{sec:param}. We find nearly no sensitivity to the EOS table used in
+Section~\ref{sec:param}. We find nearly no sensitivity to the EoS table used in
 the low density regime, with the exception of very small variations in density
 to the left of the contact discontinuity. Future work includes testing the
-sensitivity to the EOS table in higher density regimes.
+sensitivity to the EoS table in higher density regimes.
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=36pc]{./figures/eos_all.png}
-  \caption{\label{fig:SodSedovEOS} Comparison of numerical solutions to
+  \includegraphics[width=36pc]{./figures/EoS_all.png}
+  \caption{\label{fig:SodSedovEoS} Comparison of numerical solutions to
   Sod's problem using 100 elements with characteristic limiting and three
-  different EOS tables for density (upper left), pressure (upper right),
+  different EoS tables for density (upper left), pressure (upper right),
   velocity (lower left), and electron fraction (lower right).
   }
 \end{figure}
-%\FloatBarrier
+\FloatBarrier
 
 \section{Conclusions}
 
@@ -853,14 +871,14 @@ characteristic limiter to be used with solvers of the non-relativistic
 Euler equations of gas dynamics in the {\bf t}oolkit for {\bf h}igh-{\bf or}der
 {\bf n}eutrino-r{\bf ad}iation hydr{\bf o}dynamics (\thornado). We presented analytic
 forms for the diagonalizating matrices for the flux Jacobian of the Euler equations
-consistent with a tabulated nuclear EOS.
+consistent with a tabulated nuclear EoS.
 The results presented from a suite of 1D test problems
 demonstrate the superior performance of the characteristic limiter
 compared to the componentwise limiter. Moreover, after performing a parameter
 study on the limiter parameters, we found optimal limiting
 parameters for use with the Sod problem. While the optimal limiting parameters
 tend to be problem dependent, we hope to investigate if such an optimal
-parameter exists for CCSN applications. Tests with various EOS tables and
+parameter exists for CCSN applications. Tests with various EoS tables and
 table resolutions showed little to no sensitivity to the table or its
 resolution in the tests studied. For future work, we will extend these studies
 to other higher density regimes applicable to the CCSN environment.
